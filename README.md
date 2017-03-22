@@ -3,7 +3,17 @@
 Open Bionics Robotics is the Open Source branch of the Open Bionics company, in 
 Included in this repositry;
 
-- Beetroot V1.0 - The firmware release for Open Bionics robotic hand kits, requires [FingerLib.h] ( https://github.com/Open-Bionics/FingerLib )
+- Beetroot V1.0 - The firmware release for Open Bionics robotic hand kits, requires 
+
+## Required Software
+
+- [FingerLib.h] ( https://github.com/Open-Bionics/FingerLib )
+- Chesnut PCB board file 
+	-- Copy the following URL https://open-bionics.github.io/package_openbionics_index.json
+	-- Open Arduino -> Preferences
+	-- Paste URL in 'Additional Boards Manager URLs' box
+	-- Open 'Tools -> Board -> Boards Manager'
+	-- Search for and install the latest verison of the 'Open Bionics Boards'
 
 
 This work is licensed under the Creative Commons Attribution-ShareAlike 4.0 International License.
