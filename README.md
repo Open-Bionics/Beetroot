@@ -1,4 +1,4 @@
-# Open Bionics - Beetroot
+# Open Bionics - Beetroot (BETA)
 
 Open Bionics Robotics is the Open Source branch of the Open Bionics company, in 
 Included in this repositry;
