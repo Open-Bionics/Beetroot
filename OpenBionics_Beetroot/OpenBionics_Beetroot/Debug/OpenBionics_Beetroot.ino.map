@@ -1145,7 +1145,7 @@ END GROUP
 LOAD c:/users/olly/appdata/local/arduino15/packages/openbionics/tools/arm-none-eabi-gcc/4.8.3-2014q1/bin/../lib/gcc/arm-none-eabi/4.8.3/armv6-m/crtend.o
 LOAD c:/users/olly/appdata/local/arduino15/packages/openbionics/tools/arm-none-eabi-gcc/4.8.3-2014q1/bin/../lib/gcc/arm-none-eabi/4.8.3/armv6-m/crtn.o
 
-.text           0x00002000     0xdb80
+.text           0x00002000     0xdb70
  *(.isr_vector)
  .isr_vector    0x00002000       0xb0 C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug/core.a(cortex_handlers.c.o)
                 0x00002000                exception_table
@@ -2618,114 +2618,113 @@ LOAD c:/users/olly/appdata/local/arduino15/packages/openbionics/tools/arm-none-e
                 0x0000e8a5      0x17d C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug\ErrorHandling.cpp.o
                                 0x188 (size before relaxing)
  .rodata.str1.1
-                0x0000ea22       0x49 C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug\Grips_Default.cpp.o
-                                 0x4a (size before relaxing)
+                0x0000ea22       0x3e C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug\Grips_Default.cpp.o
+                                 0x3f (size before relaxing)
  .rodata.str1.1
-                0x0000ea6b       0x84 C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug\HANDle.cpp.o
+                0x0000ea60       0x84 C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug\HANDle.cpp.o
                                  0xaf (size before relaxing)
- *fill*         0x0000eaef        0x1 
- .rodata        0x0000eaf0        0xc C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug\Initialisation.cpp.o
+ .rodata        0x0000eae4        0xc C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug\Initialisation.cpp.o
  .rodata.str1.1
-                0x0000eafc       0x3e C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug\Initialisation.cpp.o
- *fill*         0x0000eb3a        0x2 
- .rodata        0x0000eb3c       0x34 C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug\SerialControl.cpp.o
+                0x0000eaf0       0x3e C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug\Initialisation.cpp.o
+ *fill*         0x0000eb2e        0x2 
+ .rodata        0x0000eb30       0x34 C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug\SerialControl.cpp.o
  .rodata.str1.1
-                0x0000eb70      0x895 C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug\SerialControl.cpp.o
+                0x0000eb64      0x895 C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug\SerialControl.cpp.o
                                 0x8da (size before relaxing)
  .rodata.str1.1
-                0x0000f405        0x2 C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug\Utils.cpp.o
+                0x0000f3f9        0x2 C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug\Utils.cpp.o
  .rodata.str1.1
-                0x0000f407       0x5a C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug\Wiichuck.cpp.o
+                0x0000f3fb       0x5a C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug\Wiichuck.cpp.o
                                  0x5e (size before relaxing)
- *fill*         0x0000f461        0x3 
+ *fill*         0x0000f455        0x3 
  .rodata.g_APinDescription
-                0x0000f464      0x300 C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug\variant\variant.cpp.o
-                0x0000f464                g_APinDescription
+                0x0000f458      0x300 C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug\variant\variant.cpp.o
+                0x0000f458                g_APinDescription
  .rodata.str1.4
-                0x0000f764        0xc c:/users/olly/appdata/local/arduino15/packages/openbionics/tools/arm-none-eabi-gcc/4.8.3-2014q1/bin/../lib/gcc/arm-none-eabi/4.8.3/../../../../arm-none-eabi/lib/armv6-m\libm.a(lib_a-w_log10.o)
- .rodata        0x0000f770       0x10 C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug/core.a(wiring_analog.c.o)
+                0x0000f758        0xc c:/users/olly/appdata/local/arduino15/packages/openbionics/tools/arm-none-eabi-gcc/4.8.3-2014q1/bin/../lib/gcc/arm-none-eabi/4.8.3/../../../../arm-none-eabi/lib/armv6-m\libm.a(lib_a-w_log10.o)
+ .rodata        0x0000f764       0x10 C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug/core.a(wiring_analog.c.o)
  .rodata.str1.1
-                0x0000f780       0x11 C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug/core.a(Print.cpp.o)
- *fill*         0x0000f791        0x7 
+                0x0000f774       0x11 C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug/core.a(Print.cpp.o)
+ *fill*         0x0000f785        0x3 
  .rodata._ZTV4Uart
-                0x0000f798       0x30 C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug/core.a(Uart.cpp.o)
-                0x0000f798                vtable for Uart
+                0x0000f788       0x30 C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug/core.a(Uart.cpp.o)
+                0x0000f788                vtable for Uart
  .rodata._ZTV7Serial_
-                0x0000f7c8       0x28 C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug/core.a(CDC.cpp.o)
-                0x0000f7c8                vtable for Serial_
+                0x0000f7b8       0x28 C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug/core.a(CDC.cpp.o)
+                0x0000f7b8                vtable for Serial_
  .rodata._ZL15STRING_LANGUAGE
-                0x0000f7f0        0x4 C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug/core.a(USBCore.cpp.o)
+                0x0000f7e0        0x4 C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug/core.a(USBCore.cpp.o)
  .rodata._ZL19STRING_MANUFACTURER
-                0x0000f7f4        0xc C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug/core.a(USBCore.cpp.o)
+                0x0000f7e4        0xc C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug/core.a(USBCore.cpp.o)
  .rodata._ZL21USB_DeviceDescriptorB
-                0x0000f800       0x12 C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug/core.a(USBCore.cpp.o)
+                0x0000f7f0       0x12 C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug/core.a(USBCore.cpp.o)
  .rodata._ZL14STRING_PRODUCT
-                0x0000f812        0x9 C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug/core.a(USBCore.cpp.o)
- *fill*         0x0000f81b        0x1 
- .rodata        0x0000f81c       0x40 c:/users/olly/appdata/local/arduino15/packages/openbionics/tools/arm-none-eabi-gcc/4.8.3-2014q1/bin/../lib/gcc/arm-none-eabi/4.8.3/armv6-m\libgcc.a(divsf3.o)
- .rodata        0x0000f85c       0x40 c:/users/olly/appdata/local/arduino15/packages/openbionics/tools/arm-none-eabi-gcc/4.8.3-2014q1/bin/../lib/gcc/arm-none-eabi/4.8.3/armv6-m\libgcc.a(mulsf3.o)
- .rodata        0x0000f89c       0x40 c:/users/olly/appdata/local/arduino15/packages/openbionics/tools/arm-none-eabi-gcc/4.8.3-2014q1/bin/../lib/gcc/arm-none-eabi/4.8.3/armv6-m\libgcc.a(divdf3.o)
- .rodata        0x0000f8dc       0x40 c:/users/olly/appdata/local/arduino15/packages/openbionics/tools/arm-none-eabi-gcc/4.8.3-2014q1/bin/../lib/gcc/arm-none-eabi/4.8.3/armv6-m\libgcc.a(muldf3.o)
+                0x0000f802        0x9 C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug/core.a(USBCore.cpp.o)
+ *fill*         0x0000f80b        0x1 
+ .rodata        0x0000f80c       0x40 c:/users/olly/appdata/local/arduino15/packages/openbionics/tools/arm-none-eabi-gcc/4.8.3-2014q1/bin/../lib/gcc/arm-none-eabi/4.8.3/armv6-m\libgcc.a(divsf3.o)
+ .rodata        0x0000f84c       0x40 c:/users/olly/appdata/local/arduino15/packages/openbionics/tools/arm-none-eabi-gcc/4.8.3-2014q1/bin/../lib/gcc/arm-none-eabi/4.8.3/armv6-m\libgcc.a(mulsf3.o)
+ .rodata        0x0000f88c       0x40 c:/users/olly/appdata/local/arduino15/packages/openbionics/tools/arm-none-eabi-gcc/4.8.3-2014q1/bin/../lib/gcc/arm-none-eabi/4.8.3/armv6-m\libgcc.a(divdf3.o)
+ .rodata        0x0000f8cc       0x40 c:/users/olly/appdata/local/arduino15/packages/openbionics/tools/arm-none-eabi-gcc/4.8.3-2014q1/bin/../lib/gcc/arm-none-eabi/4.8.3/armv6-m\libgcc.a(muldf3.o)
  .rodata.str1.1
                 0x00000000       0x11 c:/users/olly/appdata/local/arduino15/packages/openbionics/tools/arm-none-eabi-gcc/4.8.3-2014q1/bin/../lib/gcc/arm-none-eabi/4.8.3/../../../../arm-none-eabi/lib/armv6-m\libc_s.a(lib_a-impure.o)
                                   0x2 (size before relaxing)
  .rodata.fpi.5243
-                0x0000f91c       0x14 c:/users/olly/appdata/local/arduino15/packages/openbionics/tools/arm-none-eabi-gcc/4.8.3-2014q1/bin/../lib/gcc/arm-none-eabi/4.8.3/../../../../arm-none-eabi/lib/armv6-m\libc_s.a(lib_a-strtod.o)
+                0x0000f90c       0x14 c:/users/olly/appdata/local/arduino15/packages/openbionics/tools/arm-none-eabi-gcc/4.8.3-2014q1/bin/../lib/gcc/arm-none-eabi/4.8.3/../../../../arm-none-eabi/lib/armv6-m\libc_s.a(lib_a-strtod.o)
  .rodata.str1.1
-                0x0000f930        0x6 c:/users/olly/appdata/local/arduino15/packages/openbionics/tools/arm-none-eabi-gcc/4.8.3-2014q1/bin/../lib/gcc/arm-none-eabi/4.8.3/../../../../arm-none-eabi/lib/armv6-m\libc_s.a(lib_a-strtod.o)
+                0x0000f920        0x6 c:/users/olly/appdata/local/arduino15/packages/openbionics/tools/arm-none-eabi-gcc/4.8.3-2014q1/bin/../lib/gcc/arm-none-eabi/4.8.3/../../../../arm-none-eabi/lib/armv6-m\libc_s.a(lib_a-strtod.o)
                                   0xc (size before relaxing)
- *fill*         0x0000f936        0x2 
+ *fill*         0x0000f926        0x2 
  .rodata.tinytens
-                0x0000f938       0x28 c:/users/olly/appdata/local/arduino15/packages/openbionics/tools/arm-none-eabi-gcc/4.8.3-2014q1/bin/../lib/gcc/arm-none-eabi/4.8.3/../../../../arm-none-eabi/lib/armv6-m\libc_s.a(lib_a-strtod.o)
+                0x0000f928       0x28 c:/users/olly/appdata/local/arduino15/packages/openbionics/tools/arm-none-eabi-gcc/4.8.3-2014q1/bin/../lib/gcc/arm-none-eabi/4.8.3/../../../../arm-none-eabi/lib/armv6-m\libc_s.a(lib_a-strtod.o)
  .rodata.fpinan.5279
-                0x0000f960       0x14 c:/users/olly/appdata/local/arduino15/packages/openbionics/tools/arm-none-eabi-gcc/4.8.3-2014q1/bin/../lib/gcc/arm-none-eabi/4.8.3/../../../../arm-none-eabi/lib/armv6-m\libc_s.a(lib_a-strtod.o)
+                0x0000f950       0x14 c:/users/olly/appdata/local/arduino15/packages/openbionics/tools/arm-none-eabi-gcc/4.8.3-2014q1/bin/../lib/gcc/arm-none-eabi/4.8.3/../../../../arm-none-eabi/lib/armv6-m\libc_s.a(lib_a-strtod.o)
  .rodata._ctype_
-                0x0000f974      0x101 c:/users/olly/appdata/local/arduino15/packages/openbionics/tools/arm-none-eabi-gcc/4.8.3-2014q1/bin/../lib/gcc/arm-none-eabi/4.8.3/../../../../arm-none-eabi/lib/armv6-m\libc_s.a(lib_a-ctype_.o)
-                0x0000f974                _ctype_
+                0x0000f964      0x101 c:/users/olly/appdata/local/arduino15/packages/openbionics/tools/arm-none-eabi-gcc/4.8.3-2014q1/bin/../lib/gcc/arm-none-eabi/4.8.3/../../../../arm-none-eabi/lib/armv6-m\libc_s.a(lib_a-ctype_.o)
+                0x0000f964                _ctype_
  .rodata.str1.1
-                0x0000fa75        0x6 c:/users/olly/appdata/local/arduino15/packages/openbionics/tools/arm-none-eabi-gcc/4.8.3-2014q1/bin/../lib/gcc/arm-none-eabi/4.8.3/../../../../arm-none-eabi/lib/armv6-m\libc_s.a(lib_a-locale.o)
+                0x0000fa65        0x6 c:/users/olly/appdata/local/arduino15/packages/openbionics/tools/arm-none-eabi-gcc/4.8.3-2014q1/bin/../lib/gcc/arm-none-eabi/4.8.3/../../../../arm-none-eabi/lib/armv6-m\libc_s.a(lib_a-locale.o)
                                   0xb (size before relaxing)
- *fill*         0x0000fa7b        0x5 
+ *fill*         0x0000fa6b        0x5 
  .rodata.__mprec_tens
-                0x0000fa80       0xc8 c:/users/olly/appdata/local/arduino15/packages/openbionics/tools/arm-none-eabi-gcc/4.8.3-2014q1/bin/../lib/gcc/arm-none-eabi/4.8.3/../../../../arm-none-eabi/lib/armv6-m\libc_s.a(lib_a-mprec.o)
-                0x0000fa80                __mprec_tens
+                0x0000fa70       0xc8 c:/users/olly/appdata/local/arduino15/packages/openbionics/tools/arm-none-eabi-gcc/4.8.3-2014q1/bin/../lib/gcc/arm-none-eabi/4.8.3/../../../../arm-none-eabi/lib/armv6-m\libc_s.a(lib_a-mprec.o)
+                0x0000fa70                __mprec_tens
  .rodata.__mprec_bigtens
-                0x0000fb48       0x28 c:/users/olly/appdata/local/arduino15/packages/openbionics/tools/arm-none-eabi-gcc/4.8.3-2014q1/bin/../lib/gcc/arm-none-eabi/4.8.3/../../../../arm-none-eabi/lib/armv6-m\libc_s.a(lib_a-mprec.o)
-                0x0000fb48                __mprec_bigtens
+                0x0000fb38       0x28 c:/users/olly/appdata/local/arduino15/packages/openbionics/tools/arm-none-eabi-gcc/4.8.3-2014q1/bin/../lib/gcc/arm-none-eabi/4.8.3/../../../../arm-none-eabi/lib/armv6-m\libc_s.a(lib_a-mprec.o)
+                0x0000fb38                __mprec_bigtens
  .rodata.p05.5278
-                0x0000fb70        0xc c:/users/olly/appdata/local/arduino15/packages/openbionics/tools/arm-none-eabi-gcc/4.8.3-2014q1/bin/../lib/gcc/arm-none-eabi/4.8.3/../../../../arm-none-eabi/lib/armv6-m\libc_s.a(lib_a-mprec.o)
+                0x0000fb60        0xc c:/users/olly/appdata/local/arduino15/packages/openbionics/tools/arm-none-eabi-gcc/4.8.3-2014q1/bin/../lib/gcc/arm-none-eabi/4.8.3/../../../../arm-none-eabi/lib/armv6-m\libc_s.a(lib_a-mprec.o)
  *(.eh_frame*)
- .eh_frame      0x0000fb7c        0x0 c:/users/olly/appdata/local/arduino15/packages/openbionics/tools/arm-none-eabi-gcc/4.8.3-2014q1/bin/../lib/gcc/arm-none-eabi/4.8.3/armv6-m/crtbegin.o
- .eh_frame      0x0000fb7c        0x4 c:/users/olly/appdata/local/arduino15/packages/openbionics/tools/arm-none-eabi-gcc/4.8.3-2014q1/bin/../lib/gcc/arm-none-eabi/4.8.3/armv6-m/crtend.o
+ .eh_frame      0x0000fb6c        0x0 c:/users/olly/appdata/local/arduino15/packages/openbionics/tools/arm-none-eabi-gcc/4.8.3-2014q1/bin/../lib/gcc/arm-none-eabi/4.8.3/armv6-m/crtbegin.o
+ .eh_frame      0x0000fb6c        0x4 c:/users/olly/appdata/local/arduino15/packages/openbionics/tools/arm-none-eabi-gcc/4.8.3-2014q1/bin/../lib/gcc/arm-none-eabi/4.8.3/armv6-m/crtend.o
 
-.glue_7         0x0000fb80        0x0
+.glue_7         0x0000fb70        0x0
  .glue_7        0x00000000        0x0 linker stubs
 
-.glue_7t        0x0000fb80        0x0
+.glue_7t        0x0000fb70        0x0
  .glue_7t       0x00000000        0x0 linker stubs
 
-.vfp11_veneer   0x0000fb80        0x0
+.vfp11_veneer   0x0000fb70        0x0
  .vfp11_veneer  0x00000000        0x0 linker stubs
 
-.v4_bx          0x0000fb80        0x0
+.v4_bx          0x0000fb70        0x0
  .v4_bx         0x00000000        0x0 linker stubs
 
-.iplt           0x0000fb80        0x0
+.iplt           0x0000fb70        0x0
  .iplt          0x00000000        0x0 c:/users/olly/appdata/local/arduino15/packages/openbionics/tools/arm-none-eabi-gcc/4.8.3-2014q1/bin/../lib/gcc/arm-none-eabi/4.8.3/armv6-m/crtbegin.o
 
-.rel.dyn        0x0000fb80        0x0
+.rel.dyn        0x0000fb70        0x0
  .rel.iplt      0x00000000        0x0 c:/users/olly/appdata/local/arduino15/packages/openbionics/tools/arm-none-eabi-gcc/4.8.3-2014q1/bin/../lib/gcc/arm-none-eabi/4.8.3/armv6-m/crtbegin.o
 
 .ARM.extab
  *(.ARM.extab* .gnu.linkonce.armextab.*)
-                0x0000fb80                __exidx_start = .
+                0x0000fb70                __exidx_start = .
 
 .ARM.exidx
  *(.ARM.exidx* .gnu.linkonce.armexidx.*)
-                0x0000fb80                __exidx_end = .
-                0x0000fb80                __etext = .
+                0x0000fb70                __exidx_end = .
+                0x0000fb70                __etext = .
 
-.data           0x20000000      0x420 load address 0x0000fb80
+.data           0x20000000      0x3e0 load address 0x0000fb70
                 0x20000000                __data_start__ = .
  *(vtable)
  *(.data*)
@@ -2739,302 +2738,302 @@ LOAD c:/users/olly/appdata/local/arduino15/packages/openbionics/tools/arm-none-e
                 0x2000001c                _currentSenseTimer
  *fill*         0x2000001d        0x3 
  .data.default_GripNames
-                0x20000020       0x28 C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug\Grips_Default.cpp.o
+                0x20000020       0x24 C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug\Grips_Default.cpp.o
                 0x20000020                default_GripNames
  .data.default_GripPos
-                0x20000048      0x21c C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug\Grips_Default.cpp.o
-                0x20000048                default_GripPos
+                0x20000044      0x1e0 C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug\Grips_Default.cpp.o
+                0x20000044                default_GripPos
  .data.IMU_GYRO_SENSITIVITY
-                0x20000264        0xc C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug\I2C_IMU_LSM9DS1.cpp.o
-                0x20000264                IMU_GYRO_SENSITIVITY
+                0x20000224        0xc C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug\I2C_IMU_LSM9DS1.cpp.o
+                0x20000224                IMU_GYRO_SENSITIVITY
  .data.IMU_MAG_SENSITIVITY
-                0x20000270       0x10 C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug\I2C_IMU_LSM9DS1.cpp.o
-                0x20000270                IMU_MAG_SENSITIVITY
+                0x20000230       0x10 C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug\I2C_IMU_LSM9DS1.cpp.o
+                0x20000230                IMU_MAG_SENSITIVITY
  .data.IMU_TEMP_SENSITIVITY
-                0x20000280        0x4 C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug\I2C_IMU_LSM9DS1.cpp.o
-                0x20000280                IMU_TEMP_SENSITIVITY
+                0x20000240        0x4 C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug\I2C_IMU_LSM9DS1.cpp.o
+                0x20000240                IMU_TEMP_SENSITIVITY
  .data.IMU_ACCEL_SENSITIVITY
-                0x20000284       0x10 C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug\I2C_IMU_LSM9DS1.cpp.o
-                0x20000284                IMU_ACCEL_SENSITIVITY
+                0x20000244       0x10 C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug\I2C_IMU_LSM9DS1.cpp.o
+                0x20000244                IMU_ACCEL_SENSITIVITY
  .data._ZZ12loadSettingsvE9firstLoad
-                0x20000294        0x1 C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug\Initialisation.cpp.o
- *fill*         0x20000295        0x3 
+                0x20000254        0x1 C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug\Initialisation.cpp.o
+ *fill*         0x20000255        0x3 
  .data.g_apTCInstances
-                0x20000298       0x18 C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug\variant\variant.cpp.o
-                0x20000298                g_apTCInstances
+                0x20000258       0x18 C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug\variant\variant.cpp.o
+                0x20000258                g_apTCInstances
  .data.__fdlib_version
-                0x200002b0        0x1 c:/users/olly/appdata/local/arduino15/packages/openbionics/tools/arm-none-eabi-gcc/4.8.3-2014q1/bin/../lib/gcc/arm-none-eabi/4.8.3/../../../../arm-none-eabi/lib/armv6-m\libm.a(lib_a-s_lib_ver.o)
-                0x200002b0                __fdlib_version
- *fill*         0x200002b1        0x3 
+                0x20000270        0x1 c:/users/olly/appdata/local/arduino15/packages/openbionics/tools/arm-none-eabi-gcc/4.8.3-2014q1/bin/../lib/gcc/arm-none-eabi/4.8.3/../../../../arm-none-eabi/lib/armv6-m\libm.a(lib_a-s_lib_ver.o)
+                0x20000270                __fdlib_version
+ *fill*         0x20000271        0x3 
  .data.SystemCoreClock
-                0x200002b4        0x4 C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug/core.a(wiring.c.o)
-                0x200002b4                SystemCoreClock
+                0x20000274        0x4 C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug/core.a(wiring.c.o)
+                0x20000274                SystemCoreClock
  .data._ADCResolution
-                0x200002b8        0x4 C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug/core.a(wiring_analog.c.o)
+                0x20000278        0x4 C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug/core.a(wiring_analog.c.o)
  .data._writeResolution
-                0x200002bc        0x4 C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug/core.a(wiring_analog.c.o)
+                0x2000027c        0x4 C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug/core.a(wiring_analog.c.o)
  .data._readResolution
-                0x200002c0        0x4 C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug/core.a(wiring_analog.c.o)
+                0x20000280        0x4 C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug/core.a(wiring_analog.c.o)
  .data._ZL5ticks
-                0x200002c4        0x4 C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug/core.a(Reset.cpp.o)
+                0x20000284        0x4 C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug/core.a(Reset.cpp.o)
  .data._ZL10breakValue
-                0x200002c8        0x4 C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug/core.a(CDC.cpp.o)
+                0x20000288        0x4 C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug/core.a(CDC.cpp.o)
  .data._ZL13_cdcInterface
-                0x200002cc       0x42 C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug/core.a(CDC.cpp.o)
- *fill*         0x2000030e        0x2 
+                0x2000028c       0x42 C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug/core.a(CDC.cpp.o)
+ *fill*         0x200002ce        0x2 
  .data._ZL12_usbLineInfo
-                0x20000310        0x8 C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug/core.a(CDC.cpp.o)
+                0x200002d0        0x8 C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug/core.a(CDC.cpp.o)
  .data.EndPoints
-                0x20000318       0x28 C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug/core.a(USBCore.cpp.o)
-                0x20000318                EndPoints
+                0x200002d8       0x28 C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug/core.a(USBCore.cpp.o)
+                0x200002d8                EndPoints
  .data.impure_data
-                0x20000340       0x60 c:/users/olly/appdata/local/arduino15/packages/openbionics/tools/arm-none-eabi-gcc/4.8.3-2014q1/bin/../lib/gcc/arm-none-eabi/4.8.3/../../../../arm-none-eabi/lib/armv6-m\libc_s.a(lib_a-impure.o)
+                0x20000300       0x60 c:/users/olly/appdata/local/arduino15/packages/openbionics/tools/arm-none-eabi-gcc/4.8.3-2014q1/bin/../lib/gcc/arm-none-eabi/4.8.3/../../../../arm-none-eabi/lib/armv6-m\libc_s.a(lib_a-impure.o)
  .data._impure_ptr
-                0x200003a0        0x4 c:/users/olly/appdata/local/arduino15/packages/openbionics/tools/arm-none-eabi-gcc/4.8.3-2014q1/bin/../lib/gcc/arm-none-eabi/4.8.3/../../../../arm-none-eabi/lib/armv6-m\libc_s.a(lib_a-impure.o)
-                0x200003a0                _impure_ptr
+                0x20000360        0x4 c:/users/olly/appdata/local/arduino15/packages/openbionics/tools/arm-none-eabi-gcc/4.8.3-2014q1/bin/../lib/gcc/arm-none-eabi/4.8.3/../../../../arm-none-eabi/lib/armv6-m\libc_s.a(lib_a-impure.o)
+                0x20000360                _impure_ptr
  .data.__ctype_ptr__
-                0x200003a4        0x4 c:/users/olly/appdata/local/arduino15/packages/openbionics/tools/arm-none-eabi-gcc/4.8.3-2014q1/bin/../lib/gcc/arm-none-eabi/4.8.3/../../../../arm-none-eabi/lib/armv6-m\libc_s.a(lib_a-ctype_.o)
-                0x200003a4                __ctype_ptr__
- .data.lconv    0x200003a8       0x38 c:/users/olly/appdata/local/arduino15/packages/openbionics/tools/arm-none-eabi-gcc/4.8.3-2014q1/bin/../lib/gcc/arm-none-eabi/4.8.3/../../../../arm-none-eabi/lib/armv6-m\libc_s.a(lib_a-locale.o)
-                0x200003e0                . = ALIGN (0x4)
-                0x200003e0                PROVIDE (__preinit_array_start, .)
+                0x20000364        0x4 c:/users/olly/appdata/local/arduino15/packages/openbionics/tools/arm-none-eabi-gcc/4.8.3-2014q1/bin/../lib/gcc/arm-none-eabi/4.8.3/../../../../arm-none-eabi/lib/armv6-m\libc_s.a(lib_a-ctype_.o)
+                0x20000364                __ctype_ptr__
+ .data.lconv    0x20000368       0x38 c:/users/olly/appdata/local/arduino15/packages/openbionics/tools/arm-none-eabi-gcc/4.8.3-2014q1/bin/../lib/gcc/arm-none-eabi/4.8.3/../../../../arm-none-eabi/lib/armv6-m\libc_s.a(lib_a-locale.o)
+                0x200003a0                . = ALIGN (0x4)
+                0x200003a0                PROVIDE (__preinit_array_start, .)
  *(.preinit_array)
-                0x200003e0                PROVIDE (__preinit_array_end, .)
-                0x200003e0                . = ALIGN (0x4)
-                0x200003e0                PROVIDE (__init_array_start, .)
+                0x200003a0                PROVIDE (__preinit_array_end, .)
+                0x200003a0                . = ALIGN (0x4)
+                0x200003a0                PROVIDE (__init_array_start, .)
  *(SORT(.init_array.*))
  *(.init_array)
- .init_array    0x200003e0        0x4 c:/users/olly/appdata/local/arduino15/packages/openbionics/tools/arm-none-eabi-gcc/4.8.3-2014q1/bin/../lib/gcc/arm-none-eabi/4.8.3/armv6-m/crtbegin.o
- .init_array    0x200003e4        0x4 C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug\Wire\Wire.cpp.o
- .init_array    0x200003e8        0x4 C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug\Demo.cpp.o
- .init_array    0x200003ec        0x4 C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug\EMGControl.cpp.o
- .init_array    0x200003f0        0x4 C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug\ErrorHandling.cpp.o
- .init_array    0x200003f4        0x4 C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug\Globals.cpp.o
- .init_array    0x200003f8        0x4 C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug\Grips.cpp.o
- .init_array    0x200003fc        0x4 C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug\I2C_IMU_LSM9DS1.cpp.o
- .init_array    0x20000400        0x4 C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug\Initialisation.cpp.o
- .init_array    0x20000404        0x4 C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug\LED.cpp.o
- .init_array    0x20000408        0x4 C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug\SerialControl.cpp.o
- .init_array    0x2000040c        0x4 C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug\variant\variant.cpp.o
- .init_array    0x20000410        0x4 C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug/core.a(CDC.cpp.o)
- .init_array    0x20000414        0x4 C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug/core.a(USBCore.cpp.o)
-                0x20000418                PROVIDE (__init_array_end, .)
-                0x20000418                . = ALIGN (0x4)
-                0x20000418                PROVIDE (__fini_array_start, .)
+ .init_array    0x200003a0        0x4 c:/users/olly/appdata/local/arduino15/packages/openbionics/tools/arm-none-eabi-gcc/4.8.3-2014q1/bin/../lib/gcc/arm-none-eabi/4.8.3/armv6-m/crtbegin.o
+ .init_array    0x200003a4        0x4 C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug\Wire\Wire.cpp.o
+ .init_array    0x200003a8        0x4 C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug\Demo.cpp.o
+ .init_array    0x200003ac        0x4 C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug\EMGControl.cpp.o
+ .init_array    0x200003b0        0x4 C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug\ErrorHandling.cpp.o
+ .init_array    0x200003b4        0x4 C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug\Globals.cpp.o
+ .init_array    0x200003b8        0x4 C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug\Grips.cpp.o
+ .init_array    0x200003bc        0x4 C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug\I2C_IMU_LSM9DS1.cpp.o
+ .init_array    0x200003c0        0x4 C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug\Initialisation.cpp.o
+ .init_array    0x200003c4        0x4 C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug\LED.cpp.o
+ .init_array    0x200003c8        0x4 C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug\SerialControl.cpp.o
+ .init_array    0x200003cc        0x4 C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug\variant\variant.cpp.o
+ .init_array    0x200003d0        0x4 C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug/core.a(CDC.cpp.o)
+ .init_array    0x200003d4        0x4 C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug/core.a(USBCore.cpp.o)
+                0x200003d8                PROVIDE (__init_array_end, .)
+                0x200003d8                . = ALIGN (0x4)
+                0x200003d8                PROVIDE (__fini_array_start, .)
  *(SORT(.fini_array.*))
  *(.fini_array)
- .fini_array    0x20000418        0x4 c:/users/olly/appdata/local/arduino15/packages/openbionics/tools/arm-none-eabi-gcc/4.8.3-2014q1/bin/../lib/gcc/arm-none-eabi/4.8.3/armv6-m/crtbegin.o
-                0x2000041c                PROVIDE (__fini_array_end, .)
+ .fini_array    0x200003d8        0x4 c:/users/olly/appdata/local/arduino15/packages/openbionics/tools/arm-none-eabi-gcc/4.8.3-2014q1/bin/../lib/gcc/arm-none-eabi/4.8.3/armv6-m/crtbegin.o
+                0x200003dc                PROVIDE (__fini_array_end, .)
  *(.jcr*)
- .jcr           0x2000041c        0x0 c:/users/olly/appdata/local/arduino15/packages/openbionics/tools/arm-none-eabi-gcc/4.8.3-2014q1/bin/../lib/gcc/arm-none-eabi/4.8.3/armv6-m/crtbegin.o
- .jcr           0x2000041c        0x4 c:/users/olly/appdata/local/arduino15/packages/openbionics/tools/arm-none-eabi-gcc/4.8.3-2014q1/bin/../lib/gcc/arm-none-eabi/4.8.3/armv6-m/crtend.o
-                0x20000420                . = ALIGN (0x4)
-                0x20000420                __data_end__ = .
+ .jcr           0x200003dc        0x0 c:/users/olly/appdata/local/arduino15/packages/openbionics/tools/arm-none-eabi-gcc/4.8.3-2014q1/bin/../lib/gcc/arm-none-eabi/4.8.3/armv6-m/crtbegin.o
+ .jcr           0x200003dc        0x4 c:/users/olly/appdata/local/arduino15/packages/openbionics/tools/arm-none-eabi-gcc/4.8.3-2014q1/bin/../lib/gcc/arm-none-eabi/4.8.3/armv6-m/crtend.o
+                0x200003e0                . = ALIGN (0x4)
+                0x200003e0                __data_end__ = .
 
-.igot.plt       0x20000420        0x0 load address 0x0000ffa0
+.igot.plt       0x200003e0        0x0 load address 0x0000ff50
  .igot.plt      0x00000000        0x0 c:/users/olly/appdata/local/arduino15/packages/openbionics/tools/arm-none-eabi-gcc/4.8.3-2014q1/bin/../lib/gcc/arm-none-eabi/4.8.3/armv6-m/crtbegin.o
 
-.bss            0x20000420     0x13d4 load address 0x0000ffa0
-                0x20000420                . = ALIGN (0x4)
-                0x20000420                __bss_start__ = .
+.bss            0x200003e0     0x139c load address 0x0000ff50
+                0x200003e0                . = ALIGN (0x4)
+                0x200003e0                __bss_start__ = .
  *(.bss*)
- .bss           0x20000420       0x1c c:/users/olly/appdata/local/arduino15/packages/openbionics/tools/arm-none-eabi-gcc/4.8.3-2014q1/bin/../lib/gcc/arm-none-eabi/4.8.3/armv6-m/crtbegin.o
+ .bss           0x200003e0       0x1c c:/users/olly/appdata/local/arduino15/packages/openbionics/tools/arm-none-eabi-gcc/4.8.3-2014q1/bin/../lib/gcc/arm-none-eabi/4.8.3/armv6-m/crtbegin.o
  .bss._ZZN6Finger12motorControlEiE14prevMotorSpeed
-                0x2000043c       0x18 C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug\FingerLib\FingerLib.cpp.o
+                0x200003fc       0x18 C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug\FingerLib\FingerLib.cpp.o
  .bss._ZZ22_currentSenseInterruptvE1i
-                0x20000454        0x4 C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug\FingerLib\FingerLib.cpp.o
+                0x20000414        0x4 C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug\FingerLib\FingerLib.cpp.o
  .bss._TotalFingerCount
-                0x20000458        0x1 C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug\FingerLib\FingerLib.cpp.o
-                0x20000458                _TotalFingerCount
- *fill*         0x20000459        0x3 
+                0x20000418        0x1 C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug\FingerLib\FingerLib.cpp.o
+                0x20000418                _TotalFingerCount
+ *fill*         0x20000419        0x3 
  .bss._ZZ23_fingerControlInterruptvE1i
-                0x2000045c        0x4 C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug\FingerLib\FingerLib.cpp.o
+                0x2000041c        0x4 C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug\FingerLib\FingerLib.cpp.o
  .bss._posCtrlTimerInit
-                0x20000460        0x1 C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug\FingerLib\FingerLib.cpp.o
-                0x20000460                _posCtrlTimerInit
+                0x20000420        0x1 C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug\FingerLib\FingerLib.cpp.o
+                0x20000420                _posCtrlTimerInit
  .bss._ZZN6Finger12motorControlEiE9direction
-                0x20000461        0x1 C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug\FingerLib\FingerLib.cpp.o
+                0x20000421        0x1 C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug\FingerLib\FingerLib.cpp.o
  .bss._ZZN6Finger12motorControlEiE12prevMotorDir
-                0x20000462        0x6 C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug\FingerLib\FingerLib.cpp.o
+                0x20000422        0x6 C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug\FingerLib\FingerLib.cpp.o
  .bss._TotalAttachedFingers
-                0x20000468        0x1 C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug\FingerLib\FingerLib.cpp.o
-                0x20000468                _TotalAttachedFingers
- *fill*         0x20000469        0x3 
+                0x20000428        0x1 C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug\FingerLib\FingerLib.cpp.o
+                0x20000428                _TotalAttachedFingers
+ *fill*         0x20000429        0x3 
  .bss.fingerISRList
-                0x2000046c       0x18 C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug\FingerLib\FingerLib.cpp.o
-                0x2000046c                fingerISRList
+                0x2000042c       0x18 C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug\FingerLib\FingerLib.cpp.o
+                0x2000042c                fingerISRList
  .bss._ptr2CurrSnsFuncFlag
-                0x20000484        0x4 C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug\FingerLib\current_sense\samd_CurrentSense.cpp.o
-                0x20000484                _ptr2CurrSnsFuncFlag
+                0x20000444        0x4 C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug\FingerLib\current_sense\samd_CurrentSense.cpp.o
+                0x20000444                _ptr2CurrSnsFuncFlag
  .bss.PWMTimerList
-                0x20000488       0x18 C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug\FingerLib\current_sense\samd_CurrentSense.cpp.o
-                0x20000488                PWMTimerList
+                0x20000448       0x18 C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug\FingerLib\current_sense\samd_CurrentSense.cpp.o
+                0x20000448                PWMTimerList
  .bss._ZZ16initCurrentSensehhPFvvEE12_currSnsInit
-                0x200004a0        0x1 C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug\FingerLib\current_sense\samd_CurrentSense.cpp.o
- *fill*         0x200004a1        0x3 
+                0x20000460        0x1 C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug\FingerLib\current_sense\samd_CurrentSense.cpp.o
+ *fill*         0x20000461        0x3 
  .bss._ptr2CurrSnsFunc
-                0x200004a4        0x4 C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug\FingerLib\current_sense\samd_CurrentSense.cpp.o
-                0x200004a4                _ptr2CurrSnsFunc
+                0x20000464        0x4 C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug\FingerLib\current_sense\samd_CurrentSense.cpp.o
+                0x20000464                _ptr2CurrSnsFunc
  .bss._ZZ12initPWMtimermE9tcEnabled
-                0x200004a8        0x6 C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug\FingerLib\current_sense\samd_CurrentSense.cpp.o
- *fill*         0x200004ae        0x2 
+                0x20000468        0x6 C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug\FingerLib\current_sense\samd_CurrentSense.cpp.o
+ *fill*         0x2000046e        0x2 
  .bss._ZZ11TC4_HandlerE9mSecCount
-                0x200004b0        0x4 C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug\FingerLib\timers\samd_FingerTimer.cpp.o
+                0x20000470        0x4 C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug\FingerLib\timers\samd_FingerTimer.cpp.o
  .bss._ptr2PiggybackFunc
-                0x200004b4        0x4 C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug\FingerLib\timers\samd_FingerTimer.cpp.o
-                0x200004b4                _ptr2PiggybackFunc
+                0x20000474        0x4 C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug\FingerLib\timers\samd_FingerTimer.cpp.o
+                0x20000474                _ptr2PiggybackFunc
  .bss._ZZ11TC4_HandlerE9timer5cnt
-                0x200004b8        0x4 C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug\FingerLib\timers\samd_FingerTimer.cpp.o
+                0x20000478        0x4 C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug\FingerLib\timers\samd_FingerTimer.cpp.o
  .bss._ZZ11TC4_HandlerE10servoCount
-                0x200004bc        0x4 C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug\FingerLib\timers\samd_FingerTimer.cpp.o
+                0x2000047c        0x4 C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug\FingerLib\timers\samd_FingerTimer.cpp.o
  .bss._ptr2PiggybackFlag
-                0x200004c0        0x4 C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug\FingerLib\timers\samd_FingerTimer.cpp.o
-                0x200004c0                _ptr2PiggybackFlag
+                0x20000480        0x4 C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug\FingerLib\timers\samd_FingerTimer.cpp.o
+                0x20000480                _ptr2PiggybackFlag
  .bss._ptr2MotorFunc
-                0x200004c4        0x4 C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug\FingerLib\timers\samd_FingerTimer.cpp.o
-                0x200004c4                _ptr2MotorFunc
- .bss.Wire      0x200004c8       0xb4 C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug\Wire\Wire.cpp.o
-                0x200004c8                Wire
- *fill*         0x2000057c        0x4 
- .bss.DEMO      0x20000580       0x28 C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug\Demo.cpp.o
-                0x20000580                DEMO
+                0x20000484        0x4 C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug\FingerLib\timers\samd_FingerTimer.cpp.o
+                0x20000484                _ptr2MotorFunc
+ .bss.Wire      0x20000488       0xb4 C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug\Wire\Wire.cpp.o
+                0x20000488                Wire
+ *fill*         0x2000053c        0x4 
+ .bss.DEMO      0x20000540       0x28 C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug\Demo.cpp.o
+                0x20000540                DEMO
  .bss._ZZN11EMG_CONTROL13calcPosChangeEiE1k
-                0x200005a8        0x8 C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug\EMGControl.cpp.o
+                0x20000568        0x8 C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug\EMGControl.cpp.o
  .bss._ZGVZN11EMG_CONTROL13calcPosChangeEiE1k
-                0x200005b0        0x4 C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug\EMGControl.cpp.o
- *fill*         0x200005b4        0x4 
+                0x20000570        0x4 C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug\EMGControl.cpp.o
+ *fill*         0x20000574        0x4 
  .bss._ZZN11EMG_CONTROL20control_proportionalEvE3pos
-                0x200005b8        0x8 C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug\EMGControl.cpp.o
- .bss.EMG       0x200005c0      0x264 C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug\EMGControl.cpp.o
-                0x200005c0                EMG
- *fill*         0x20000824        0x4 
- .bss.ERROR     0x20000828      0x180 C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug\ErrorHandling.cpp.o
-                0x20000828                ERROR
- .bss.finger    0x200009a8      0x200 C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug\Globals.cpp.o
-                0x200009a8                finger
- .bss.Grip      0x20000ba8      0x204 C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug\Grips.cpp.o
-                0x20000ba8                Grip
- *fill*         0x20000dac        0x4 
+                0x20000578        0x8 C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug\EMGControl.cpp.o
+ .bss.EMG       0x20000580      0x264 C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug\EMGControl.cpp.o
+                0x20000580                EMG
+ *fill*         0x200007e4        0x4 
+ .bss.ERROR     0x200007e8      0x180 C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug\ErrorHandling.cpp.o
+                0x200007e8                ERROR
+ .bss.finger    0x20000968      0x200 C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug\Globals.cpp.o
+                0x20000968                finger
+ .bss.Grip      0x20000b68      0x1cc C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug\Grips.cpp.o
+                0x20000b68                Grip
+ *fill*         0x20000d34        0x4 
  .bss._ZZN6HANDLE13calcPosChangeEvE1k
-                0x20000db0        0x8 C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug\HANDle.cpp.o
- .bss.HANDle    0x20000db8       0x28 C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug\HANDle.cpp.o
-                0x20000db8                HANDle
+                0x20000d38        0x8 C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug\HANDle.cpp.o
+ .bss.HANDle    0x20000d40       0x28 C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug\HANDle.cpp.o
+                0x20000d40                HANDle
  .bss._ZGVZN6HANDLE13calcPosChangeEvE1k
-                0x20000de0        0x4 C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug\HANDle.cpp.o
- .bss.EEPROM    0x20000de4        0x1 C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug\I2C_EEPROM.cpp.o
-                0x20000de4                EEPROM
- *fill*         0x20000de5        0x3 
- .bss.IMU       0x20000de8       0x90 C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug\I2C_IMU_LSM9DS1.cpp.o
-                0x20000de8                IMU
- .bss.settings  0x20000e78        0xa C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug\Initialisation.cpp.o
-                0x20000e78                settings
- *fill*         0x20000e82        0x2 
+                0x20000d68        0x4 C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug\HANDle.cpp.o
+ .bss.EEPROM    0x20000d6c        0x1 C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug\I2C_EEPROM.cpp.o
+                0x20000d6c                EEPROM
+ *fill*         0x20000d6d        0x3 
+ .bss.IMU       0x20000d70       0x90 C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug\I2C_IMU_LSM9DS1.cpp.o
+                0x20000d70                IMU
+ .bss.settings  0x20000e00        0xa C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug\Initialisation.cpp.o
+                0x20000e00                settings
+ *fill*         0x20000e0a        0x2 
  .bss._ZGVZ13systemMonitorvE8timer_1s
-                0x20000e84        0x4 C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug\Initialisation.cpp.o
+                0x20000e0c        0x4 C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug\Initialisation.cpp.o
  .bss._ZZ13systemMonitorvE8timer_1s
-                0x20000e88        0xc C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug\Initialisation.cpp.o
- *fill*         0x20000e94        0x4 
- .bss.LED       0x20000e98       0x60 C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug\LED.cpp.o
-                0x20000e98                LED
+                0x20000e10        0xc C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug\Initialisation.cpp.o
+ *fill*         0x20000e1c        0x4 
+ .bss.LED       0x20000e20       0x60 C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug\LED.cpp.o
+                0x20000e20                LED
  .bss._ZZN9LED_CLASS7runFadeEvE7stepNum
-                0x20000ef8        0x1 C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug\LED.cpp.o
+                0x20000e80        0x1 C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug\LED.cpp.o
  .bss._ZZ11checkSerialvE9buffIndex
-                0x20000ef9        0x1 C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug\SerialControl.cpp.o
+                0x20000e81        0x1 C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug\SerialControl.cpp.o
  .bss.serialBuff
-                0x20000efa       0x40 C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug\SerialControl.cpp.o
-                0x20000efa                serialBuff
- *fill*         0x20000f3a        0x2 
+                0x20000e82       0x40 C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug\SerialControl.cpp.o
+                0x20000e82                serialBuff
+ *fill*         0x20000ec2        0x2 
  .bss.serialCodes
-                0x20000f3c      0x140 C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug\SerialControl.cpp.o
-                0x20000f3c                serialCodes
+                0x20000ec4      0x140 C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug\SerialControl.cpp.o
+                0x20000ec4                serialCodes
  .bss._ZL13_milliSeconds
-                0x2000107c        0x4 C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug\TimerManagement.cpp.o
+                0x20001004        0x4 C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug\TimerManagement.cpp.o
  .bss._ZL8_seconds
-                0x20001080        0x4 C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug\TimerManagement.cpp.o
- .bss.Serial    0x20001084       0x60 C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug\variant\variant.cpp.o
-                0x20001084                Serial
- .bss.sercom3   0x200010e4        0x4 C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug\variant\variant.cpp.o
-                0x200010e4                sercom3
- .bss.sercom0   0x200010e8        0x4 C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug\variant\variant.cpp.o
-                0x200010e8                sercom0
- .bss.sercom1   0x200010ec        0x4 C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug\variant\variant.cpp.o
-                0x200010ec                sercom1
- .bss.sercom2   0x200010f0        0x4 C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug\variant\variant.cpp.o
-                0x200010f0                sercom2
- .bss.sercom4   0x200010f4        0x4 C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug\variant\variant.cpp.o
-                0x200010f4                sercom4
- .bss.sercom5   0x200010f8        0x4 C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug\variant\variant.cpp.o
-                0x200010f8                sercom5
- .bss.usb_isr   0x200010fc        0x4 C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug/core.a(cortex_handlers.c.o)
+                0x20001008        0x4 C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug\TimerManagement.cpp.o
+ .bss.Serial    0x2000100c       0x60 C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug\variant\variant.cpp.o
+                0x2000100c                Serial
+ .bss.sercom3   0x2000106c        0x4 C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug\variant\variant.cpp.o
+                0x2000106c                sercom3
+ .bss.sercom0   0x20001070        0x4 C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug\variant\variant.cpp.o
+                0x20001070                sercom0
+ .bss.sercom1   0x20001074        0x4 C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug\variant\variant.cpp.o
+                0x20001074                sercom1
+ .bss.sercom2   0x20001078        0x4 C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug\variant\variant.cpp.o
+                0x20001078                sercom2
+ .bss.sercom4   0x2000107c        0x4 C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug\variant\variant.cpp.o
+                0x2000107c                sercom4
+ .bss.sercom5   0x20001080        0x4 C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug\variant\variant.cpp.o
+                0x20001080                sercom5
+ .bss.usb_isr   0x20001084        0x4 C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug/core.a(cortex_handlers.c.o)
  .bss._ulTickCount
-                0x20001100        0x4 C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug/core.a(delay.c.o)
+                0x20001088        0x4 C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug/core.a(delay.c.o)
  .bss.tcEnabled.12311
-                0x20001104        0x6 C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug/core.a(wiring_analog.c.o)
+                0x2000108c        0x6 C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug/core.a(wiring_analog.c.o)
  .bss.pinPeripheralEnabled.12312
-                0x2000110a       0x15 C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug/core.a(wiring_analog.c.o)
- *fill*         0x2000111f        0x1 
+                0x20001092       0x15 C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug/core.a(wiring_analog.c.o)
+ *fill*         0x200010a7        0x1 
  .bss.cdc_rx_buffer
-                0x20001120      0x10c C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug/core.a(CDC.cpp.o)
-                0x20001120                cdc_rx_buffer
+                0x200010a8      0x10c C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug/core.a(CDC.cpp.o)
+                0x200010a8                cdc_rx_buffer
  .bss.SerialUSB
-                0x2000122c       0x18 C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug/core.a(CDC.cpp.o)
-                0x2000122c                SerialUSB
+                0x200011b4       0x18 C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug/core.a(CDC.cpp.o)
+                0x200011b4                SerialUSB
  .bss._ZL14isEndpointHalt
-                0x20001244        0x1 C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug/core.a(USBCore.cpp.o)
+                0x200011cc        0x1 C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug/core.a(USBCore.cpp.o)
  .bss._pack_buffer
-                0x20001245      0x100 C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug/core.a(USBCore.cpp.o)
-                0x20001245                _pack_buffer
- *fill*         0x20001345        0x1 
+                0x200011cd      0x100 C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug/core.a(USBCore.cpp.o)
+                0x200011cd                _pack_buffer
+ *fill*         0x200012cd        0x1 
  .bss._pack_size
-                0x20001346        0x2 C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug/core.a(USBCore.cpp.o)
-                0x20001346                _pack_size
+                0x200012ce        0x2 C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug/core.a(USBCore.cpp.o)
+                0x200012ce                _pack_size
  .bss._ZL22udd_ep_in_cache_buffer
-                0x20001348      0x1c0 C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug/core.a(USBCore.cpp.o)
+                0x200012d0      0x1c0 C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug/core.a(USBCore.cpp.o)
  .bss._ZL23udd_ep_out_cache_buffer
-                0x20001508      0x1c0 C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug/core.a(USBCore.cpp.o)
+                0x20001490      0x1c0 C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug/core.a(USBCore.cpp.o)
  .bss._pack_message
-                0x200016c8        0x1 C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug/core.a(USBCore.cpp.o)
-                0x200016c8                _pack_message
+                0x20001650        0x1 C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug/core.a(USBCore.cpp.o)
+                0x20001650                _pack_message
  .bss._ZL21isRemoteWakeUpEnabled
-                0x200016c9        0x1 C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug/core.a(USBCore.cpp.o)
- .bss._dry_run  0x200016ca        0x1 C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug/core.a(USBCore.cpp.o)
-                0x200016ca                _dry_run
+                0x20001651        0x1 C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug/core.a(USBCore.cpp.o)
+ .bss._dry_run  0x20001652        0x1 C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug/core.a(USBCore.cpp.o)
+                0x20001652                _dry_run
  .bss.USBDevice
-                0x200016cb        0x1 C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug/core.a(USBCore.cpp.o)
-                0x200016cb                USBDevice
+                0x20001653        0x1 C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug/core.a(USBCore.cpp.o)
+                0x20001653                USBDevice
  .bss._usbSetInterface
-                0x200016cc        0x4 C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug/core.a(USBCore.cpp.o)
-                0x200016cc                _usbSetInterface
- .bss.usbd      0x200016d0      0x104 C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug/core.a(USBCore.cpp.o)
-                0x200016d0                usbd
+                0x20001654        0x4 C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug/core.a(USBCore.cpp.o)
+                0x20001654                _usbSetInterface
+ .bss.usbd      0x20001658      0x104 C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug/core.a(USBCore.cpp.o)
+                0x20001658                usbd
  .bss._usbConfiguration
-                0x200017d4        0x4 C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug/core.a(USBCore.cpp.o)
-                0x200017d4                _usbConfiguration
+                0x2000175c        0x4 C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug/core.a(USBCore.cpp.o)
+                0x2000175c                _usbConfiguration
  .bss._ZZ12PluggableUSBvE3obj
-                0x200017d8        0x8 C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug/core.a(PluggableUSB.cpp.o)
+                0x20001760        0x8 C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug/core.a(PluggableUSB.cpp.o)
  .bss._ZGVZ12PluggableUSBvE3obj
-                0x200017e0        0x4 C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug/core.a(PluggableUSB.cpp.o)
+                0x20001768        0x4 C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug/core.a(PluggableUSB.cpp.o)
  .bss.__malloc_sbrk_start
-                0x200017e4        0x4 c:/users/olly/appdata/local/arduino15/packages/openbionics/tools/arm-none-eabi-gcc/4.8.3-2014q1/bin/../lib/gcc/arm-none-eabi/4.8.3/../../../../arm-none-eabi/lib/armv6-m\libc_s.a(lib_a-nano-mallocr.o)
-                0x200017e4                __malloc_sbrk_start
+                0x2000176c        0x4 c:/users/olly/appdata/local/arduino15/packages/openbionics/tools/arm-none-eabi-gcc/4.8.3-2014q1/bin/../lib/gcc/arm-none-eabi/4.8.3/../../../../arm-none-eabi/lib/armv6-m\libc_s.a(lib_a-nano-mallocr.o)
+                0x2000176c                __malloc_sbrk_start
  .bss.__malloc_free_list
-                0x200017e8        0x4 c:/users/olly/appdata/local/arduino15/packages/openbionics/tools/arm-none-eabi-gcc/4.8.3-2014q1/bin/../lib/gcc/arm-none-eabi/4.8.3/../../../../arm-none-eabi/lib/armv6-m\libc_s.a(lib_a-nano-mallocr.o)
-                0x200017e8                __malloc_free_list
+                0x20001770        0x4 c:/users/olly/appdata/local/arduino15/packages/openbionics/tools/arm-none-eabi-gcc/4.8.3-2014q1/bin/../lib/gcc/arm-none-eabi/4.8.3/../../../../arm-none-eabi/lib/armv6-m\libc_s.a(lib_a-nano-mallocr.o)
+                0x20001770                __malloc_free_list
  .bss.heap_end.4243
-                0x200017ec        0x4 c:/users/olly/appdata/local/arduino15/packages/openbionics/tools/arm-none-eabi-gcc/4.8.3-2014q1/bin/../lib/gcc/arm-none-eabi/4.8.3/../../../../arm-none-eabi/lib/armv6-m\libnosys.a(sbrk.o)
+                0x20001774        0x4 c:/users/olly/appdata/local/arduino15/packages/openbionics/tools/arm-none-eabi-gcc/4.8.3-2014q1/bin/../lib/gcc/arm-none-eabi/4.8.3/../../../../arm-none-eabi/lib/armv6-m\libnosys.a(sbrk.o)
  *(COMMON)
- COMMON         0x200017f0        0x4 c:/users/olly/appdata/local/arduino15/packages/openbionics/tools/arm-none-eabi-gcc/4.8.3-2014q1/bin/../lib/gcc/arm-none-eabi/4.8.3/../../../../arm-none-eabi/lib/armv6-m\libc_s.a(lib_a-reent.o)
-                0x200017f0                errno
-                0x200017f4                . = ALIGN (0x4)
-                0x200017f4                __bss_end__ = .
+ COMMON         0x20001778        0x4 c:/users/olly/appdata/local/arduino15/packages/openbionics/tools/arm-none-eabi-gcc/4.8.3-2014q1/bin/../lib/gcc/arm-none-eabi/4.8.3/../../../../arm-none-eabi/lib/armv6-m\libc_s.a(lib_a-reent.o)
+                0x20001778                errno
+                0x2000177c                . = ALIGN (0x4)
+                0x2000177c                __bss_end__ = .
 
-.heap           0x200017f4        0x0
-                0x200017f4                __end__ = .
-                0x200017f4                PROVIDE (end, .)
+.heap           0x2000177c        0x0
+                0x2000177c                __end__ = .
+                0x2000177c                PROVIDE (end, .)
  *(.heap*)
-                0x200017f4                __HeapLimit = .
+                0x2000177c                __HeapLimit = .
 
-.stack_dummy    0x200017f4        0x0
+.stack_dummy    0x2000177c        0x0
  *(.stack*)
                 0x20008000                __StackTop = (ORIGIN (RAM) + 0x8000)
                 0x20008000                __StackLimit = (__StackTop - SIZEOF (.stack_dummy))
@@ -3315,51 +3314,51 @@ OUTPUT(C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionic
  .comment       0x00000000       0x71 C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug/core.a(USBCore.cpp.o)
  .comment       0x00000000       0x71 C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug/core.a(PluggableUSB.cpp.o)
 
-.debug_info     0x00000000    0x54a65
+.debug_info     0x00000000    0x54a66
  .debug_info    0x00000000     0x134b C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug\OpenBionics_Beetroot.cpp.o
- .debug_info    0x0000134b     0x2869 C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug\FingerLib\FingerLib.cpp.o
- .debug_info    0x00003bb4     0x4468 C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug\FingerLib\current_sense\samd_CurrentSense.cpp.o
- .debug_info    0x0000801c      0x704 C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug\FingerLib\pid\pid_controller.cpp.o
- .debug_info    0x00008720     0x137d C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug\FingerLib\timers\samd_FingerTimer.cpp.o
- .debug_info    0x00009a9d      0x6e4 C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug\FingerLib\timers\timer_and_delay.cpp.o
- .debug_info    0x0000a181     0x4d7c C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug\Wire\Wire.cpp.o
- .debug_info    0x0000eefd     0x1742 C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug\Adafruit_NeoPixel.cpp.o
- .debug_info    0x0001063f      0xcbe C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug\CircleBuff.cpp.o
- .debug_info    0x000112fd      0xe96 C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug\Demo.cpp.o
- .debug_info    0x00012193     0x1fef C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug\EMGControl.cpp.o
- .debug_info    0x00014182     0x257d C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug\ErrorHandling.cpp.o
- .debug_info    0x000166ff      0xfdf C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug\Globals.cpp.o
- .debug_info    0x000176de     0x184b C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug\Grips.cpp.o
- .debug_info    0x00018f29      0x424 C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug\Grips_Default.cpp.o
- .debug_info    0x0001934d     0x1629 C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug\HANDle.cpp.o
- .debug_info    0x0001a976      0xf99 C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug\I2C_EEPROM.cpp.o
- .debug_info    0x0001b90f     0x218a C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug\I2C_IMU_LSM9DS1.cpp.o
- .debug_info    0x0001da99     0x3a9f C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug\Initialisation.cpp.o
- .debug_info    0x00021538     0x13a9 C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug\LED.cpp.o
- .debug_info    0x000228e1     0x5fa3 C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug\SerialControl.cpp.o
- .debug_info    0x00028884     0x14bb C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug\TimerManagement.cpp.o
- .debug_info    0x00029d3f     0x2363 C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug\Utils.cpp.o
- .debug_info    0x0002c0a2      0xc22 C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug\Wiichuck.cpp.o
- .debug_info    0x0002ccc4     0x54dc C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug\variant\variant.cpp.o
- .debug_info    0x000321a0      0x4ee C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug/core.a(cortex_handlers.c.o)
- .debug_info    0x0003268e      0x376 C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug/core.a(delay.c.o)
- .debug_info    0x00032a04       0x60 C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug/core.a(hooks.c.o)
- .debug_info    0x00032a64      0x280 C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug/core.a(itoa.c.o)
- .debug_info    0x00032ce4     0x2986 C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug/core.a(startup.c.o)
- .debug_info    0x0003566a     0x1de3 C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug/core.a(wiring.c.o)
- .debug_info    0x0003744d     0x43e7 C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug/core.a(wiring_analog.c.o)
- .debug_info    0x0003b834      0xba3 C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug/core.a(wiring_digital.c.o)
- .debug_info    0x0003c3d7      0xb8c C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug/core.a(wiring_private.c.o)
- .debug_info    0x0003cf63      0x7ac C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug/core.a(main.cpp.o)
- .debug_info    0x0003d70f     0x26e3 C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug/core.a(Print.cpp.o)
- .debug_info    0x0003fdf2      0x817 C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug/core.a(Reset.cpp.o)
- .debug_info    0x00040609      0x47c C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug/core.a(RingBuffer.cpp.o)
- .debug_info    0x00040a85     0x3a39 C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug/core.a(SERCOM.cpp.o)
- .debug_info    0x000444be     0x484d C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug/core.a(Uart.cpp.o)
- .debug_info    0x00048d0b      0x27e C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug/core.a(WMath.cpp.o)
- .debug_info    0x00048f89     0x46cf C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug/core.a(CDC.cpp.o)
- .debug_info    0x0004d658     0x6d1d C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug/core.a(USBCore.cpp.o)
- .debug_info    0x00054375      0x6f0 C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug/core.a(PluggableUSB.cpp.o)
+ .debug_info    0x0000134b     0x286a C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug\FingerLib\FingerLib.cpp.o
+ .debug_info    0x00003bb5     0x4468 C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug\FingerLib\current_sense\samd_CurrentSense.cpp.o
+ .debug_info    0x0000801d      0x704 C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug\FingerLib\pid\pid_controller.cpp.o
+ .debug_info    0x00008721     0x137d C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug\FingerLib\timers\samd_FingerTimer.cpp.o
+ .debug_info    0x00009a9e      0x6e4 C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug\FingerLib\timers\timer_and_delay.cpp.o
+ .debug_info    0x0000a182     0x4d7c C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug\Wire\Wire.cpp.o
+ .debug_info    0x0000eefe     0x1742 C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug\Adafruit_NeoPixel.cpp.o
+ .debug_info    0x00010640      0xcbe C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug\CircleBuff.cpp.o
+ .debug_info    0x000112fe      0xe96 C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug\Demo.cpp.o
+ .debug_info    0x00012194     0x1fef C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug\EMGControl.cpp.o
+ .debug_info    0x00014183     0x257d C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug\ErrorHandling.cpp.o
+ .debug_info    0x00016700      0xfdf C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug\Globals.cpp.o
+ .debug_info    0x000176df     0x184b C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug\Grips.cpp.o
+ .debug_info    0x00018f2a      0x424 C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug\Grips_Default.cpp.o
+ .debug_info    0x0001934e     0x1629 C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug\HANDle.cpp.o
+ .debug_info    0x0001a977      0xf99 C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug\I2C_EEPROM.cpp.o
+ .debug_info    0x0001b910     0x218a C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug\I2C_IMU_LSM9DS1.cpp.o
+ .debug_info    0x0001da9a     0x3a9f C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug\Initialisation.cpp.o
+ .debug_info    0x00021539     0x13a9 C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug\LED.cpp.o
+ .debug_info    0x000228e2     0x5fa3 C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug\SerialControl.cpp.o
+ .debug_info    0x00028885     0x14bb C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug\TimerManagement.cpp.o
+ .debug_info    0x00029d40     0x2363 C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug\Utils.cpp.o
+ .debug_info    0x0002c0a3      0xc22 C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug\Wiichuck.cpp.o
+ .debug_info    0x0002ccc5     0x54dc C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug\variant\variant.cpp.o
+ .debug_info    0x000321a1      0x4ee C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug/core.a(cortex_handlers.c.o)
+ .debug_info    0x0003268f      0x376 C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug/core.a(delay.c.o)
+ .debug_info    0x00032a05       0x60 C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug/core.a(hooks.c.o)
+ .debug_info    0x00032a65      0x280 C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug/core.a(itoa.c.o)
+ .debug_info    0x00032ce5     0x2986 C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug/core.a(startup.c.o)
+ .debug_info    0x0003566b     0x1de3 C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug/core.a(wiring.c.o)
+ .debug_info    0x0003744e     0x43e7 C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug/core.a(wiring_analog.c.o)
+ .debug_info    0x0003b835      0xba3 C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug/core.a(wiring_digital.c.o)
+ .debug_info    0x0003c3d8      0xb8c C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug/core.a(wiring_private.c.o)
+ .debug_info    0x0003cf64      0x7ac C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug/core.a(main.cpp.o)
+ .debug_info    0x0003d710     0x26e3 C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug/core.a(Print.cpp.o)
+ .debug_info    0x0003fdf3      0x817 C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug/core.a(Reset.cpp.o)
+ .debug_info    0x0004060a      0x47c C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug/core.a(RingBuffer.cpp.o)
+ .debug_info    0x00040a86     0x3a39 C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug/core.a(SERCOM.cpp.o)
+ .debug_info    0x000444bf     0x484d C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug/core.a(Uart.cpp.o)
+ .debug_info    0x00048d0c      0x27e C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug/core.a(WMath.cpp.o)
+ .debug_info    0x00048f8a     0x46cf C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug/core.a(CDC.cpp.o)
+ .debug_info    0x0004d659     0x6d1d C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug/core.a(USBCore.cpp.o)
+ .debug_info    0x00054376      0x6f0 C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug/core.a(PluggableUSB.cpp.o)
 
 .debug_abbrev   0x00000000     0x9552
  .debug_abbrev  0x00000000      0x300 C:\Users\Olly\AppData\Local\Temp\VMBuilds\OpenBionics_Beetroot\openbionics_openbionics_samd_ob_chestnut\Debug\OpenBionics_Beetroot.cpp.o
