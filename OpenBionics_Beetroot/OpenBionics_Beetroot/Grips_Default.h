@@ -21,7 +21,7 @@
 #include "Globals.h"			// NUM_FINGERS
 
 // GRIP SETTINGS
-#define NUM_GRIPS		8
+#define NUM_GRIPS		7
 #define NUM_GRIP_STEPS	6
 
 // FINGER POSITIONS

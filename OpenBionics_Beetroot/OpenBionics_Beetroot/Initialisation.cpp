@@ -48,7 +48,7 @@ void deviceSetup(void)
 	ERROR.checkPrevError();		// check for previous errors (using EEPROM)
 	ERROR.set(ERROR_INIT);		// set error state during initialisation, and set LED to orange	
 
-	loadSettings();				// load settings from EEPROM
+	readEEPROM();				// load settings from EEPROM, if no settings, use defaults
 
 	initFingerPins();			// attach finger pins
 
@@ -130,6 +130,7 @@ void resetToDefaults(void)
 	settings.motorEn = true;				// enable all motors
 	settings.printInstr = true;				// print serial instructions
 
+	settings.init = EEPROM_INIT_CODE;		// store the unique initialisation code to indicate that EEPROM has been initialised with values
 
 	storeSettings();						// store the settings in EEPROM
 }
@@ -144,6 +145,21 @@ void setModes(void)
 		EMG.simple();							// set demo mode to simple
 	else if (settings.mode == MODE_EMG_PROP)	// else if EMG mode is set in EEPROM
 		EMG.proportional();						// set demo mode to simple
+}
+
+// load settings from EEPROM, if no previous EEPROM settings are stored, store defaults
+void readEEPROM(void)
+{
+	loadSettings();				// load settings from EEPROM
+
+	// if the EEPROM is not currently loaded with the correct values
+	if (settings.init != EEPROM_INIT_CODE)
+	{
+		resetToDefaults();		// set the default values
+		storeSettings();		// store settings in EEPROM
+
+		deviceSetup();			// restart device setup
+	}
 }
 
 // attach the finger pins for a left/right hand
@@ -172,9 +188,9 @@ void initFingerPins(void)
 	}
 	else if (settings.handType == HAND_TYPE_LEFT)
 	{
-		finger[0].attach(7, 5, A1, A9, true);		// attach the thumb	
+		finger[0].attach(7, 5, A1, A9, false);		// attach the thumb	
 		finger[1].attach(0, 9, A3, A7, true);		// attach the index (finger is inverted) 
-		finger[2].attach(4, 8, A2, A8, false);		// attach the middle (finger is inverted)
+		finger[2].attach(4, 8, A2, A8, true);		// attach the middle (finger is inverted)
 		finger[3].attach(1, 2, A0, A6, true);		// attach the ring & pinky (fingers are inverted)     
 			
 		//finger[0].attach(1, 2, A0, A6, true);		// M0     

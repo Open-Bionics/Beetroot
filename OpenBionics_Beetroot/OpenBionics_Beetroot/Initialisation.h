@@ -17,6 +17,7 @@
 #define INITIALISATION_H_
 
 #define EEPROM_LOC_BOARD_SETTINGS	1010
+#define EEPROM_INIT_CODE			7			// EEPROM init verification code
 
 /////////////////////////////////////// BOARD SETTINGS ///////////////////////////////////
 typedef enum _HandType
@@ -60,6 +61,8 @@ typedef struct _Settings
 	uint8_t waitForSerial = true;	// wait for serial connection before the programme runs
 	uint8_t motorEn = true;			// motor enable
 	uint8_t printInstr = true;		// print serial instructions
+
+	uint8_t init = false;			// if the EEPROM has been initialised for the first time
 } Settings;
 
 
@@ -71,14 +74,15 @@ typedef struct _Settings
 
 void deviceSetup(void);				// board initialisation sequence
 
-void initFingerPins(void);	// attach the finger pins for a left/right hand
+void initFingerPins(void);			// attach the finger pins for a left/right hand
 void resetToDefaults(void);			// set default settings
 void setModes(void);				// start hand in a particular mode depending on EEPROM settings
-							
+		
+void readEEPROM(void);				// load settings from EEPROM, if no settings, use defaults
 void loadSettings(void);			// read the settings from EEPROM
 void storeSettings(void);			// store the settings in EEPROM
 				
-void detectSerialConnection(void);				// initialise SerialUSB and wait for serial connection if flag is set
+void detectSerialConnection(void);	// initialise SerialUSB and wait for serial connection if flag is set
 void setHeadphoneJack(HeadphoneJackMode mode);			// configure headphone jack to either ADC or I2C
 void printDeviceInfo(void);			// print board & firmware version, hand type and motor enabled/disabled
 

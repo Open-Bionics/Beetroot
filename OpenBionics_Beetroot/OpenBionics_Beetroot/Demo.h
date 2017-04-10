@@ -22,7 +22,7 @@
 #include "TimerManagement.h"
 
 
-#define DEMO_DEFAULT_GRIP_DURATION	4000	// ms
+#define DEMO_DEFAULT_GRIP_DURATION	2500	// ms
 
 
 typedef enum _DemoMode

@@ -28,8 +28,9 @@
 
 void setup() 
 {
+
 	deviceSetup();							// initialise the board
-		
+
 	if (settings.printInstr)
 	{
 		printDeviceInfo();					// print board & firmware info
