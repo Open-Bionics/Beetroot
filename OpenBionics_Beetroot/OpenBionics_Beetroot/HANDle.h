@@ -16,49 +16,76 @@
 #ifndef HANDLE_H_
 #define HANDLE_H_
 
-#include "Wiichuck.h"			// for Wiichuck class
+#define HANDLE_ADDR			0x52
 
-#define HANDLE_JOY_MAX			100
+#define HANDLE_JOY_MAX		100
+#define HANDLE_I2C_DEL		1		// ms
 
-class HANDLE
+#define HANDLE_CAL_JOY_MID	0
+
+typedef struct _Axis
 {
-	public:
-		HANDLE();
+	int16_t x;
+	int16_t y;
+	int16_t z;
+} Axis;
 
-		bool enabled(void);
-		void begin(void);
-		void run(void);
+typedef struct _Button
+{
+	bool z;
+	bool c;
+} Button;
 
-		void enable(void);
-		void disable(void);
-		bool toggleEnable(void);
-		void enable_disable(bool en);
+typedef struct _HANDleVals
+{
+	Axis joy;
+	Axis accel;
+	Button btn;
+} HANDleVals;
+
+class HANDLE_CLASS
+{
+public:
+	HANDLE_CLASS();
+
+	bool enabled(void);
+	void enable(void);
+	void disable(void);
+	bool toggleEnable(void);
+	void enable_disable(bool en);
+	bool toggleSerial(void);
+
+	void begin(void);
+	void run(void);	
+	
+
+private:
+	bool _en;
+	bool _calibrating = false;;
+
+	HANDleVals raw;
+	HANDleVals calib;
+
+	uint8_t poll(void);
+	void calibrate(void);
+	void print(void);
+
+	bool _init = false;
+	bool _serialFlag = false;
+
+	double exp;
+	double _pos;
+
+	void checkButtons(void);
+	void checkJoy(void);
+
+	double calcPosChange(void);
 
 
-		bool toggleSerial(void);
-		void print(void);
 
-	private:
-		bool _en;
-
-		Wiichuck wii;
-
-		bool _init;
-		bool _serialFlag;
-
-		double exp;
-		double _pos;
-
-		int16_t _yJoy, _xJoy;
-
-		void checkButtons(void);
-		void checkJoy(void);
-
-		double calcPosChange(void);
-		
 };
 
-extern HANDLE HANDle;
+extern HANDLE_CLASS HANDle;
 
 
 #endif // HANDLE_H_

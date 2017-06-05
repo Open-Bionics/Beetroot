@@ -101,6 +101,7 @@
     <ClInclude Include="SerialControl.h" />
     <ClInclude Include="TimerManagement.h" />
     <ClInclude Include="Utils.h" />
+    <ClInclude Include="Wiichuck.h" />
     <ClInclude Include="__vm\.OpenBionics_Beetroot.vsarduino.h" />
   </ItemGroup>
   <ItemGroup>
@@ -121,6 +122,7 @@
     <ClCompile Include="SerialControl.cpp" />
     <ClCompile Include="TimerManagement.cpp" />
     <ClCompile Include="Utils.cpp" />
+    <ClCompile Include="Wiichuck.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -219,11 +219,12 @@ void initFingerPins(void)
 // configure headphone jack to either ADC or I2C
 void setHeadphoneJack(HeadphoneJackMode mode)
 {
-	const int commSwitchPin = 7;
+	const int commSwitchPin = 10;
 
 	pinMode(commSwitchPin, OUTPUT);
 
 	digitalWrite(commSwitchPin, mode);			// JACK_I2C or JACK_ADC
+	delay(100);
 }
 
 // print board & firmware version, hand type and motor enabled/disabled

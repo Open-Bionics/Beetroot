@@ -41,7 +41,7 @@
 extern Finger finger[NUM_FINGERS];
 
 ///////////////////////////////////// FIRMWARE VERSION ///////////////////////////////////////
-#define FW_VERSION			1.01	// firmware version
+#define FW_VERSION			1.02	// firmware version
 
 
 #endif // GLOBALS_H_
