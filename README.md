@@ -25,6 +25,7 @@ Included in this repositry;
 * Open **Tools -> Board -> Boards Manager..**
 * Search for **Open Bionics**
 * Install the latest verison of the **Open Bionics Boards**
+* Select **Tools -> Board -> Chestnut** to select the Chestnut PCB 
 5. Upload to the Brunel hand
 * Plug the hand into the supplied 12V DC jack
 * Plug the USB micro into the hand and the computer
