@@ -34,7 +34,7 @@ Included in this repositry;
 ### 6. Use Beetroot
 * After a successful upload, the hand will be flashing Orange (near the USB port)
 * Within Arduino, select **Tools -> Serial Monitor** (the hand should now be flashing Green)
-* Make sure the baud rate is set to **115200 baud** and to append **Carriage Return**
+* On the bottom right hand corner of the Serial Monitor window, make sure the dropdown box for the baud rate is set to **115200 baud** and set the other dropdown box to **Carriage Return**
 * Enter **?** over the serial monitor to view the list of serial instructions
 
 This work is licensed under the Creative Commons Attribution-ShareAlike 4.0 International License.
