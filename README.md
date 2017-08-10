@@ -47,6 +47,7 @@ To view a copy of this license, visit http://creativecommons.org/licenses/by-sa/
 	V1.0.0	|	22/03/17	|	Initial release for Brunel hand and Chestnut board using SAMD21G18A
 	V1.0.1	|	10/04/17	|	Removed useless grips. Added EEPROM 'first run' detection. Fixed LEFT hand finger inversion
 	V1.0.2	|	05/06/17	|	Updated grip positions. Changed 'commSwitchPin' to correct pin.
+	V1.0.3	|	10/08/17	|	Added HANDle (Nunchuck) control.
 
 
 	Beetroot Description

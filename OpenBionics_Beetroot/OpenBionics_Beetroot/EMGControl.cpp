@@ -404,7 +404,7 @@ void EMG_CONTROL::calcNoiseFloor(int muscleNum, int  muscleVal)
 double EMG_CONTROL::calcPosChange(int signal)
 {
 	bool invert = false;
-	double exp;
+	double _exp;
 
 	double  power = 2;				// expo 
 	double sensitivity = 2;			// gradient 
@@ -423,15 +423,15 @@ double EMG_CONTROL::calcPosChange(int signal)
 
 
 	// calculate position change as exponent (sensitivity is x^power proportional to _yPos)
-	exp = pow(signal, power) / k;
+	_exp = pow(signal, power) / k;
 
-	//MYSERIAL_PRINT_PGM("exp: ");
-	//MYSERIAL_PRINTLN_PGM(exp);
+	//MYSERIAL_PRINT_PGM("_exp: ");
+	//MYSERIAL_PRINTLN_PGM(_exp);
 
 	if (invert)						// fix issue that -x^2 = x?^2
-		exp = -exp;
+		_exp = -_exp;
 
-	return exp;
+	return _exp;
 }
 
 // detect whether a peak has just crossed the peak threshold (sensitivity offset)

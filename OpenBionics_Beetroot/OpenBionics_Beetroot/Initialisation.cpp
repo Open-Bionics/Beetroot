@@ -25,6 +25,7 @@
 #include "EMGControl.h"						// EMG
 #include "ErrorHandling.h"					// ERROR
 #include "Grips.h"							// Grip
+#include "HANDle.h"							// HANDle
 #include "I2C_EEPROM.h"						// EEPROM
 #include "LED.h"							// NeoPixel
 #include "SerialControl.h"					// init char codes
@@ -70,7 +71,7 @@ void deviceSetup(void)
 // wait for serial connection if flag is set
 void detectSerialConnection(void)
 {
-	if (settings.waitForSerial)				// if flag is set
+	if (settings.waitForSerial)			// if flag is set
 	{
 		while (!MYSERIAL);					// wait for serial connection
 		MYSERIAL_PRINTLN_PGM("Started");
@@ -138,13 +139,24 @@ void resetToDefaults(void)
 // start hand in a particular mode depending on EEPROM settings
 void setModes(void)
 {
-	if (settings.mode == MODE_DEMO)		// if demo mode is set in EEPROM
-		DEMO.constant();				// set demo mode to constant
-
-	if (settings.mode == MODE_EMG_SIMPLE)		// if EMG mode is set in EEPROM
-		EMG.simple();							// set demo mode to simple
-	else if (settings.mode == MODE_EMG_PROP)	// else if EMG mode is set in EEPROM
-		EMG.proportional();						// set demo mode to simple
+	// initialise hand in specific mode, read from EEPROM
+	switch (settings.mode)
+	{
+	case MODE_DEMO:
+		DEMO.toggleConstant();
+		break;
+	case MODE_EMG_SIMPLE:
+		EMG.simple();
+		break;
+	case MODE_EMG_PROP:
+		EMG.proportional();
+		break;
+	case MODE_HANDLE:
+		HANDle.enable();
+		break;
+	default:
+		break;
+	}
 }
 
 // load settings from EEPROM, if no previous EEPROM settings are stored, store defaults
@@ -182,7 +194,7 @@ void initFingerPins(void)
 
 		//finger[0].attach(1, 2, A0, A6, true);		// M0     
 		//finger[1].attach(7, 5, A1, A9, true);		// M1
-		//finger[2].attach(4, 8, A2, A8, false);	// M2
+		//finger[2].attach(4, 8, A2, A8, true);		// M2
 		//finger[3].attach(0, 9, A3, A7, true);		// M3
 
 	}
@@ -210,7 +222,9 @@ void initFingerPins(void)
 		}
 
 		finger[i].motorEnable(settings.motorEn);	// set motor to be enabled/disabled depending on EEPROM setting
+#ifdef FORCE_SENSE
 		finger[i].enableForceSense();				// enable force sense on the finger
+#endif
 	}
 
 		

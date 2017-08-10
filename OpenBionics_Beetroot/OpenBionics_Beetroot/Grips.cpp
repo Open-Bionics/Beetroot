@@ -87,7 +87,6 @@ int GRIP_CLASS::nextGrip(void)
 	//MYSERIAL.print("nextGrip()  currNum: ");
 	//MYSERIAL.print(_currGrip->num);
 	
-
 	// if the last grip has been reached, wrap around
 	if (_currGrip->num + 1 >= NUM_GRIPS)
 		_currGrip = &_allGrips[0];

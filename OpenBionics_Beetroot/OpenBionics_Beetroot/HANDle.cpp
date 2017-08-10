@@ -28,33 +28,38 @@ HANDLE_CLASS::HANDLE_CLASS()
 
 }
 
-// check whether demo mode is enabled
+// check whether HANDle mode is enabled
 bool HANDLE_CLASS::enabled(void)
 {
 	return _en;
 }
 
+// enable HANDle mode
 void HANDLE_CLASS::enable(void)
 {
 	enable_disable(true);
 }
 
+// disable HANDle mode
 void HANDLE_CLASS::disable(void)
 {
 	enable_disable(false);
 }
 
+// toggle HANDle mode between enable and disable
 bool HANDLE_CLASS::toggleEnable(void)
 {
 	_en = !_en;
 	return _en;
 }
 
+// set HANDle mode to be enabled or disabled
 void HANDLE_CLASS::enable_disable(bool en)
 {
 	_en = en;
 }
 
+// toggle whether to 
 bool HANDLE_CLASS::toggleSerial(void)
 {
 	const char *disabled_enabled[2] = { "Disabled", "Enabled" };
@@ -68,8 +73,12 @@ bool HANDLE_CLASS::toggleSerial(void)
 
 void HANDLE_CLASS::begin(void)
 {
-	// set the headphone jack to be used for I2C
-	setHeadphoneJack(JACK_I2C);
+	// initialise the variables to 0
+	_exp = 0;
+	_pos = 0;
+
+	// set headphone jack to I2C
+	setHeadphoneJack(JACK_I2C);			
 
 	// initialise the Nunchuck
 	Wire.beginTransmission(HANDLE_ADDR);
@@ -88,34 +97,44 @@ void HANDLE_CLASS::begin(void)
 
 	delay(10);
 
-	exp = 0;
-	_pos = 0;
-	Grip.setPos(_pos);
-	Grip.run();
+	poll();					// read data and discard the first readings from the Nunchuck
+	calibrate();			// calibrate the Nunchuck with fresh data
 
-	MYSERIAL_PRINTLN(Grip.getGripName());		// print current grip name
-	_init = true;
+	
+	// print current grip name and open the hand
+	MYSERIAL_PRINTLN(Grip.getGripName());	
+	Grip.open();
+
+
+	//Grip.setSpeed(MAX_FINGER_SPEED);
+	//Grip.open();
+	//delay(700);
+	//Grip.setSpeed(MAX_FINGER_SPEED);
+	//Grip.run();
 }
 
 void HANDLE_CLASS::run(void)
 {
-	if (!_init)
-	{
-		begin();
+	static bool init = false;
+
+	// if the HANDle has not been initialised
+	if (!init)
+	{	
+		begin();				// initialise the HANDle
+		init = true;
 	}
 
-	if (poll())					// if Nunchuck data is available
+	// if Nunchuck data is available
+	if (poll())					
 	{
 		checkJoy();				// check joystick, perform movement or change group
 		checkButtons();			// check buttons, if pressed calibrate/change grip 
 
-		Grip.run();
-
+		// if the 
 		if (_serialFlag)
 			print();
 	}
 }
-
 
 uint8_t HANDLE_CLASS::poll(void)
 {
@@ -152,21 +171,6 @@ uint8_t HANDLE_CLASS::poll(void)
 		raw.accel.z -= calib.accel.z;
 	}
 
-	MYSERIAL.print(raw.joy.x);
-	MYSERIAL.print(" ");
-	MYSERIAL.print(raw.joy.y);
-	MYSERIAL.print(" ");
-	MYSERIAL.print(raw.accel.x);
-	MYSERIAL.print(" ");
-	MYSERIAL.print(raw.accel.y);
-	MYSERIAL.print(" ");
-	MYSERIAL.print(raw.accel.z);
-	MYSERIAL.print(" ");
-	MYSERIAL.print(raw.btn.z);
-	MYSERIAL.print(" ");
-	MYSERIAL.println(raw.btn.c);
-
-
 	Wire.beginTransmission(HANDLE_ADDR);
 	Wire.write(0x00);
 	delay(HANDLE_I2C_DEL);
@@ -174,14 +178,33 @@ uint8_t HANDLE_CLASS::poll(void)
 	delay(HANDLE_I2C_DEL);
 	Wire.endTransmission();
 
-	delay(5);
+	delay(5);				// allow time for the Nunchuck to process data
+
+
+
+#ifdef PRINT_RAW_VALUES
+	MYSERIAL_PRINT(raw.joy.x);
+	MYSERIAL_PRINT_PGM(" ");
+	MYSERIAL_PRINT(raw.joy.y);
+	MYSERIAL_PRINT_PGM(" ");
+	MYSERIAL_PRINT(raw.accel.x);
+	MYSERIAL_PRINT_PGM(" ");
+	MYSERIAL_PRINT(raw.accel.y);
+	MYSERIAL_PRINT_PGM(" ");
+	MYSERIAL_PRINT(raw.accel.z);
+	MYSERIAL_PRINT_PGM(" ");
+	MYSERIAL_PRINT(raw.btn.z);
+	MYSERIAL_PRINT_PGM(" ");
+	MYSERIAL_PRINTLN(raw.btn.c);
+#endif
+
 
 	return count;
 }
 
 void HANDLE_CLASS::calibrate(void)
 {
-	MYSERIAL.println("Calibrating...");
+	MYSERIAL_PRINT_PGM("Calibrating...");
 	_calibrating = true;
 
 	poll();
@@ -194,36 +217,20 @@ void HANDLE_CLASS::calibrate(void)
 
 	_calibrating = false;
 
-	MYSERIAL.print("Calibration vals ");
-
-	MYSERIAL.print(calib.joy.x);
-	MYSERIAL.print(" ");
-	MYSERIAL.print(calib.joy.y);
-	MYSERIAL.print(" ");
-	MYSERIAL.print(calib.accel.x);
-	MYSERIAL.print(" ");
-	MYSERIAL.print(calib.accel.y);
-	MYSERIAL.print(" ");
-	MYSERIAL.print(calib.accel.z);
-	MYSERIAL.println(" Complete");
+	MYSERIAL_PRINTLN_PGM(" Complete");
 }
 
 
 
-
-void HANDLE_CLASS::print(void)
+// GRIP POS CONTROL
+void HANDLE_CLASS::checkJoy(void)
 {
-	MYSERIAL_PRINT_PGM("Grip ");
-	MYSERIAL_PRINT(Grip.getGripName());
-	MYSERIAL_PRINT_PGM("  \tyPos ");
-	MYSERIAL_PRINT(raw.joy.y);
-	MYSERIAL_PRINT_PGM("  \txPos ");
-	MYSERIAL_PRINT(raw.joy.x);
-
-	MYSERIAL_PRINT_PGM("  \texp ");
-	MYSERIAL_PRINT(exp);
-	MYSERIAL_PRINT_PGM("  \tHand pos ");
-	MYSERIAL_PRINTLN((int)_pos);
+	// add new grip position to current grip positions
+	_pos += calcPosChange();
+	_pos = constrain(_pos, 0, 100);
+	Grip.setSpeed(MAX_FINGER_SPEED);
+	Grip.setPos(_pos);
+	Grip.run();
 }
 
 
@@ -236,7 +243,7 @@ void HANDLE_CLASS::checkButtons(void)
 	// if both buttons are pressed
 	if (raw.btn.c && raw.btn.z)
 	{
-		MYSERIAL.println("Both Pressed - Calibrating mid position of joystick");
+		MYSERIAL_PRINTLN_PGM("Both Pressed - Calibrating mid position of joystick");
 		calibrate();
 
 		return;				// return after calibration to prevent false grip change
@@ -248,22 +255,45 @@ void HANDLE_CLASS::checkButtons(void)
 	if (raw.btn.z)
 		Grip.prevGrip();
 
+
 	MYSERIAL_PRINTLN(Grip.getGripName());
+	Grip.setSpeed(MAX_FINGER_SPEED);
+	Grip.open();
+	delay(500);
+	Grip.setSpeed(0);
+	Grip.run();
+
+
 	delay(200);				// add delay to prevent too many sequential grip changes
 }
 
 
-void HANDLE_CLASS::checkJoy(void)
-{
-	// add new grip position to current grip positions
-	_pos += calcPosChange();
-	_pos = constrain(_pos, 0, HANDLE_JOY_MAX);
-	Grip.setPos(_pos);
+//// GRIP SPEED CONTROL
+//void HANDLE_CLASS::checkJoy(void)
+//{
+//	static int prevSp = 0;
+//	int sp = map(raw.joy.y, -HANDLE_JOY_MAX, HANDLE_JOY_MAX, -255, 255);
+//
+//	if (sp != prevSp)
+//	{
+//		if (sp < 0)
+//		{
+//			Grip.setDir(CLOSE);
+//		}
+//		else if (sp > 0)
+//		{
+//			Grip.setDir(OPEN);
+//		}
+//
+//		Grip.setSpeed(abs(sp));
+//		Grip.run();
+//	}
+//	prevSp = sp;
+//}
 
-#ifdef USE_GRIP_GROUPS
-	checkGroupChange();
-#endif
-}
+
+
+
 
 double HANDLE_CLASS::calcPosChange(void)
 {
@@ -278,12 +308,24 @@ double HANDLE_CLASS::calcPosChange(void)
 		invert = true;
 
 	// calculate position change as exponent (sensitivity is x^power proportional to _yPos)
-	exp = pow(raw.joy.y, power) / k;
+	_exp = pow(raw.joy.y, power) / k;
 
 	if (invert)						// fix issue that -x^2 = x?^2
-		exp = -exp;
+		_exp = -_exp;
 
-	return exp;
+	return _exp;
 }
 
 
+
+void HANDLE_CLASS::print(void)
+{
+	MYSERIAL_PRINT(Grip.getGripName());
+	MYSERIAL_PRINT_PGM("  \tPos ");
+	MYSERIAL_PRINT(raw.joy.y);
+
+	MYSERIAL_PRINT_PGM("  \texp ");
+	MYSERIAL_PRINT(_exp);
+	MYSERIAL_PRINT_PGM("  \tHand pos ");
+	MYSERIAL_PRINTLN((int)_pos);
+}

@@ -68,6 +68,7 @@ void DEMO_CLASS::run(void)
 			_stepDir = 1;
 
 		Grip.setPos(_stepNum);
+		Grip.setSpeed(MAX_FINGER_SPEED);
 		Grip.run();
 	}
 }

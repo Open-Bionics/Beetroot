@@ -25,6 +25,10 @@
 //#define USE_ROS
 
 
+///////////////////////////////////// BOOLEANS //////////////////////////////////////////////
+#define OFF		0
+#define ON		1
+
 ///////////////////////////////////// MACROS ///////////////////////////////////////
 #define IS_BETWEEN(x,a,b)	(((((x)>=(a))&&((x)<=(b)))||(((x)>=(b))&&((x)<=(a))))?(1):(0))		// check if value x is equal to or between values a and b
 
@@ -32,8 +36,8 @@
 #define SERIAL_BAUD_RATE	115200	// baud
 
 ////////////////////////////////////// TEMP SETTINGS ////////////////////////////////////////
-#define CPU_TEMP_WARNING	45.0	// 'C
-#define CPU_TEMP_MAX		50.0	// 'C			
+#define CPU_TEMP_WARNING	45.0	// °C
+#define CPU_TEMP_MAX		50.0	// °C			
 
 ///////////////////////////////////// FINGER SETTINGS ///////////////////////////////////////
 #define NUM_FINGERS			4		// actuated fingers
@@ -41,7 +45,7 @@
 extern Finger finger[NUM_FINGERS];
 
 ///////////////////////////////////// FIRMWARE VERSION ///////////////////////////////////////
-#define FW_VERSION			1.02	// firmware version
+#define FW_VERSION			1.03	// firmware version
 
 
 #endif // GLOBALS_H_

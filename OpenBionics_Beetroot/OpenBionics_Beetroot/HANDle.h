@@ -23,6 +23,9 @@
 
 #define HANDLE_CAL_JOY_MID	0
 
+// uncomment the following line to print the raw values from the HANDle
+//#define PRINT_RAW_VALUES
+
 typedef struct _Axis
 {
 	int16_t x;
@@ -56,33 +59,28 @@ public:
 	bool toggleSerial(void);
 
 	void begin(void);
-	void run(void);	
-	
+	void run(void);
+
 
 private:
 	bool _en;
-	bool _calibrating = false;;
+	bool _calibrating = false;
+	bool _serialFlag = false;
 
 	HANDleVals raw;
 	HANDleVals calib;
+
+	double _exp;
+	double _pos;
 
 	uint8_t poll(void);
 	void calibrate(void);
 	void print(void);
 
-	bool _init = false;
-	bool _serialFlag = false;
-
-	double exp;
-	double _pos;
-
-	void checkButtons(void);
 	void checkJoy(void);
+	void checkButtons(void);
 
 	double calcPosChange(void);
-
-
-
 };
 
 extern HANDLE_CLASS HANDle;

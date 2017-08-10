@@ -34,7 +34,8 @@ typedef enum _OperatingMode
 	MODE_DEMO,				// demo mode
 	MODE_EMG_SIMPLE,		// EMG simple control mode
 	MODE_EMG_PROP,			// EMG proportional control mode
-	MODE_CSV				// CSV control mode
+	MODE_CSV,				// CSV control mode
+	MODE_HANDLE				// HANDle mode (Nunchuck)
 } OperatingMode;
 
 typedef enum _HeadphoneJackMode

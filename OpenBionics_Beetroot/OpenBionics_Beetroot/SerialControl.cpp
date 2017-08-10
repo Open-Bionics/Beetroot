@@ -372,9 +372,27 @@ void serial_AdvancedSettings(int setting)
 
 		break;
 	case 5:			// enable/disable HANDle mode
+		//MYSERIAL_PRINT_PGM("HANDle mode ");
+		//MYSERIAL_PRINTLN(disabled_enabled[HANDle.toggleEnable()]);
+		//break;
+
 		MYSERIAL_PRINT_PGM("HANDle mode ");
-		MYSERIAL_PRINTLN(disabled_enabled[HANDle.toggleEnable()]);
+		if (settings.mode == MODE_HANDLE)
+		{
+			settings.mode = MODE_NONE;
+			HANDle.disable();
+			MYSERIAL_PRINTLN(off_on[OFF]);
+		}
+		else
+		{
+			settings.mode = MODE_HANDLE;
+			HANDle.enable();
+			MYSERIAL_PRINTLN(off_on[ON]);
+		}
+
+		storeSettings();
 		break;
+
 	default:
 		MYSERIAL_PRINTLN_PGM("Advanced Setting Not Valid");
 		break;
@@ -525,7 +543,7 @@ void serial_SetHandType(int hType)
 		settings.handType = (HandType)hType;
 		storeSettings();
 
-		MYSERIAL_PRINT_PGM("Setting to a ");
+		MYSERIAL_PRINT_PGM("Now configured as a ");
 		initFingerPins();	
 		MYSERIAL_PRINT(right_left[settings.handType - 1]);
 		MYSERIAL_PRINTLN_PGM(" Hand");
@@ -703,7 +721,7 @@ void serial_SerialInstructions(int val)
 	// FINGER CONTROL
 	MYSERIAL_PRINTLN_PGM("Finger Control (F#, P##, S##)");
 	MYSERIAL_PRINTLN_PGM("Command     Description");
-	MYSERIAL_PRINTLN_PGM("F#          Move finger, # is the finger number (F0 - F4)");
+	MYSERIAL_PRINTLN_PGM("F#          Move finger, # is the finger number (F0 - F3)");
 	MYSERIAL_PRINTLN_PGM("F# P50      Finger # to position 50 (P0 - P100)");
 	MYSERIAL_PRINTLN_PGM("F# S255     Finger # at speed 255 (S0 - S255)");
 	MYSERIAL_PRINT_PGM("\n");
@@ -742,8 +760,8 @@ void serial_SerialInstructions(int val)
 	MYSERIAL_PRINTLN_PGM("G2 C        Thumbs Up Close");
 	MYSERIAL_PRINTLN_PGM("F0 O        Thumb Open");
 	MYSERIAL_PRINTLN_PGM("F0          Toggle thumb direction (open/close)");
-	MYSERIAL_PRINTLN_PGM("F4 P50      Pinky to position 50");
-	MYSERIAL_PRINTLN_PGM("F1 P50 S80  Index finger to position 50 at speed 80");
+	MYSERIAL_PRINTLN_PGM("F1 P50      Index to position 50");
+	MYSERIAL_PRINTLN_PGM("F2 P50 S80  Middle finger to position 50 at speed 80");
 	MYSERIAL_PRINTLN_PGM("F0 O S200   Thumb Open at speed 200");
 	MYSERIAL_PRINTLN_PGM("A0          Enable/Disable demo mode");
 	MYSERIAL_PRINT_PGM("\n\n");
@@ -765,6 +783,9 @@ void serial_SerialInstructions(int val)
 		break;
 	case MODE_CSV:
 		MYSERIAL_PRINTLN_PGM("CSV Control Mode, enter 'A4' to disable");
+		break;
+	case MODE_HANDLE:
+		MYSERIAL_PRINTLN_PGM("HANDle Mode, enter 'A5' to disable");
 		break;
 	default:
 		break;

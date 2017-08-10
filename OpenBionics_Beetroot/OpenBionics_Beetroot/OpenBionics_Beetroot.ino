@@ -28,17 +28,13 @@
 
 void setup() 
 {
-
 	deviceSetup();							// initialise the board
 
 	if (settings.printInstr)
 	{
 		printDeviceInfo();					// print board & firmware info
-		serial_SerialInstructions(0);		// print serial instructions
-	}
-
-	//HANDle.begin();
-
+		serial_SerialInstructions(NULL);	// print serial instructions
+	}	
 }
 
 
@@ -66,7 +62,6 @@ void loop()
 	// if CSV mode is enabled, send current finger positions as CSV
 	if (settings.mode == MODE_CSV)
 		sendCSV();
-
 }
 
 
