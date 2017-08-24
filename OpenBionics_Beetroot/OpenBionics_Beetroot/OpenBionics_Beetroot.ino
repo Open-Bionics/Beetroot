@@ -35,6 +35,8 @@ void setup()
 		printDeviceInfo();					// print board & firmware info
 		serial_SerialInstructions(NULL);	// print serial instructions
 	}	
+
+
 }
 
 

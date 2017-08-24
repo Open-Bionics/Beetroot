@@ -30,3 +30,9 @@
 
 # Dependencies
 *.d
+
+# Build Objects
+*.buildinfo
+*.bin
+*.elf
+*.map

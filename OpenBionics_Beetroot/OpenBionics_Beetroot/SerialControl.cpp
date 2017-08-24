@@ -463,6 +463,10 @@ void serial_FingerControl(int fNum)
 
 	MYSERIAL_PRINT_PGM("Speed:\t\t");
 	MYSERIAL_PRINTLN(finger[fNum].readTargetSpeed());
+
+
+	// if the hand is in a mode that means the fingers will not respond to serial control
+	printCurrentMode();		// print the current mode and the exit command
 }
 
 // grip control
@@ -525,6 +529,9 @@ void serial_GripControl(int gNum)
 
 	MYSERIAL_PRINT_PGM("Speed:\t\t");
 	MYSERIAL_PRINTLN(Grip.getSpeed());
+
+	// if the hand is in a mode that means the fingers will not respond to serial control
+	printCurrentMode();		// print the current mode and the exit command
 }
 
 // set hand type (NONE, LEFT, RIGHT)
@@ -770,6 +777,14 @@ void serial_SerialInstructions(int val)
 	if (!settings.motorEn)			// enable motors
 		MYSERIAL_PRINTLN_PGM("Motors disabled, enter 'A3' to re-enable them");
 
+	printCurrentMode();				// print the current mode and the exit command
+
+	MYSERIAL_PRINT_PGM("\n");
+}
+
+// print the current mode and the exit command
+void printCurrentMode(void)
+{
 	switch (settings.mode)
 	{
 	case MODE_DEMO:
@@ -791,6 +806,6 @@ void serial_SerialInstructions(int val)
 		break;
 	}
 
-	MYSERIAL_PRINT_PGM("\n\n");
+	MYSERIAL_PRINT_PGM("\n");
 }
 
