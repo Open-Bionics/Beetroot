@@ -106,5 +106,6 @@ void serial_ExitMode(int val);					// exit modes
 void serial_systemDiagnostics(int val);			// system diagnostics
 void serial_SerialInstructions(int val);		// serial instructions
 
+void printCurrentMode(void);					// print the current mode and the exit command
 
 #endif // SERIAL_CONTROL_H_

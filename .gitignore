@@ -31,6 +31,12 @@
 # Dependencies
 *.d
 
+# Build Objects
+*.buildinfo
+*.bin
+*.elf
+*.map
+
 # Arduino and VS/VM generated files
 /OpenBionics_Beetroot/OpenBionics_Beetroot/Debug/
 /OpenBionics_Beetroot/OpenBionics_Beetroot/__vm/
