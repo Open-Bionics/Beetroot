@@ -71,9 +71,22 @@ FORCE_INLINE void serialprintPGM(const char *str)
 }
 
 
-#define MYSERIAL_PRINT(x)	MYSERIAL.print(x);
-#define MYSERIAL_PRINT_F(x,y) MYSERIAL.print(x,y);
-#define MYSERIAL_PRINTLN(x) do {MYSERIAL.print(x);MYSERIAL.write('\n');} while(0)
+#define MYSERIAL_PRINT(x)\
+  if(MYSERIAL.dtr())\
+  {\
+	MYSERIAL.print(x);\
+  }
+#define MYSERIAL_PRINT_F(x,y)\
+  if(MYSERIAL.dtr())\
+  {\
+    MYSERIAL.print(x,y);\
+  }
+#define MYSERIAL_PRINTLN(x) \
+  if(MYSERIAL.dtr())\
+  {\
+	MYSERIAL.print(x);\
+	MYSERIAL.write('\n');\
+  }
 
 #define MYSERIAL_PRINT_PGM(x) serialprintPGM(PSTR(x));
 #define MYSERIAL_PRINTLN_PGM(x) do{serialprintPGM(PSTR(x));MYSERIAL.write('\n');} while(0)
