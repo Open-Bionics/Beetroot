@@ -57,39 +57,59 @@ template <class T> int EEPROM_readStruct(int ee, const T& value)
 
 ///////////////////////////////////// SERIAL PRINT FROM PROGMEM ///////////////////////////////////////
 // STORES SERIAL STRINGS IN PROGMEM, SAVES 3KB RAM
-#define	FORCE_INLINE __attribute__((always_inline)) inline
-#define MYSERIAL			SerialUSB
 
+/* If defined, use SerialUSB for comms, otherwise Serial (untested). */
+/* The app uses only the MYSERIAL_funcion macros so that all accesses can be
+ * intercepted here to avoid blocking behaviour. */
+#define USESERIALUSB	1
+
+#ifdef USESERIALUSB
+#define MYSERIAL			SerialUSB
+#define SERIALNONBLOCKCHECK			(MYSERIAL.dtr())
+#else
+#define MYSERIAL			Serial
+#define SERIALNONBLOCKCHECK			(1)
+#endif
+
+#define	FORCE_INLINE __attribute__((always_inline)) inline
 FORCE_INLINE void serialprintPGM(const char *str)
 {
-	char ch = pgm_read_byte(str);
-	while (ch)
+	if( SERIALNONBLOCKCHECK )
 	{
-		MYSERIAL.write(ch);
-		ch = pgm_read_byte(++str);
+		char ch = pgm_read_byte(str);
+		while (ch)
+		{
+			MYSERIAL.write(ch);
+			ch = pgm_read_byte(++str);
+		}
 	}
 }
 
 
 #define MYSERIAL_PRINT(x)\
-  if(MYSERIAL.dtr())\
-  {\
-	MYSERIAL.print(x);\
-  }
+	if( SERIALNONBLOCKCHECK )\
+	{\
+		MYSERIAL.print(x);\
+	}
 #define MYSERIAL_PRINT_F(x,y)\
-  if(MYSERIAL.dtr())\
-  {\
-    MYSERIAL.print(x,y);\
-  }
+	if( SERIALNONBLOCKCHECK )\
+	{\
+		MYSERIAL.print(x,y);\
+	}
 #define MYSERIAL_PRINTLN(x) \
-  if(MYSERIAL.dtr())\
-  {\
-	MYSERIAL.print(x);\
-	MYSERIAL.write('\n');\
-  }
+	if( SERIALNONBLOCKCHECK )\
+	{\
+		MYSERIAL.print(x);\
+		MYSERIAL.write('\n');\
+	}
 
 #define MYSERIAL_PRINT_PGM(x) serialprintPGM(PSTR(x));
-#define MYSERIAL_PRINTLN_PGM(x) do{serialprintPGM(PSTR(x));MYSERIAL.write('\n');} while(0)
+#define MYSERIAL_PRINTLN_PGM(x) do{serialprintPGM(PSTR(x));serialprintPGM("\n");} while(0)
+
+#define MYSERIAL_BEGIN(reate) MYSERIAL.begin(rate)
+#define MYSERIAL_AVAILABLE() MYSERIAL.available()
+#define MYSERIAL_READ() MYSERIAL.read()
+
 
 
 ///////////////////////////////////// NUMBER & DIGITS ///////////////////////////////////////
