@@ -54,7 +54,7 @@
 #define SERIAL_CODE_QMARK	15		// Print serial instructions
 
 // CODE VAL CONTRAINTS
-#define NUM_ADV_SETTINGS	5		// number of advanced settings
+#define NUM_ADV_SETTINGS	6		// number of advanced settings
 #define NUM_EMG_MODES		3		// number of EMG modes
 #define NUM_HAND_TYPES		3		// None, Left, Right
 #define LIMIT_FOR_BOOLEAN	1		// either 0 or 1

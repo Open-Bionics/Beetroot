@@ -61,9 +61,6 @@ void loop()
 	// if HANDle mode is enabled, run HANDle mode
 	if (HANDle.enabled())
 		HANDle.run();
-	// if CSV mode is enabled, send current finger positions as CSV
-	if (settings.mode == MODE_CSV)
-		sendCSV();
 }
 
 
