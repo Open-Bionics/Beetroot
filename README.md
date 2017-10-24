@@ -1,7 +1,6 @@
-# Open Bionics - Beetroot (BETA)
+# Open Bionics - Beetroot
 
-Open Bionics Robotics is the Open Source branch of the Open Bionics company, in 
-Included in this repositry;
+Included in this repository;
 
 - Beetroot V1.0 - The firmware release for Open Bionics Brunel hand & Chestnut PCB 
 
@@ -60,3 +59,5 @@ To view a copy of this license, visit http://creativecommons.org/licenses/by-sa/
 			- Muscle control (EMG)
 		- Uses either inbuilt ADC or external I2C ADC for muscle sensing and hand control
 		- Enter '?' to view available serial commands
+
+		
