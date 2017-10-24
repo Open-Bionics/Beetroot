@@ -48,12 +48,13 @@ To view a copy of this license, visit http://creativecommons.org/licenses/by-sa/
 	V1.0.1	|	10/04/17	|	Removed useless grips. Added EEPROM 'first run' detection. Fixed LEFT hand finger inversion
 	V1.0.2	|	05/06/17	|	Updated grip positions. Changed 'commSwitchPin' to correct pin.
 	V1.0.3	|	10/08/17	|	Added HANDle (Nunchuck) control.
+	V1.0.4	|	24/10/17	|	Added SerialPins & SerialJack. Updated LED.h 
 
 
 	Beetroot Description
 
 		- Simple hand control software designed to run on the Open Bionics Chestnut hand controller
-		- Uses FingerLib.h for low level finger control, which allows fingers to be used as servos
+		- Uses FingerLib.h for level finger control, which allows fingers to be used as servos
 		- Can be controlled via the following methods:
 			- Serial control (baud 115200)
 			- Muscle control (EMG)

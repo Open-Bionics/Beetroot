@@ -36,7 +36,6 @@ void setup()
 		serial_SerialInstructions(NULL);	// print serial instructions
 	}	
 
-
 }
 
 

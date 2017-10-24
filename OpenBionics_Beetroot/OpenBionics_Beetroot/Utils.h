@@ -16,6 +16,7 @@
 #ifndef UTILS_H_
 #define UTILS_H_
 
+#include "Globals.h"
 #include "I2C_EEPROM.h"
 
 ///////////////////////////////////// CPU TEMP CONSTANTS ///////////////////////////////////////
@@ -61,14 +62,19 @@ template <class T> int EEPROM_readStruct(int ee, const T& value)
 /* If defined, use SerialUSB for comms, otherwise Serial (untested). */
 /* The app uses only the MYSERIAL_funcion macros so that all accesses can be
  * intercepted here to avoid blocking behaviour. */
-#define USESERIALUSB	1
 
-#ifdef USESERIALUSB
-#define MYSERIAL			SerialUSB
+#if defined(SERIAL_USB_CONTROL)
+#define MYSERIAL SerialUSB
 #define SERIALNONBLOCKCHECK			(MYSERIAL.dtr())
-#else
-#define MYSERIAL			Serial
+#elif defined(SERIAL_PINS_CONTROL)
+#define MYSERIAL SerialPins
 #define SERIALNONBLOCKCHECK			(1)
+#elif defined(SERIAL_JACK_CONTROL)
+#define MYSERIAL SerialJack
+#define SERIALNONBLOCKCHECK			(1)
+#else
+#define MYSERIAL SerialUSB		// default to SerialUSB control
+#define SERIALNONBLOCKCHECK			(MYSERIAL.dtr())
 #endif
 
 #define	FORCE_INLINE __attribute__((always_inline)) inline
@@ -84,7 +90,6 @@ FORCE_INLINE void serialprintPGM(const char *str)
 		}
 	}
 }
-
 
 #define MYSERIAL_PRINT(x)\
 	if( SERIALNONBLOCKCHECK )\

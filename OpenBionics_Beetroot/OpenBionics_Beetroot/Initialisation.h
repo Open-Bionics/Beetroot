@@ -40,8 +40,10 @@ typedef enum _OperatingMode
 
 typedef enum _HeadphoneJackMode
 {
-	JACK_I2C = 0,			// I2C over the headphone jack
-	JACK_ADC				// ADC over the headphone jack
+	JACK_I2C = 0,			// I2C over the headphone jack (set switch low)
+	JACK_ADC = 1,			// ADC over the headphone jack (switch in default pos)
+	JACK_DIGITAL = 1,		// Digital over the headphone jack (switch in default pos)
+	JACK_SERIAL = 1			// SerialJack over the headphone jack (switch in default pos)
 } HeadphoneJackMode;
 
 
@@ -84,7 +86,7 @@ void loadSettings(void);			// read the settings from EEPROM
 void storeSettings(void);			// store the settings in EEPROM
 				
 void detectSerialConnection(void);	// initialise SerialUSB and wait for serial connection if flag is set
-void setHeadphoneJack(HeadphoneJackMode mode);			// configure headphone jack to either ADC or I2C
+void setHeadphoneJack(HeadphoneJackMode mode);			// configure headphone jack to I2C, ADC, Digital or SerialJack
 void printDeviceInfo(void);			// print board & firmware version, hand type and motor enabled/disabled
 
 void systemMonitor(void);			// monitor system status

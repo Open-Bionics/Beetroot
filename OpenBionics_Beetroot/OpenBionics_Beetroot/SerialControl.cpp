@@ -113,9 +113,13 @@ void pollSerial(void)
 	// read and store serial chars, return true if end of line char is received
 	if (checkSerial())
 	{
-		// print received serial string
-		MYSERIAL_PRINT_PGM("\n");
-		MYSERIAL_PRINTLN(serialBuff);
+		// if the current mode is not CSV mode
+		if (settings.mode != MODE_CSV)
+		{
+			// print received serial string
+			MYSERIAL_PRINT_PGM("\n");
+			MYSERIAL_PRINTLN(serialBuff);
+		}
 
 		extractCodesFromSerial();		// extract char codes from serialBuff and store values in serialCodes[]
 
