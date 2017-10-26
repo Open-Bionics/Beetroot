@@ -164,7 +164,7 @@ void ERROR_HANDLING::run(void)
 	// if warning is set & duration has passed
 	if (warnTimer.started() && warnTimer.finished() && (_currError->level == LEVEL_WARN))
 	{
-		LED.setPrev();		// set LED to previous colour
+		LED.showPrev();		// set LED to previous colour
 		clear();			// clear warning flag
 
 		MYSERIAL.println("Clearing Warning");

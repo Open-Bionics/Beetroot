@@ -113,9 +113,13 @@ void pollSerial(void)
 	// read and store serial chars, return true if end of line char is received
 	if (checkSerial())
 	{
-		// print received serial string
-		MYSERIAL_PRINT_PGM("\n");
-		MYSERIAL_PRINTLN(serialBuff);
+		// if the current mode is not CSV mode
+		if (settings.mode != MODE_CSV)
+		{
+			// print received serial string
+			MYSERIAL_PRINT_PGM("\n");
+			MYSERIAL_PRINTLN(serialBuff);
+		}
 
 		extractCodesFromSerial();		// extract char codes from serialBuff and store values in serialCodes[]
 
@@ -329,6 +333,7 @@ void serial_AdvancedSettings(int setting)
 		MYSERIAL_PRINTLN(off_on[settings.mode]);
 
 		break;
+
 	case 1:			// toggle serial instructions
 		settings.printInstr = !settings.printInstr;
 		storeSettings();
@@ -339,6 +344,7 @@ void serial_AdvancedSettings(int setting)
 		if (settings.printInstr)
 			serial_SerialInstructions(0);
 		break;
+
 	case 2:			// toggle wait for serial
 		settings.waitForSerial = !settings.waitForSerial;
 		storeSettings();
@@ -346,6 +352,7 @@ void serial_AdvancedSettings(int setting)
 		MYSERIAL_PRINT_PGM("Wait for serial ");
 		MYSERIAL_PRINTLN(disabled_enabled[settings.waitForSerial]);
 		break;
+
 	case 3:			// enable/disable motors
 		settings.motorEn = !settings.motorEn;
 		storeSettings();
@@ -356,6 +363,7 @@ void serial_AdvancedSettings(int setting)
 		MYSERIAL_PRINT_PGM("Motors ");
 		MYSERIAL_PRINTLN(disabled_enabled[settings.motorEn]);
 		break;
+
 	case 4:			// enable/disable CSV mode
 		MYSERIAL_PRINT_PGM("CSV mode ");
 		if (settings.mode == MODE_CSV)
@@ -369,13 +377,9 @@ void serial_AdvancedSettings(int setting)
 			MYSERIAL_PRINTLN(disabled_enabled[1]);
 		}
 		storeSettings();
-
 		break;
-	case 5:			// enable/disable HANDle mode
-		//MYSERIAL_PRINT_PGM("HANDle mode ");
-		//MYSERIAL_PRINTLN(disabled_enabled[HANDle.toggleEnable()]);
-		//break;
 
+	case 5:			// enable/disable HANDle mode
 		MYSERIAL_PRINT_PGM("HANDle mode ");
 		if (settings.mode == MODE_HANDLE)
 		{
@@ -391,6 +395,10 @@ void serial_AdvancedSettings(int setting)
 		}
 
 		storeSettings();
+		break;
+
+	case 6:			// read finger positions as CSV			
+		sendCSV();
 		break;
 
 	default:
@@ -463,6 +471,10 @@ void serial_FingerControl(int fNum)
 
 	MYSERIAL_PRINT_PGM("Speed:\t\t");
 	MYSERIAL_PRINTLN(finger[fNum].readTargetSpeed());
+
+
+	// if the hand is in a mode that means the fingers will not respond to serial control
+	printCurrentMode();		// print the current mode and the exit command
 }
 
 // grip control
@@ -525,6 +537,9 @@ void serial_GripControl(int gNum)
 
 	MYSERIAL_PRINT_PGM("Speed:\t\t");
 	MYSERIAL_PRINTLN(Grip.getSpeed());
+
+	// if the hand is in a mode that means the fingers will not respond to serial control
+	printCurrentMode();		// print the current mode and the exit command
 }
 
 // set hand type (NONE, LEFT, RIGHT)
@@ -748,6 +763,7 @@ void serial_SerialInstructions(int val)
 	MYSERIAL_PRINTLN_PGM("A3          Enable/Disable motors");
 	MYSERIAL_PRINTLN_PGM("A4          Enable/Disable CSV mode (fast control)");
 	MYSERIAL_PRINTLN_PGM("A5          Enable/Disable HANDle mode (Wii Nunchuck)");
+	MYSERIAL_PRINTLN_PGM("A6          Get the position of all fingers as a CSV string");
 	MYSERIAL_PRINTLN_PGM("#           Display system diagnostics");
 	MYSERIAL_PRINTLN_PGM("?           Display serial commands list");
 	MYSERIAL_PRINT_PGM("\n");
@@ -770,6 +786,14 @@ void serial_SerialInstructions(int val)
 	if (!settings.motorEn)			// enable motors
 		MYSERIAL_PRINTLN_PGM("Motors disabled, enter 'A3' to re-enable them");
 
+	printCurrentMode();				// print the current mode and the exit command
+
+	MYSERIAL_PRINT_PGM("\n");
+}
+
+// print the current mode and the exit command
+void printCurrentMode(void)
+{
 	switch (settings.mode)
 	{
 	case MODE_DEMO:
@@ -791,6 +815,6 @@ void serial_SerialInstructions(int val)
 		break;
 	}
 
-	MYSERIAL_PRINT_PGM("\n\n");
+	MYSERIAL_PRINT_PGM("\n");
 }
 

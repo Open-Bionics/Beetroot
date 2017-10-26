@@ -72,15 +72,8 @@ int convertFromCSV(char *inString, int *valArray, int len)
 }
 
 
-// Wait for synchronization of registers between the clock domains
-static __inline__ void syncADC() __attribute__((always_inline, unused));
-static void syncADC()
-{
-	while (ADC->STATUS.bit.SYNCBUSY == 1)
-		;
-}
 
-// read the CPU temperature, in °C
+// read the CPU temperature, in °C (inaccurate)
 float readCPUTemp(void)
 {
 	float deltaT = CPU_TEMP_TMAX - CPU_TEMP_TMIN;
@@ -136,7 +129,8 @@ float readCPUTemp(void)
 // print time in dd:hh:mm:ss format when passed the time in ms
 void printTime_ms(uint32_t ms)
 {
-	uint8_t d, h, m, s;
+	uint32_t s;
+	uint8_t d, h, m;
 
 	// convert ms to s
 	s = ms / 1000;

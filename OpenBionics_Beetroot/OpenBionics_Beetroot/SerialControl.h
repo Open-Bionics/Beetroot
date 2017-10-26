@@ -54,7 +54,7 @@
 #define SERIAL_CODE_QMARK	15		// Print serial instructions
 
 // CODE VAL CONTRAINTS
-#define NUM_ADV_SETTINGS	5		// number of advanced settings
+#define NUM_ADV_SETTINGS	6		// number of advanced settings
 #define NUM_EMG_MODES		3		// number of EMG modes
 #define NUM_HAND_TYPES		3		// None, Left, Right
 #define LIMIT_FOR_BOOLEAN	1		// either 0 or 1
@@ -106,5 +106,6 @@ void serial_ExitMode(int val);					// exit modes
 void serial_systemDiagnostics(int val);			// system diagnostics
 void serial_SerialInstructions(int val);		// serial instructions
 
+void printCurrentMode(void);					// print the current mode and the exit command
 
 #endif // SERIAL_CONTROL_H_

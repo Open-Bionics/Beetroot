@@ -35,9 +35,13 @@ Settings settings;		// board settings
 // board initialisation sequence
 void deviceSetup(void)
 {
-	MYSERIAL.begin(SERIAL_BAUD_RATE);		// initialise Serial
+#if defined (SERIAL_JACK_CONTROL)
+	setHeadphoneJack(JACK_SERIAL);	// configure headphone jack to Serial
+#else
+	setHeadphoneJack(JACK_ADC);		// configure headphone jack to ADC so as to not affect I2C lines
+#endif
 
-	setHeadphoneJack(JACK_ADC);	// default headphone to ADC so as to not affect I2C lines
+	MYSERIAL.begin(SERIAL_BAUD_RATE);		// initialise Serial
 
 	Wire.begin();				// initialise I2C
 
@@ -230,15 +234,15 @@ void initFingerPins(void)
 		
 }
 
-// configure headphone jack to either ADC or I2C
+// configure headphone jack to I2C, ADC, Digital or SerialJack
 void setHeadphoneJack(HeadphoneJackMode mode)
 {
 	const int commSwitchPin = 10;
 
 	pinMode(commSwitchPin, OUTPUT);
 
-	digitalWrite(commSwitchPin, mode);			// JACK_I2C or JACK_ADC
-	delay(100);
+	digitalWrite(commSwitchPin, mode);			// JACK_I2C, JACK_ADC, JACK_DIGITAL, JACK_SERIAL
+	delay(100);									// allow time for switch to settle
 }
 
 // print board & firmware version, hand type and motor enabled/disabled

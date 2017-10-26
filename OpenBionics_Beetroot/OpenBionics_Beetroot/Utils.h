@@ -16,6 +16,7 @@
 #ifndef UTILS_H_
 #define UTILS_H_
 
+#include "Globals.h"
 #include "I2C_EEPROM.h"
 
 ///////////////////////////////////// CPU TEMP CONSTANTS ///////////////////////////////////////
@@ -57,26 +58,63 @@ template <class T> int EEPROM_readStruct(int ee, const T& value)
 
 ///////////////////////////////////// SERIAL PRINT FROM PROGMEM ///////////////////////////////////////
 // STORES SERIAL STRINGS IN PROGMEM, SAVES 3KB RAM
-#define	FORCE_INLINE __attribute__((always_inline)) inline
-#define MYSERIAL			SerialUSB
 
+/* If defined, use SerialUSB for comms, otherwise Serial (untested). */
+/* The app uses only the MYSERIAL_funcion macros so that all accesses can be
+ * intercepted here to avoid blocking behaviour. */
+
+#if defined(SERIAL_USB_CONTROL)
+#define MYSERIAL SerialUSB
+#define SERIALNONBLOCKCHECK			(MYSERIAL.dtr())
+#elif defined(SERIAL_PINS_CONTROL)
+#define MYSERIAL SerialPins
+#define SERIALNONBLOCKCHECK			(1)
+#elif defined(SERIAL_JACK_CONTROL)
+#define MYSERIAL SerialJack
+#define SERIALNONBLOCKCHECK			(1)
+#else
+#define MYSERIAL SerialUSB		// default to SerialUSB control
+#define SERIALNONBLOCKCHECK			(MYSERIAL.dtr())
+#endif
+
+#define	FORCE_INLINE __attribute__((always_inline)) inline
 FORCE_INLINE void serialprintPGM(const char *str)
 {
-	char ch = pgm_read_byte(str);
-	while (ch)
+	if( SERIALNONBLOCKCHECK )
 	{
-		MYSERIAL.write(ch);
-		ch = pgm_read_byte(++str);
+		char ch = pgm_read_byte(str);
+		while (ch)
+		{
+			MYSERIAL.write(ch);
+			ch = pgm_read_byte(++str);
+		}
 	}
 }
 
-
-#define MYSERIAL_PRINT(x)	MYSERIAL.print(x);
-#define MYSERIAL_PRINT_F(x,y) MYSERIAL.print(x,y);
-#define MYSERIAL_PRINTLN(x) do {MYSERIAL.print(x);MYSERIAL.write('\n');} while(0)
+#define MYSERIAL_PRINT(x)\
+	if( SERIALNONBLOCKCHECK )\
+	{\
+		MYSERIAL.print(x);\
+	}
+#define MYSERIAL_PRINT_F(x,y)\
+	if( SERIALNONBLOCKCHECK )\
+	{\
+		MYSERIAL.print(x,y);\
+	}
+#define MYSERIAL_PRINTLN(x) \
+	if( SERIALNONBLOCKCHECK )\
+	{\
+		MYSERIAL.print(x);\
+		MYSERIAL.write('\n');\
+	}
 
 #define MYSERIAL_PRINT_PGM(x) serialprintPGM(PSTR(x));
-#define MYSERIAL_PRINTLN_PGM(x) do{serialprintPGM(PSTR(x));MYSERIAL.write('\n');} while(0)
+#define MYSERIAL_PRINTLN_PGM(x) do{serialprintPGM(PSTR(x));serialprintPGM("\n");} while(0)
+
+#define MYSERIAL_BEGIN(reate) MYSERIAL.begin(rate)
+#define MYSERIAL_AVAILABLE() MYSERIAL.available()
+#define MYSERIAL_READ() MYSERIAL.read()
+
 
 
 ///////////////////////////////////// NUMBER & DIGITS ///////////////////////////////////////
