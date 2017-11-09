@@ -55,7 +55,7 @@ void deviceSetup(void)
 
 	readEEPROM();				// load settings from EEPROM, if no settings, use defaults
 
-	initFingerPins();			// attach finger pins
+	initFingerPins();			// attach finger pins and start ms timer
 
 	initSerialCharCodes();		// assign the char codes and functions to char codes
 

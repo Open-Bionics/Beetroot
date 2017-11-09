@@ -21,7 +21,7 @@
 #include "TimerManagement.h"
 
 // NEOPIXEL
-#define NEOPIXEL_PIN			9		// NeoPixel pin (OB1_HC 9, Chestnut 3)
+#define NEOPIXEL_PIN			3		// NeoPixel pin (Chestnut 3)
 #define NEOPIXEL_NUM_PIXELS		1		// number of NeoPixels attached
 
 // LED CONTROL SETTINGS
