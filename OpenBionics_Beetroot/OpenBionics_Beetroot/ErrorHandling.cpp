@@ -124,6 +124,7 @@ void ERROR_HANDLING::set(ErrorType error)
 	{
 		LED.setColour(_currError->LED.colour);				// set LED colour
 		LED.setFadeFreq(_currError->LED.blinkFreq);			// set LED to be solid or to fade
+		LED.show();
 
 		if (_currError->level == LEVEL_WARN)				// if error is a WARNING
 			warnTimer.start(WARNING_DURATION);				// start timer to that the warning can be cleared
