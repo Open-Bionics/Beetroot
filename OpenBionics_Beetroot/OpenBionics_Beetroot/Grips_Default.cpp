@@ -23,7 +23,7 @@ const char* default_GripNames[NUM_GRIPS + 1] = {
 	"Pinch", \
 	"Tripod", \
 	"Finger Roll", \
-	"Thumb Roll"
+	"Thumb Roll", \
 	""		// EMPTY STR
 };  
 
