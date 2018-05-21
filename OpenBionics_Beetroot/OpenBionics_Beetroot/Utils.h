@@ -20,16 +20,16 @@
 #include "I2C_EEPROM.h"
 
 ///////////////////////////////////// CPU TEMP CONSTANTS ///////////////////////////////////////
-#define CPU_TEMP_CMIN		25.0	// °C   Nominal operating temperature
-#define CPU_TEMP_TMIN		-40.0	// °C	Minimum operating temperature
-#define CPU_TEMP_TMAX		85.0	// °C	Maximum operating temperature
+#define CPU_TEMP_CMIN		25.0	// ï¿½C   Nominal operating temperature
+#define CPU_TEMP_TMIN		-40.0	// ï¿½C	Minimum operating temperature
+#define CPU_TEMP_TMAX		85.0	// ï¿½C	Maximum operating temperature
 #define CPU_TEMP_VMAX		3.63	// V	Minimum operating voltage
 #define CPU_TEMP_VMIN		1.62	// V	Maximum operating voltage
 #define CPU_TEMP_VOUTMAX	0.667	// V	Temperature sensor output voltage
 #define CPU_TEMP_AREF		3.3		// V	Analogue reference
 #define CPU_TEMP_ARES		10		// bit	ADC resolution
 
-float readCPUTemp(void);			// read the CPU temperature, in °C
+float readCPUTemp(void);			// read the CPU temperature, in ï¿½C
 
 
 ///////////////////////////////////// EEPROM WRITE STRUCT ///////////////////////////////////////
@@ -104,8 +104,7 @@ FORCE_INLINE void serialprintPGM(const char *str)
 #define MYSERIAL_PRINTLN(x) \
 	if( SERIALNONBLOCKCHECK )\
 	{\
-		MYSERIAL.print(x);\
-		MYSERIAL.write('\n');\
+		MYSERIAL.println(x);\
 	}
 
 #define MYSERIAL_PRINT_PGM(x) serialprintPGM(PSTR(x));
@@ -120,7 +119,7 @@ FORCE_INLINE void serialprintPGM(const char *str)
 ///////////////////////////////////// NUMBER & DIGITS ///////////////////////////////////////
 bool isEven(int n);								// returns true if n is even
 unsigned int getNumberOfDigits(unsigned int i);	// get the number of digits in an unsigned int
-				
+
 
 ///////////////////////////////////// CSV ///////////////////////////////////////
 void convertToCSV(int *valArray, int len, char* outString);	// converts a number (len) of integer variables from valArray to a CSV string (outString)
