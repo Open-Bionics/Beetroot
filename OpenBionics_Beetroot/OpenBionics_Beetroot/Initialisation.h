@@ -65,8 +65,6 @@ typedef struct _Settings
 	uint8_t motorEn = true;			// motor enable
 	uint8_t printInstr = true;		// print serial instructions
 
-	uint8_t motorReorder = false;
-
 	uint8_t init = false;			// if the EEPROM has been initialised for the first time
 } Settings;
 

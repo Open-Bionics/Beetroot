@@ -135,8 +135,6 @@ void resetToDefaults(void)
 	settings.motorEn = true;				// enable all motors
 	settings.printInstr = true;				// print serial instructions
 
-  settings.motorReorder = false;
-
 	settings.init = EEPROM_INIT_CODE;		// store the unique initialisation code to indicate that EEPROM has been initialised with values
 
 	storeSettings();						// store the settings in EEPROM
@@ -191,23 +189,27 @@ void initFingerPins(void)
 	}
 
 	// Allow motor order to be reversed for the new Brunel design.
-	static const int fingerOrderSets[][4] = { { 1,2,0,3 },{ 3,0,2,1 } };			// order of fingers for Brnel V1 & V2 (M1, M2, M3, M4)
-	const int* fingerOrder = fingerOrderSets[settings.motorReorder ? 1 : 0];
+	static const int fingerOrderSets[][4] = { { 1,2,0,3 }, { 3,0,2,1 } };			// order of finger connectors for Brunel V1 & V2 (M1, M2, M3, M4)
+	const int* fingerOrder = fingerOrderSets[(BRUNEL_VER == 1) ? 0 : 1];			// point to one of the finger orders
+
+	static const int fingerInvSets[][4] = { {true, true, false, true }, {true, false, true, true} };	// set fingers to be inverted for Brunel V1 & V2
+	const int* fingerInv = fingerInvSets[(BRUNEL_VER == 1) ? 0 : 1];				// point to one of the finger orders
+
 
 	// attach the finger pins
 	if (settings.handType == HAND_TYPE_RIGHT)
 	{
-		finger[fingerOrder[0]].attach(1, 2, A0, A6, true);		// M1     
-		finger[fingerOrder[1]].attach(7, 5, A1, A9, true);		// M2
-		finger[fingerOrder[2]].attach(4, 8, A2, A8, true);		// M3
-		finger[fingerOrder[3]].attach(0, 9, A3, A7, true);		// M4
+		finger[fingerOrder[0]].attach(1, 2, A0, A6, fingerInv[0]);		// M1     
+		finger[fingerOrder[1]].attach(7, 5, A1, A9, fingerInv[1]);		// M2
+		finger[fingerOrder[2]].attach(4, 8, A2, A8, fingerInv[2]);		// M3
+		finger[fingerOrder[3]].attach(0, 9, A3, A7, fingerInv[3]);		// M4
 	}
 	else if (settings.handType == HAND_TYPE_LEFT)
 	{
-		finger[fingerOrder[3]].attach(1, 2, A0, A6, true);		// M1     
-		finger[fingerOrder[2]].attach(7, 5, A1, A9, true);		// M2
-		finger[fingerOrder[1]].attach(4, 8, A2, A8, true);		// M3
-		finger[fingerOrder[0]].attach(0, 9, A3, A7, true);		// M4
+		finger[fingerOrder[3]].attach(1, 2, A0, A6, fingerInv[3]);		// M1     
+		finger[fingerOrder[2]].attach(7, 5, A1, A9, fingerInv[2]);		// M2
+		finger[fingerOrder[1]].attach(4, 8, A2, A8, fingerInv[1]);		// M3
+		finger[fingerOrder[0]].attach(0, 9, A3, A7, fingerInv[0]);		// M4
 	}
 
 
@@ -245,6 +247,10 @@ void printDeviceInfo(void)
 {
 	const char* handTypeNames[3] = { "NONE", "Right", "Left" };
 	
+	// print Brunel version
+	MYSERIAL_PRINT("Brunel V");
+	MYSERIAL_PRINTLN(BRUNEL_VER);
+
 	// print firmware version
 	MYSERIAL_PRINT("FW:\tBeetroot V");
 	MYSERIAL_PRINTLN(FW_VERSION);
@@ -256,9 +262,6 @@ void printDeviceInfo(void)
 	MYSERIAL_PRINT_PGM("Hand:\t");
 	MYSERIAL_PRINTLN(handTypeNames[settings.handType]);
 
-	// print motor reordering 
-	MYSERIAL_PRINT_PGM("Motor order:\t");
-	MYSERIAL_PRINTLN(settings.motorReorder ? "Normal" : "Reversed");
 }
 
 // monitor system status
