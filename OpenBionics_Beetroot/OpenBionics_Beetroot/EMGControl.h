@@ -38,7 +38,7 @@ typedef struct _EMGChannel
 
 	CIRCLE_BUFFER <int>noiseFloor;
 
-	NB_TIMER HOLD_timer;
+	MS_NB_TIMER HOLD_timer;
 
 	bool active;
 	int sample;

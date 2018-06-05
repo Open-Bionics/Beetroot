@@ -45,29 +45,46 @@ void loop()
 	ros_run();
 #endif
 
+
+	//for (int i = 0; i < NUM_FINGERS; i++)
+	for (int i = F1; i < F2; i++)
+	{
+		MYSERIAL.print(finger[i].debugVal);
+		MYSERIAL.print("_");
+		MYSERIAL.print(finger[i].readPos());
+		MYSERIAL.print("/");
+		MYSERIAL.print(finger[i].readTargetPos());
+		MYSERIAL.print("_");
+		MYSERIAL.print(finger[i].readSpeed());
+		MYSERIAL.print("\t");
+	}
+	MYSERIAL.print("\n");
+
+
+
 	// process any received serial characters
 	pollSerial();
 
 	// monitor system temp
 	systemMonitor();
 
-	// if demo mode is enabled, run demo mode
-	if (DEMO.enabled())
-	{
-		DEMO.run();
-	}
+	//// if demo mode is enabled, run demo mode
+	//if (DEMO.enabled())
+	//{
+	//	DEMO.run();
+	//}
 
-	// if EMG mode is enabled, run EMG mode
-	if (EMG.enabled())
-	{
-		EMG.run();
-	}
+	//// if EMG mode is enabled, run EMG mode
+	//if (EMG.enabled())
+	//{
+	//	EMG.run();
+	//}
 
-	// if HANDle mode is enabled, run HANDle mode
-	if (HANDle.enabled())
-	{
-		HANDle.run();
-	}
+	//// if HANDle mode is enabled, run HANDle mode
+	//if (HANDle.enabled())
+	//{
+	//	HANDle.run();
+	//}
 }
 
 

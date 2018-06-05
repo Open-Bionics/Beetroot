@@ -183,7 +183,7 @@ void EMG_CONTROL::analyseSignal(void)
 
 		if (_channel[c].HOLD_timer.started())			// if HOLD timer is running
 		{
-			if (_channel[c].HOLD_timer.timeEllapsed(settings.emg.holdTime) && !_channel[c].HOLD)	// if PEAK has been HELD and HOLD flag is not set
+			if (_channel[c].HOLD_timer.timeElapsed(settings.emg.holdTime) && !_channel[c].HOLD)	// if PEAK has been HELD and HOLD flag is not set
 			{
 				_channel[c].HOLD = true;				// set HOLD flag		
 				_channel[c].HOLD_timer.stop();			// stop HOLD timer

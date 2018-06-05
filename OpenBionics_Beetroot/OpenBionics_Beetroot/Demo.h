@@ -57,7 +57,7 @@ private:
 	float _stepNum;				// current step (may be a decimal)
 	bool _stepDir;				// direction of step count
 	double _stepDuration;		// amount of time between each step
-	NB_DELAY _stepTimer;		// duration of each step
+	MS_NB_DELAY _stepTimer;		// duration of each step
 
 
 };

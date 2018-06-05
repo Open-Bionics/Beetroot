@@ -40,7 +40,7 @@ bool DEMO_CLASS::enabled(void)
 void DEMO_CLASS::run(void)
 {
 	// if time between last step and current step has elapsed
-	if (_stepTimer.timeEllapsed(_stepDuration))
+	if (_stepTimer.timeElapsed(_stepDuration))
 	{
 		// if grip has fully opened and closed
 		if ((_stepNum == 0) && _stepDir)

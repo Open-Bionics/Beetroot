@@ -91,8 +91,8 @@ typedef struct _LEDDetails
 	double period_ms;	// ms. blink period
 	double dur_ms = 0;	// ms. run duration (0 is constant)
 
-	NB_DELAY runTimer;				// duration timer
-	NB_DELAY pulseTimer;			// time to pulse
+	MS_NB_DELAY runTimer;				// duration timer
+	MS_NB_DELAY pulseTimer;			// time to pulse
 	bool pulseState;				// pulsing up/down
 } LEDDetails_t;
 

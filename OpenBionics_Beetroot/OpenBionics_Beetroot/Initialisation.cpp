@@ -226,6 +226,8 @@ void initFingerPins(void)
 #ifdef FORCE_SENSE
 		finger[i].enableForceSense();				// enable force sense on the finger
 #endif
+
+		finger[i].open();
 	}
 
 		
@@ -267,9 +269,9 @@ void printDeviceInfo(void)
 // monitor system status
 void systemMonitor(void)
 {
-	static NB_DELAY timer_1s;
+	static MS_NB_DELAY timer_1s;
 
-	if (timer_1s.timeEllapsed(1000))
+	if (timer_1s.timeElapsed(1000))
 	{
 		// monitor CPU temperature
 		if (readCPUTemp() >= CPU_TEMP_MAX)

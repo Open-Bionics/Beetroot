@@ -679,7 +679,7 @@ void serial_systemDiagnostics(int val)
 
 	// print total 'on-time'
 	MYSERIAL_PRINT_PGM("OnTime:\t");
-	printTime_ms(customMillis());
+	printTime_ms(millis());
 	MYSERIAL_PRINT_PGM("\n");
 
 	// print CPU temperature
