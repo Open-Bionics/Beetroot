@@ -48,7 +48,7 @@ void GRIP_CLASS::begin(void)
 	// clear all values
 	_pos = 0;
 	_dir = 0;
-	_speed = MAX_FINGER_SPEED;
+	_speed = MAX_FINGER_PWM;
 
 	// set current grip to be the very first grip
 	_currGrip = &_allGrips[0];

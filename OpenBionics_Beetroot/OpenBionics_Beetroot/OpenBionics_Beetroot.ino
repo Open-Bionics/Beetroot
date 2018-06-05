@@ -52,14 +52,22 @@ void loop()
 	systemMonitor();
 
 	// if demo mode is enabled, run demo mode
-	if(DEMO.enabled())
+	if (DEMO.enabled())
+	{
 		DEMO.run();
+	}
+
 	// if EMG mode is enabled, run EMG mode
 	if (EMG.enabled())
+	{
 		EMG.run();
+	}
+
 	// if HANDle mode is enabled, run HANDle mode
 	if (HANDle.enabled())
+	{
 		HANDle.run();
+	}
 }
 
 
