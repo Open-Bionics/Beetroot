@@ -162,7 +162,9 @@ void LED_CLASS::show(void)
 	{
 		// if the previous duration was running, store the remaining time
 		if (_currLED->runTimer.started())
+		{
 			_currLED->dur_ms -= _currLED->runTimer.stop();
+		}
 	}
 
 	if (_index < LED_MAX_HISTORY - 1)
@@ -278,7 +280,7 @@ void LED_CLASS::runBlink(void)
 	if (_currLED->period_ms == 0)
 		return;
 
-	if (_currLED->pulseTimer.timeEllapsed(_currLED->period_ms))
+	if (_currLED->pulseTimer.timeElapsed(_currLED->period_ms))
 	{
 		if (_currLED->pulseState)
 			pixel.setPixelColor(_pNum, _currLED->c1.c);
@@ -307,7 +309,7 @@ void LED_CLASS::runFade(void)
 	stepPeriod = _currLED->period_ms / LED_FADE_RES;
 
 	// if period between steps has elapsed
-	if (_currLED->pulseTimer.timeEllapsed(stepPeriod))
+	if (_currLED->pulseTimer.timeElapsed(stepPeriod))
 	{
 		stepColour.c = calcFade(_currLED->c1, _currLED->c2, stepNum, LED_FADE_RES);
 

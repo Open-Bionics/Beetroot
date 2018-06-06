@@ -84,7 +84,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Adafruit_NeoPixel.h" />
-    <ClInclude Include="CircleBuff.h" />
     <ClInclude Include="Demo.h" />
     <ClInclude Include="EMGControl.h" />
     <ClInclude Include="ErrorHandling.h" />
@@ -105,7 +104,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Adafruit_NeoPixel.cpp" />
-    <ClCompile Include="CircleBuff.cpp" />
     <ClCompile Include="Demo.cpp" />
     <ClCompile Include="EMGControl.cpp" />
     <ClCompile Include="ErrorHandling.cpp" />

@@ -16,7 +16,7 @@
 #ifndef EMG_CONTROL_H_
 #define EMG_CONTROL_H_
 
-#include "CircleBuff.h"
+//#include "CircleBuff.h"
 #include "TimerManagement.h"
 
 #define NUM_EMG_CHANNELS	2
@@ -36,9 +36,9 @@ typedef struct _EMGChannel
 {
 	int pin;
 
-	CIRCLE_BUFFER noiseFloor = CIRCLE_BUFFER(NOISE_BUFFER_SIZE);
+	CIRCLE_BUFFER <int>noiseFloor;
 
-	NB_TIMER HOLD_timer;
+	MS_NB_TIMER HOLD_timer;
 
 	bool active;
 	int sample;

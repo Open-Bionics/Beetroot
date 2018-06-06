@@ -47,8 +47,8 @@ void GRIP_CLASS::begin(void)
 
 	// clear all values
 	_pos = 0;
-	_dir = 0;
-	_speed = MAX_FINGER_SPEED;
+	_dir = OPEN;
+	_speed = MAX_FINGER_PWM;
 
 	// set current grip to be the very first grip
 	_currGrip = &_allGrips[0];
@@ -80,21 +80,18 @@ char* GRIP_CLASS::getGripName(int gNum)
 	return (char*)_allGrips[gNum].name;
 }
 
-
 // cycle to the next grip
 int GRIP_CLASS::nextGrip(void)
 {
-	//MYSERIAL.print("nextGrip()  currNum: ");
-	//MYSERIAL.print(_currGrip->num);
-	
 	// if the last grip has been reached, wrap around
 	if (_currGrip->num + 1 >= NUM_GRIPS)
+	{
 		_currGrip = &_allGrips[0];
+	}
 	else
+	{
 		_currGrip = &_allGrips[_currGrip->num + 1];
-
-	//MYSERIAL.print("  newNum: ");
-	//MYSERIAL.println(_currGrip->num);
+	}
 
 	return _currGrip->num;
 }
@@ -104,9 +101,13 @@ int GRIP_CLASS::prevGrip(void)
 {
 	// if the first grip has been reached, wrap around
 	if (_currGrip->num <= 0)
-		_currGrip = &_allGrips[NUM_GRIPS-1];
+	{
+		_currGrip = &_allGrips[NUM_GRIPS - 1];
+	}
 	else
+	{
 		_currGrip = &_allGrips[_currGrip->num - 1];
+	}
 
 	return _currGrip->num;
 }
@@ -129,11 +130,6 @@ void GRIP_CLASS::close(void)
 void GRIP_CLASS::setPos(int pos)
 {
 	_pos = constrain(pos, 0, 100);
-
-	if (_pos <= 50)
-		_dir = OPEN;
-	else
-		_dir = CLOSE;
 }
 
 // get the target grip position (in steps)
@@ -145,12 +141,16 @@ int GRIP_CLASS::getPos(void)
 // set the grip to either be fully open or fully closed
 void GRIP_CLASS::setDir(int dir)
 {
-	_dir = constrain(dir, OPEN, CLOSE);
+	_dir = constrain(dir, CLOSE, OPEN);
 
 	if (_dir == OPEN)
-		setPos(0);
-	else
-		setPos(100);
+	{
+		setPos(GRIP_OPEN);
+	}
+	else if (_dir == CLOSE)
+	{
+		setPos(GRIP_CLOSE);
+	}
 }
 
 // get the grip direction
@@ -162,15 +162,15 @@ int GRIP_CLASS::getDir(void)
 // toggle the grip direction between open and close
 int GRIP_CLASS::toggleDir(void)
 {
-	setDir(!_dir);
+	setDir(!getDir());
 
-	return _dir;
+	return getDir();
 }
 
 // set the speed at which the fingers move
 void GRIP_CLASS::setSpeed(int speed)
 {
-	_speed = constrain(speed, 0, 255);
+	_speed = constrain(speed, OFF_FINGER_PWM, MAX_FINGER_PWM);
 }
 
 // get the target speed of the fingers
@@ -191,21 +191,23 @@ void GRIP_CLASS::run(void)
 
 	uint16_t currentCountVal, nextCountVal;
 
-	for (stepNum = 0; stepNum<NUM_GRIP_STEPS; stepNum++)				// count through COUNT rows (0 - 5)
+	for (stepNum = 0; stepNum < NUM_GRIP_STEPS; stepNum++)				// count through COUNT rows (0 - 5)
 	{
 		currentCountVal = _currGrip->step[stepNum].count;				// read first COUNT val
 		nextCountVal = _currGrip->step[stepNum + 1].count;				// read next COUNT val
 
 		if (IS_BETWEEN(_pos, currentCountVal, nextCountVal))			// if grip pos is between the two COUNT vals
 		{
-			for (fingerNum = 0; fingerNum<NUM_FINGERS; fingerNum++)		// count through each finger element
+			for (fingerNum = 0; fingerNum < NUM_FINGERS; fingerNum++)		// count through each finger element
 			{
 				do														// search upwards for a finger position that isn't BLANK
 				{
 					posA = _currGrip->step[(stepNum - stepModA)].pos[fingerNum];		// read finger position from stored grip struct
 
 					if (posA == (uint16_t)BLANK)						// if finger position is blank
+					{
 						stepModA++;										// look above for previous finger position
+					}
 				} while (posA == (uint16_t)BLANK);
 
 				do														// search below for a finger position that isn't BLANK
@@ -213,7 +215,9 @@ void GRIP_CLASS::run(void)
 					posB = _currGrip->step[(stepNum + 1 + stepModB)].pos[fingerNum];	// read finger position from stored grip struct
 
 					if (posB == (uint16_t)BLANK) 						// if finger position is blank
+					{
 						stepModB++;										// look below for next finger position
+					}
 				} while (posB == (uint16_t)BLANK);
 
 
@@ -232,6 +236,16 @@ void GRIP_CLASS::run(void)
 			}
 			break;				// if grip pos is between the two COUNT vals, exit from the search as grip management is complete
 		}
+	}
+
+	// set current direction of the grip by using the average of all finger positions
+	if (_pos > (GRIP_CLOSE / 2))
+	{
+		_dir = CLOSE;
+	}
+	else
+	{
+		_dir = OPEN;
 	}
 }
 

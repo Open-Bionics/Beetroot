@@ -96,7 +96,7 @@ class ERROR_HANDLING
 		ErrorState *_currError = NULL;						// current error
 		ErrorState _errorList[MAX_NUM_ERRORS];				// list of all errors
 
-		NB_DELAY warnTimer;									// timer used to clear warning after a set duration
+		MS_NB_DELAY warnTimer;									// timer used to clear warning after a set duration
 
 		bool _ctrlLED;										// flag to determine whether err handling has control over the LED
 

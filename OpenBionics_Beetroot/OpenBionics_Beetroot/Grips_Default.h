@@ -22,6 +22,13 @@
 
 // GRIP SETTINGS
 #define NUM_GRIPS		7
+#define G0	0
+#define G1	1
+#define G2	2
+#define G3	3
+#define G4	4
+#define G5	5
+#define G6	6
 #define NUM_GRIP_STEPS	6
 
 // FINGER POSITIONS

@@ -33,11 +33,10 @@ EMG_CONTROL::EMG_CONTROL()
 // for each channel, initialise the noise floor buffer with default value, to prevent initial false positives
 void EMG_CONTROL::begin(void)
 {
-	const int commsSwitchPin = 7;
-
-
 	for (int c = 0; c < NUM_EMG_CHANNELS; c++)
 	{
+		_channel[c].noiseFloor.begin(NOISE_BUFFER_SIZE);
+
 		for (int i = 0; i < NOISE_BUFFER_SIZE; i++)
 		{
 			_channel[c].noiseFloor.write(BUFFER_DEFAULT_VAL);
@@ -184,7 +183,7 @@ void EMG_CONTROL::analyseSignal(void)
 
 		if (_channel[c].HOLD_timer.started())			// if HOLD timer is running
 		{
-			if (_channel[c].HOLD_timer.timeEllapsed(settings.emg.holdTime) && !_channel[c].HOLD)	// if PEAK has been HELD and HOLD flag is not set
+			if (_channel[c].HOLD_timer.timeElapsed(settings.emg.holdTime) && !_channel[c].HOLD)	// if PEAK has been HELD and HOLD flag is not set
 			{
 				_channel[c].HOLD = true;				// set HOLD flag		
 				_channel[c].HOLD_timer.stop();			// stop HOLD timer

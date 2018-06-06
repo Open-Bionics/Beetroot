@@ -106,10 +106,10 @@ void HANDLE_CLASS::begin(void)
 	Grip.open();
 
 
-	//Grip.setSpeed(MAX_FINGER_SPEED);
+	//Grip.setSpeed(MAX_FINGER_PWM);
 	//Grip.open();
 	//delay(700);
-	//Grip.setSpeed(MAX_FINGER_SPEED);
+	//Grip.setSpeed(MAX_FINGER_PWM);
 	//Grip.run();
 }
 
@@ -228,7 +228,7 @@ void HANDLE_CLASS::checkJoy(void)
 	// add new grip position to current grip positions
 	_pos += calcPosChange();
 	_pos = constrain(_pos, 0, 100);
-	Grip.setSpeed(MAX_FINGER_SPEED);
+	Grip.setSpeed(MAX_FINGER_PWM);
 	Grip.setPos(_pos);
 	Grip.run();
 }
@@ -257,7 +257,7 @@ void HANDLE_CLASS::checkButtons(void)
 
 
 	MYSERIAL_PRINTLN(Grip.getGripName());
-	Grip.setSpeed(MAX_FINGER_SPEED);
+	Grip.setSpeed(MAX_FINGER_PWM);
 	Grip.open();
 	delay(500);
 	Grip.setSpeed(0);
