@@ -37,7 +37,9 @@ void milliSecInterrupt(void)
 
 	// if 1000ms has passed
 	if (!(_milliSeconds % 1000))
+	{
 		_seconds++;
+	}
 
 
 	// clear any warnings after a set period

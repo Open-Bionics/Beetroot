@@ -144,8 +144,10 @@ void ERROR_HANDLING::set(ErrorType error)
 		// disable all of the motors
 		for (int i = 0; i < NUM_FINGERS; i++)
 		{
-			if(finger[i].attached())
-				finger[i].disableMotor();
+			if (finger[i].attached())
+			{
+				finger[i].motorEnable(false);
+			}
 		}
 
 		// halt program

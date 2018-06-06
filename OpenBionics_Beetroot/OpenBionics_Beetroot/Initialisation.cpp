@@ -60,6 +60,9 @@ void deviceSetup(void)
 	initSerialCharCodes();		// assign the char codes and functions to char codes
 
 	Grip.begin();				// initialise the grips
+	Grip.setGrip(G0);
+	Grip.setDir(OPEN);
+	Grip.run();
 
 	EMG.begin();				// initialise EMG control
 
@@ -224,7 +227,7 @@ void initFingerPins(void)
 
 		finger[i].motorEnable(settings.motorEn);	// set motor to be enabled/disabled depending on EEPROM setting
 #ifdef FORCE_SENSE
-		finger[i].enableForceSense();				// enable force sense on the finger
+		finger[i].forceSenseEnable(true);				// enable force sense on the finger
 #endif
 
 		finger[i].open();

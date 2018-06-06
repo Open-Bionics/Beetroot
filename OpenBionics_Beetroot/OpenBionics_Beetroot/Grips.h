@@ -20,6 +20,10 @@
 
 #define GRIP_MAX_COUNT_VAL	100		// a grip is divided up into 0 - 100 count values
 
+#define GRIP_OPEN			0
+#define GRIP_CLOSE			GRIP_MAX_COUNT_VAL
+
+
 // a single step used to store the default grip
 typedef struct	_GripStep
 {
@@ -44,8 +48,7 @@ class GRIP_CLASS
 		GRIP_CLASS();
 
 		void begin(void);					// store all the default grips (default_GripPos) in _allGrips
-		void run(void);						// calculate the target position for each finger depending on the target step number (_pos)
-
+		
 		void setGrip(int gNum);				// set the current grip to the grip number gNum
 		int getGrip(void);					// get the number of the current grip							
 		char* getGripName(void);			// get the name of the current grip
@@ -67,13 +70,22 @@ class GRIP_CLASS
 		void setSpeed(int speed);			// set the speed at which the fingers move
 		int getSpeed(void);					// get the target speed of the fingers
 
+		void run(void);						// calculate the target position for each finger depending on the target step number (_pos)
+
+
+
+		// DEBUG
+		uint16_t _pos;						// target grip position (in steps)
+		uint16_t _dir;						// target grip direction
 	private:
 		GripType _allGrips[NUM_GRIPS];		// all grip numbers, names and finger positions
 		GripType *_currGrip = NULL;			// pointer to the current grip
 
-		uint16_t _pos;						// target grip position (in steps)
-		uint16_t _dir;						// target grip direction
+		//uint16_t _pos;						// target grip position (in steps)
+		//uint16_t _dir;						// target grip direction
 		uint16_t _speed;					// target grip speed
+
+
 
 };
 

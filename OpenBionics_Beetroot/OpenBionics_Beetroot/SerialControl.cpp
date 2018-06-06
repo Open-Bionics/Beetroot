@@ -470,7 +470,7 @@ void serial_FingerControl(int fNum)
 	MYSERIAL_PRINTLN(serialCodes[SERIAL_CODE_P].val);
 
 	MYSERIAL_PRINT_PGM("Speed:\t\t");
-	MYSERIAL_PRINTLN(finger[fNum].readTargetSpeed());
+	MYSERIAL_PRINTLN(finger[fNum].readTargetPWM());
 
 
 	// if the hand is in a mode that means the fingers will not respond to serial control
@@ -480,7 +480,8 @@ void serial_FingerControl(int fNum)
 // grip control
 void serial_GripControl(int gNum)
 {
-	const char* dirStr[2] = { "Open", "Close" };
+	const char* dirStr[2] = { "Close" , "Open" };
+	bool dir; // = Grip.getDir();
 
 	if (gNum >= NUM_GRIPS)
 	{
@@ -489,57 +490,65 @@ void serial_GripControl(int gNum)
 	}
 
 	// only set grip if a grip number is entered (i.e. if G then don't set grip)
-	if(gNum != BLANK)
+	if (gNum != BLANK)
+	{
 		Grip.setGrip(gNum);			// set grip number
 
-	// detect direction (O or C)
-	if (serialCodes[SERIAL_CODE_C].newVal)
-	{
-		Grip.setDir(CLOSE);
-		serialCodes[SERIAL_CODE_C].newVal = false;
-	}
-	else if (serialCodes[SERIAL_CODE_O].newVal)
-	{
-		Grip.setDir(OPEN);
-		serialCodes[SERIAL_CODE_O].newVal = false;
+		// detect direction (O or C)
+		if (serialCodes[SERIAL_CODE_C].newVal)
+		{
+			Grip.setDir(CLOSE);
+			serialCodes[SERIAL_CODE_C].newVal = false;
+			dir = CLOSE;
+		}
+		else if (serialCodes[SERIAL_CODE_O].newVal)
+		{
+			Grip.setDir(OPEN);
+			serialCodes[SERIAL_CODE_O].newVal = false;
+			dir = OPEN;
+		}
+		else
+		{
+			dir = Grip.toggleDir();
+		}
+
+		// detect position
+		if (serialCodes[SERIAL_CODE_P].newVal)
+		{
+			Grip.setPos(serialCodes[SERIAL_CODE_P].val);
+			serialCodes[SERIAL_CODE_P].newVal = false;
+		}
+
+		// detect speed
+		if (serialCodes[SERIAL_CODE_S].newVal)
+		{
+			Grip.setSpeed(serialCodes[SERIAL_CODE_S].val);
+			serialCodes[SERIAL_CODE_S].newVal = false;
+		}
+
+		Grip.run();
+
+		// remember to clear O, C, P & S
+
+		MYSERIAL_PRINT_PGM("Grip:\t\t");
+		MYSERIAL_PRINTLN(Grip.getGripName());
+
+		MYSERIAL_PRINT_PGM("Direction:\t");
+		MYSERIAL_PRINTLN(dirStr[dir]);
+
+		MYSERIAL_PRINT_PGM("Position:\t");
+		MYSERIAL_PRINTLN(Grip.getPos());
+
+		MYSERIAL_PRINT_PGM("Speed:\t\t");
+		MYSERIAL_PRINTLN(Grip.getSpeed());
+
+		// if the hand is in a mode that means the fingers will not respond to serial control
+		printCurrentMode();		// print the current mode and the exit command
 	}
 	else
 	{
-		Grip.toggleDir();
+		MYSERIAL_PRINTLN_PGM("Grip Number Not Valid");
 	}
-
-	// detect position
-	if (serialCodes[SERIAL_CODE_P].newVal)
-	{
-		Grip.setPos(serialCodes[SERIAL_CODE_P].val);
-		serialCodes[SERIAL_CODE_P].newVal = false;
-	}
-
-	// detect speed
-	if (serialCodes[SERIAL_CODE_S].newVal)
-	{
-		Grip.setSpeed(serialCodes[SERIAL_CODE_S].val);
-		serialCodes[SERIAL_CODE_S].newVal = false;
-	}
-
-	Grip.run();
-
-	// remember to clear O, C, P & S
-
-	MYSERIAL_PRINT_PGM("Grip:\t\t");
-	MYSERIAL_PRINTLN(Grip.getGripName());
-
-	MYSERIAL_PRINT_PGM("Direction:\t");
-	MYSERIAL_PRINTLN(dirStr[Grip.getDir()]);
-
-	MYSERIAL_PRINT_PGM("Position:\t");
-	MYSERIAL_PRINTLN(Grip.getPos());
-
-	MYSERIAL_PRINT_PGM("Speed:\t\t");
-	MYSERIAL_PRINTLN(Grip.getSpeed());
-
-	// if the hand is in a mode that means the fingers will not respond to serial control
-	printCurrentMode();		// print the current mode and the exit command
 }
 
 // set hand type (NONE, LEFT, RIGHT)
