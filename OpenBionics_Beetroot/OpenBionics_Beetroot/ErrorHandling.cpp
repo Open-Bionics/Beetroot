@@ -73,6 +73,7 @@ ERROR_HANDLING::ERROR_HANDLING()
 	_errorList[ERROR_S_BUFF_OVFLOW].level = LEVEL_WARN;
 	_errorList[ERROR_S_BUFF_OVFLOW].description = "Serial buffer overflow";
 	_errorList[ERROR_S_BUFF_OVFLOW].LED.c1 = LED_BLUE_DIM;
+	_errorList[ERROR_S_BUFF_OVFLOW].duration = 5;					// display for 5s before clearing
 
 	// Error 007 - Warning CPU temperature has been reached
 	_errorList[ERROR_TEMP_WARNING].num = 7;
