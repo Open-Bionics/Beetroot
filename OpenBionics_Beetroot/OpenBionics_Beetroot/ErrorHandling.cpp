@@ -90,6 +90,11 @@ ERROR_HANDLING::ERROR_HANDLING()
 	_errorList[ERROR_TEMP_MAX].LED.c1 = LED_PINK_DIM;
 	_errorList[ERROR_TEMP_MAX].LED.blinkFreq = 2.5;				// 2.5Hz
 
+
+
+
+
+	_tempLvlLED = 0;		// value of the LED brightness before the override 
 }
 
 

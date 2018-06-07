@@ -1,18 +1,21 @@
-/*	I2C_IMU_LSM9DS1 - Open Bionics
+/*	Open Bionics - Carrot HC
 *	Author - Olly McBride
-*	Date - August 2016
+*	Date - February 2017
 *
 *	This work is licensed under the Creative Commons Attribution-ShareAlike 4.0 International License.
 *	To view a copy of this license, visit http://creativecommons.org/licenses/by-sa/4.0/.
+*
+*	Website - http://www.openbionics.com/
+*	GitHub - https://github.com/Open-Bionics
+*	Email - ollymcbride@openbionics.com
 *
 *	I2C_IMU_LSM9DS1.cpp
 *
 */
 
+
+
 /*	LSM9DS1 - 9 axis IMU, 3D accelerometer, 3D gyroscope, 3D magnetometer
-*
-*
-*
 *
 */
 
@@ -123,14 +126,20 @@ bool LSM9DS1::pingAccelGyro(void)
 {
 	uint8_t status;
 
+	
 	Wire.beginTransmission(settings.accel.addr);
 	status = Wire.endTransmission();
+	
 
 	// if return status is 'SUCCESS'
 	if (status == 0)
+	{
 		return true;
+	}
 	else
+	{
 		return false;
+	}
 }
 
 // check whether magnetometer is responding
@@ -138,14 +147,20 @@ bool LSM9DS1::pingMag(void)
 {
 	uint8_t status;
 
+	
 	Wire.beginTransmission(settings.mag.addr);
 	status = Wire.endTransmission();
+	
 
 	// if return status is 'SUCCESS'
 	if (status == 0)
+	{
 		return true;
+	}
 	else
+	{
 		return false;
+	}
 }
 
 // read the latest IMU data from the IMU
@@ -249,6 +264,7 @@ float LSM9DS1::getMagZ(void)
 float LSM9DS1::getTemp(void)
 {
 	return LSM9DS1_DEFAULT_TEMP + (_tempRaw / _tempRes);
+	//return  LSM9DS1_DEFAULT_TEMP + _tempRaw;
 }
 
 // get the roll value
@@ -547,6 +563,7 @@ uint8_t LSM9DS1::readMag(uint8_t reg)
 // read multiple bytes from the IMU
 void LSM9DS1::read(uint8_t addr, uint8_t reg, uint8_t *val, uint8_t size)
 {
+	
 	Wire.beginTransmission(addr);
 	Wire.write(reg);
 	Wire.endTransmission(REPEATED_START);
@@ -555,6 +572,7 @@ void LSM9DS1::read(uint8_t addr, uint8_t reg, uint8_t *val, uint8_t size)
 	{
 		val[i] = Wire.read();
 	}
+	
 }
 
 
@@ -599,6 +617,7 @@ void LSM9DS1::writeMag(uint8_t reg, uint8_t val)
 // write multiple bytes to the IMU
 void LSM9DS1::write(uint8_t addr, uint8_t reg, uint8_t *val, uint8_t size)
 {
+	
 	Wire.beginTransmission(addr);
 	Wire.write(reg);
 	for (uint8_t i = 0; i < size; i++)
@@ -606,6 +625,7 @@ void LSM9DS1::write(uint8_t addr, uint8_t reg, uint8_t *val, uint8_t size)
 		Wire.write(val[i]);
 	}
 	Wire.endTransmission();
+	
 }
 
 // enable/disable the FIFO buffer
