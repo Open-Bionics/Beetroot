@@ -53,7 +53,6 @@ typedef enum _ErrorLevel
 	LEVEL_WARN,				// warning level
 	LEVEL_ERROR,			// error level
 	LEVEL_FATAL,			// fatal error level
-	LEVEL_FATAL_S_DWN		// fatal error level (will cause the program to shut down)
 } ErrorLevel;
 
 

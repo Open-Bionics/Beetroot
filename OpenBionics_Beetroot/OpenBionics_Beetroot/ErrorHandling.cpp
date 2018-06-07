@@ -169,7 +169,7 @@ void ERROR_HANDLING::set(ErrorType error)
 	}
 
 	// if the error is of high severity, halt the program
-	if ((_currError->level == LEVEL_FATAL) || (_currError->level == LEVEL_FATAL_S_DWN))
+	if (_currError->level == LEVEL_FATAL)
 	{
 		for (int i = 0; i < 5; i++)
 		{
@@ -183,20 +183,6 @@ void ERROR_HANDLING::set(ErrorType error)
 			{
 				finger[i].motorEnable(false);
 			}
-		}
-
-		// if the error severity is set to shutdown
-		if (_currError->level == LEVEL_FATAL_S_DWN)
-		{
-			delay(3000);					// display error for a period
-			//systemShutdown();				// perform a safe shutdown of the hand
-			MYSERIAL.println("TODO - ADD SYSTEM RESET");
-			MYSERIAL.println("TODO - ADD SYSTEM RESET");
-			MYSERIAL.println("TODO - ADD SYSTEM RESET");
-			MYSERIAL.println("TODO - ADD SYSTEM RESET");
-			MYSERIAL.println("TODO - ADD SYSTEM RESET");
-			MYSERIAL.println("TODO - ADD SYSTEM RESET");
-			MYSERIAL.println("TODO - ADD SYSTEM RESET");
 		}
 
 		// halt program (if still running)
@@ -364,9 +350,6 @@ void ERROR_HANDLING::printErrorDescr(ErrorState *error, bool nl)
 		// print error state
 		switch (error->level)
 		{
-			case LEVEL_FATAL_S_DWN:
-				MYSERIAL_PRINT_PGM("Fatal Error (Shutting Down) ");
-				break;
 			case LEVEL_FATAL:
 				MYSERIAL_PRINT_PGM("Fatal Error ");
 				break;
