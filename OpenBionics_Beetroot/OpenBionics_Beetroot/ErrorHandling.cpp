@@ -135,26 +135,18 @@ void ERROR_HANDLING::set(ErrorType error)
 			_currError->LED.c2 = LED_BLACK;
 		}
 
-		//// if the error is of a high enough severity, override the LED brightness
-		//if (_currError->level >= LEVEL_ERROR)
-		//{
-		//	_tempLvlLED = LED.getBrightness();		// save the current LED brightness level
-		//	LED.setBrightness(OVRIDE_LVL_LED);
-		//}
+		// if the error is of a high enough severity, override the LED brightness
+		if (_currError->level >= LEVEL_ERROR)
+		{
+			_tempLvlLED = LED.getBrightness();		// save the current LED brightness level
+			LED.setBrightness(OVRIDE_LVL_LED);
+		}
 
-		//LED.setMode(LED_MODE_FADE);
-		//LED.setColour(_currError->LED.c1, _currError->LED.c2);	// set LED flashing colours
-		//LED.setDuration(0);										// clear duration, as the ERROR.run() will clear the LED after a duration
-		//LED.setFreq(_currError->LED.blinkFreq);					// set LED to be solid or to fade
-		//LED.show();												// show on the LED
-
-		MYSERIAL.println("TODO - ADD LED CONTROL FOR ERROR HANDLING");
-		MYSERIAL.println("TODO - ADD LED CONTROL FOR ERROR HANDLING");
-		MYSERIAL.println("TODO - ADD LED CONTROL FOR ERROR HANDLING");
-		MYSERIAL.println("TODO - ADD LED CONTROL FOR ERROR HANDLING");
-		MYSERIAL.println("TODO - ADD LED CONTROL FOR ERROR HANDLING");
-		MYSERIAL.println("TODO - ADD LED CONTROL FOR ERROR HANDLING");
-		MYSERIAL.println("TODO - ADD LED CONTROL FOR ERROR HANDLING");
+		LED.setMode(LED_MODE_FADE);
+		LED.setColour(_currError->LED.c1, _currError->LED.c2);	// set LED flashing colours
+		LED.setDuration(0);										// clear duration, as the ERROR.run() will clear the LED after a duration
+		LED.setFreq(_currError->LED.blinkFreq);					// set LED to be solid or to fade
+		LED.show();												// show on the LED
 	}
 
 	if (_currError->duration)								// if error has a duration 
