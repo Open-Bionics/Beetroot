@@ -72,7 +72,7 @@ void deviceSetup(void)
 
 	detectSerialConnection();	// wait for serial connection if flag is set
 
-	ERROR.clear();				// clear error state and set LED to green
+	ERROR.clear(ERROR_INIT);	// clear error state and set LED to green
 }
 
 // wait for serial connection if flag is set

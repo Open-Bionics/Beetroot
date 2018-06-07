@@ -29,7 +29,7 @@ ERROR_HANDLING::ERROR_HANDLING()
 	_errorList[ERROR_NONE].num = 0;
 	_errorList[ERROR_NONE].type = ERROR_NONE;
 	_errorList[ERROR_NONE].level = LEVEL_NONE;
-	_errorList[ERROR_NONE].LED.colour = LED_GREEN_DIM;
+	_errorList[ERROR_NONE].LED.c1 = LED_GREEN_DIM;
 	_errorList[ERROR_NONE].LED.blinkFreq = 0.5;				// 0.5Hz
 
 	// Error 001 - UNKNOWN ERROR
@@ -37,13 +37,13 @@ ERROR_HANDLING::ERROR_HANDLING()
 	_errorList[ERROR_UNKNOWN].type = ERROR_UNKNOWN;
 	_errorList[ERROR_UNKNOWN].level = LEVEL_ERROR;
 	_errorList[ERROR_UNKNOWN].description = "Unknown error occurred";
-	_errorList[ERROR_UNKNOWN].LED.colour = LED_YELLOW_DIM;
+	_errorList[ERROR_UNKNOWN].LED.c1 = LED_YELLOW_DIM;
 
 	// Error 002 - Initialisation sequence
 	_errorList[ERROR_INIT].num = 2;
 	_errorList[ERROR_INIT].type = ERROR_INIT;
 	_errorList[ERROR_INIT].level = LEVEL_INFO;
-	_errorList[ERROR_INIT].LED.colour = LED_ORANGE_DIM;
+	_errorList[ERROR_INIT].LED.c1 = LED_ORANGE_DIM;
 	_errorList[ERROR_INIT].LED.blinkFreq = 2.5;				// 2.5Hz
 
 	// Error 003 - EEPROM fails to respond to ping()
@@ -51,42 +51,42 @@ ERROR_HANDLING::ERROR_HANDLING()
 	_errorList[ERROR_EEPROM_INIT].type = ERROR_UNKNOWN;
 	_errorList[ERROR_EEPROM_INIT].level = LEVEL_FATAL;
 	_errorList[ERROR_EEPROM_INIT].description = "EEPROM is not detected during initialisation";
-	_errorList[ERROR_EEPROM_INIT].LED.colour = LED_RED_DIM;
+	_errorList[ERROR_EEPROM_INIT].LED.c1 = LED_RED_DIM;
 
 	// Error 004 -  Finger pins fail to initialise
 	_errorList[ERROR_FINGER_INIT].num = 4;
 	_errorList[ERROR_FINGER_INIT].type = ERROR_FINGER_INIT;
 	_errorList[ERROR_FINGER_INIT].level = LEVEL_FATAL;
 	_errorList[ERROR_FINGER_INIT].description = "Finger pins failed to initialise";
-	_errorList[ERROR_FINGER_INIT].LED.colour = LED_AQUA;
+	_errorList[ERROR_FINGER_INIT].LED.c1 = LED_AQUA;
 
 	// Error 005 - EEPROM settings overflow
 	_errorList[ERROR_EEPROM_SETTINGS].num = 5;
 	_errorList[ERROR_EEPROM_SETTINGS].type = ERROR_EEPROM_SETTINGS;
 	_errorList[ERROR_EEPROM_SETTINGS].level = LEVEL_FATAL;
 	_errorList[ERROR_EEPROM_SETTINGS].description = "Not enough EEPROM space for board settings";
-	_errorList[ERROR_EEPROM_SETTINGS].LED.colour = LED_PURPLE_DIM;
+	_errorList[ERROR_EEPROM_SETTINGS].LED.c1 = LED_PURPLE_DIM;
 
 	// Error 006 - Serial buffer overflow
 	_errorList[ERROR_S_BUFF_OVFLOW].num = 6;
 	_errorList[ERROR_S_BUFF_OVFLOW].type = ERROR_S_BUFF_OVFLOW;
 	_errorList[ERROR_S_BUFF_OVFLOW].level = LEVEL_WARN;
 	_errorList[ERROR_S_BUFF_OVFLOW].description = "Serial buffer overflow";
-	_errorList[ERROR_S_BUFF_OVFLOW].LED.colour = LED_BLUE_DIM;
+	_errorList[ERROR_S_BUFF_OVFLOW].LED.c1 = LED_BLUE_DIM;
 
 	// Error 007 - Warning CPU temperature has been reached
 	_errorList[ERROR_TEMP_WARNING].num = 7;
 	_errorList[ERROR_TEMP_WARNING].type = ERROR_TEMP_WARNING;
 	_errorList[ERROR_TEMP_WARNING].level = LEVEL_WARN;
 	_errorList[ERROR_TEMP_WARNING].description = "CPU temperature is high";
-	_errorList[ERROR_TEMP_WARNING].LED.colour = LED_PINK_DIM;
+	_errorList[ERROR_TEMP_WARNING].LED.c1 = LED_PINK_DIM;
 
 	// Error 008 - Maximum CPU temperature has been reached
 	_errorList[ERROR_TEMP_MAX].num = 8;
 	_errorList[ERROR_TEMP_MAX].type = ERROR_TEMP_MAX;
 	_errorList[ERROR_TEMP_MAX].level = LEVEL_FATAL;
 	_errorList[ERROR_TEMP_MAX].description = "CPU has reached maximum temperature";
-	_errorList[ERROR_TEMP_MAX].LED.colour = LED_PINK_DIM;
+	_errorList[ERROR_TEMP_MAX].LED.c1 = LED_PINK_DIM;
 	_errorList[ERROR_TEMP_MAX].LED.blinkFreq = 2.5;				// 2.5Hz
 
 }
@@ -97,44 +97,79 @@ ERROR_HANDLING::ERROR_HANDLING()
 // initialise error handling and display any stored errors
 void ERROR_HANDLING::begin(void)
 {
-	enableLEDcontrol();					// enable error handling to control the LED
+	enableLEDcontrol(true);					// enable error handling to control the LED
 
-	//_error = ERROR_NONE;				// clear the current error flag
-
-	_currError = &_errorList[ERROR_NONE];
+	_currError = &_errorList[ERROR_NONE];	// start pointer with no error
+	ERROR.set(ERROR_NONE);					// start with no errors (LED, etc)
 }
 
 // set an error state and perform the appropriate actions
 void ERROR_HANDLING::set(ErrorType error)
 {
-	//// if the new error is lower severity than the current error and is not being cleared, return
-	//if ((_errorList[error].severity < _currError->severity) && (error != ERROR_NONE))
-	//	return;
-
-	// if the new error is the same as the current error, do not set again
-	if (_currError->type == _errorList[error].type)
-		return;
-
-	// store error
-	_currError = &_errorList[error];
-	storeError(_currError->type);
-
-	// if error handling has control of the NeoPixel
-	if (_ctrlLED)
+	// if the enterred error number is out of bounds, set unknown error state
+	if (error >= MAX_NUM_ERRORS)
 	{
-		LED.setColour(_currError->LED.colour);				// set LED colour
-		LED.setFadeFreq(_currError->LED.blinkFreq);			// set LED to be solid or to fade
-		LED.show();
-
-		if (_currError->level == LEVEL_WARN)				// if error is a WARNING
-			warnTimer.start(WARNING_DURATION);				// start timer to that the warning can be cleared
+		error = ERROR_UNKNOWN;
 	}
 
-	if(error != ERROR_NONE)
+	// if the new error has a lower severity/level than the current level, and error isn't being cleared 
+	if ((_errorList[error].level <= _currError->level) && (error != ERROR_NONE))
+	{
+		return;						// do not run the lower error level
+	}
+	// else if the new error has a greater severity/level than the current level
+	else if (_errorList[error].level > _currError->level)
+	{
+		clear(_currError->type);	// clear the error state (and roll back the LED history)
+	}
+
+	// point to error properties
+	_currError = &_errorList[error];
+	//storeError(_currError->type);			// WARNING. THIS CAUSES THE PROGRAM TO HANG
+
+	// if error handling has control of the NeoPixel and there is a colour to show
+	if (_ctrlLED && (_currError->LED.c1 != NO_LED_COLOUR))
+	{
+		if (_currError->LED.c2 == NO_LED_COLOUR)
+		{
+			_currError->LED.c2 = LED_BLACK;
+		}
+
+		//// if the error is of a high enough severity, override the LED brightness
+		//if (_currError->level >= LEVEL_ERROR)
+		//{
+		//	_tempLvlLED = LED.getBrightness();		// save the current LED brightness level
+		//	LED.setBrightness(OVRIDE_LVL_LED);
+		//}
+
+		//LED.setMode(LED_MODE_FADE);
+		//LED.setColour(_currError->LED.c1, _currError->LED.c2);	// set LED flashing colours
+		//LED.setDuration(0);										// clear duration, as the ERROR.run() will clear the LED after a duration
+		//LED.setFreq(_currError->LED.blinkFreq);					// set LED to be solid or to fade
+		//LED.show();												// show on the LED
+
+		MYSERIAL.println("TODO - ADD LED CONTROL FOR ERROR HANDLING");
+		MYSERIAL.println("TODO - ADD LED CONTROL FOR ERROR HANDLING");
+		MYSERIAL.println("TODO - ADD LED CONTROL FOR ERROR HANDLING");
+		MYSERIAL.println("TODO - ADD LED CONTROL FOR ERROR HANDLING");
+		MYSERIAL.println("TODO - ADD LED CONTROL FOR ERROR HANDLING");
+		MYSERIAL.println("TODO - ADD LED CONTROL FOR ERROR HANDLING");
+		MYSERIAL.println("TODO - ADD LED CONTROL FOR ERROR HANDLING");
+	}
+
+	if (_currError->duration)								// if error has a duration 
+	{
+		errorDuration.start(_currError->duration * 1000.0);	// start timer to that the warning can be cleared (convert s to ms)
+	}
+
+	// print the error description
+	if (error != ERROR_NONE)
+	{
 		printErrorDescr(_currError);
+	}
 
 	// if the error is of high severity, halt the program
-	if (_currError->level == LEVEL_FATAL)
+	if ((_currError->level == LEVEL_FATAL) || (_currError->level == LEVEL_FATAL_S_DWN))
 	{
 		for (int i = 0; i < 5; i++)
 		{
@@ -150,53 +185,114 @@ void ERROR_HANDLING::set(ErrorType error)
 			}
 		}
 
-		// halt program
+		// if the error severity is set to shutdown
+		if (_currError->level == LEVEL_FATAL_S_DWN)
+		{
+			delay(3000);					// display error for a period
+			//systemShutdown();				// perform a safe shutdown of the hand
+			MYSERIAL.println("TODO - ADD SYSTEM RESET");
+			MYSERIAL.println("TODO - ADD SYSTEM RESET");
+			MYSERIAL.println("TODO - ADD SYSTEM RESET");
+			MYSERIAL.println("TODO - ADD SYSTEM RESET");
+			MYSERIAL.println("TODO - ADD SYSTEM RESET");
+			MYSERIAL.println("TODO - ADD SYSTEM RESET");
+			MYSERIAL.println("TODO - ADD SYSTEM RESET");
+		}
+
+		// halt program (if still running)
 		while (1);
 	}
 };
 
-// clear the error state
-void ERROR_HANDLING::clear(void)
+//// clear the error state
+//void ERROR_HANDLING::clear(void)
+//{
+//	set(ERROR_NONE);
+//}
+
+// only clear the error state if it is the same as the one passed to the function
+bool ERROR_HANDLING::clear(ErrorType error)
 {
-	set(ERROR_NONE);
+	if (error == _currError->type)
+	{
+		// if error handling has control of the NeoPixel and there is a colour to show
+		if (_ctrlLED && (_currError->LED.c1 != NO_LED_COLOUR))
+		{
+			// if the error is of a high enough severity, revert the vibration intensity to the pre-override val
+			if (_currError->level >= LEVEL_ERROR)
+			{
+				//LED.setBrightness(_tempLvlLED);
+				MYSERIAL_PRINTLN_PGM("TODO - SET BRIGHTNESS HERE");
+				MYSERIAL_PRINTLN_PGM("TODO - SET BRIGHTNESS HERE");
+				MYSERIAL_PRINTLN_PGM("TODO - SET BRIGHTNESS HERE");
+				MYSERIAL_PRINTLN_PGM("TODO - SET BRIGHTNESS HERE");
+				MYSERIAL_PRINTLN_PGM("TODO - SET BRIGHTNESS HERE");
+				MYSERIAL_PRINTLN_PGM("TODO - SET BRIGHTNESS HERE");
+				MYSERIAL_PRINTLN_PGM("TODO - SET BRIGHTNESS HERE");
+				MYSERIAL_PRINTLN_PGM("TODO - SET BRIGHTNESS HERE");
+				MYSERIAL_PRINTLN_PGM("TODO - SET BRIGHTNESS HERE");
+			}
+
+			LED.showPrev();
+
+
+			// NOTE. THIS MAY RESET THE BRIGHTNESS
+		}
+
+		set(ERROR_NONE);	// set the error to none (moved to LED index 2)
+
+							//clear();
+		return true;
+	}
+	else
+	{
+		return false;
+	}
 }
 
 // clear any warnings after a set period and check for fatal errors
 void ERROR_HANDLING::run(void)
 {
-	// if warning is set & duration has passed
-	if (warnTimer.started() && warnTimer.finished() && (_currError->level == LEVEL_WARN))
+	// if error is set & duration has passed
+	if (errorDuration.started() && errorDuration.finished())
 	{
-		LED.showPrev();		// set LED to previous colour
-		clear();			// clear warning flag
-
-		MYSERIAL.println("Clearing Warning");
+		//LED.showPrev();		// set LED to previous state
+		clear(_currError->type);	// clear error flag
 	}
 }
 
 // get the current error state
 ErrorType ERROR_HANDLING::get(void)
 {
+	if (_currError == nullptr)
+	{
+		_currError = &_errorList[ERROR_UNKNOWN];
+	}
+
 	return _currError->type;
 }
 
 // check whether a specific error state is set
 bool ERROR_HANDLING::isSet(ErrorType error)
 {
+	if (!_currError)
+	{
+		_currError = &_errorList[ERROR_UNKNOWN];
+	}
+
 	return (error == _currError->type);
+
 }
 
 // print the current error state
-void ERROR_HANDLING::printCurrent(void)
+void ERROR_HANDLING::printCurrent(bool nl)
 {
-	if (_currError->type == ERROR_NONE)
+	if (!_currError)
 	{
-		MYSERIAL_PRINTLN_PGM("No Errors");
+		_currError = &_errorList[ERROR_UNKNOWN];
 	}
-	else
-	{
-		printErrorDescr(_currError);
-	}
+
+	printErrorDescr(_currError);
 }
 
 // check EEPROM for previous errors
@@ -223,16 +319,10 @@ void ERROR_HANDLING::checkPrevError(void)
 	}
 }
 
-// enable error handling to control the tri-colour LED (NeoPixel)
-void ERROR_HANDLING::enableLEDcontrol()
+// enable error handling to control the tri-c1 LED (NeoPixel)
+void ERROR_HANDLING::enableLEDcontrol(bool en)
 {
-	_ctrlLED = true;
-}
-
-// disable error handling to control the tri-colour LED (NeoPixel)
-void ERROR_HANDLING::disableLEDcontrol()
-{
-	_ctrlLED = false;
+	_ctrlLED = en;
 }
 
 ErrorState ERROR_HANDLING::loadError(void)
@@ -254,46 +344,68 @@ void ERROR_HANDLING::storeError(ErrorType error)
 
 ////////////////////////////// Private Methods //////////////////////////////
 // print the error number and description
-void ERROR_HANDLING::printErrorDescr(ErrorState *error)
+void ERROR_HANDLING::printErrorDescr(ErrorState *error, bool nl)
 {
 	if (!IS_BETWEEN(error->num, 0, MAX_NUM_ERRORS))
 	{
 		MYSERIAL_PRINT_PGM("Error - Error not an error");
+
+		if (nl)
+		{
+			MYSERIAL_PRINT_PGM("\n");
+		}
+
 		return;
-	}
-	
-	// print error state
-	if (error->level == LEVEL_FATAL)
-	{
-		MYSERIAL_PRINT_PGM("Fatal Error ");
-	}
-	else if(error->level == LEVEL_ERROR)
-	{
-		MYSERIAL_PRINT_PGM("Error ");
-	}
-	else if(error->level == LEVEL_WARN)
-	{
-		MYSERIAL_PRINT_PGM("Warning ");
-	}
-	else if(error->level == LEVEL_DEBUG)
-	{
-		MYSERIAL_PRINT_PGM("Debug ");
 	}
 
 	// if there is an error description
 	if (error->description)
 	{
+		// print error state
+		switch (error->level)
+		{
+			case LEVEL_FATAL_S_DWN:
+				MYSERIAL_PRINT_PGM("Fatal Error (Shutting Down) ");
+				break;
+			case LEVEL_FATAL:
+				MYSERIAL_PRINT_PGM("Fatal Error ");
+				break;
+			case LEVEL_ERROR:
+				MYSERIAL_PRINT_PGM("Error ");
+				break;
+			case LEVEL_WARN:
+				MYSERIAL_PRINT_PGM("Warning ");
+				break;
+			case LEVEL_INFO:
+				MYSERIAL_PRINT_PGM("Info ");
+				break;
+			case LEVEL_DEBUG:
+				MYSERIAL_PRINT_PGM("Debug ");
+				break;
+			default:
+				break;
+		}
+
 		// print error number
 		if (error->num < 100)
+		{
 			MYSERIAL_PRINT_PGM("0");
+		}
 		if (error->num < 10)
+		{
 			MYSERIAL_PRINT_PGM("0");
+		}
 		MYSERIAL_PRINT(error->num);
 
 		MYSERIAL_PRINT_PGM(" - ");
 
 		// print error description
-		MYSERIAL_PRINT(error->description);
+		MYSERIAL_PRINT_PGM(error->description);
+	}
+
+	if (nl)
+	{
+		MYSERIAL_PRINT_PGM("\n");
 	}
 }
 
