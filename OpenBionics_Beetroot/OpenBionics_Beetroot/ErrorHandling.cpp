@@ -199,20 +199,10 @@ bool ERROR_HANDLING::clear(ErrorType error)
 			// if the error is of a high enough severity, revert the vibration intensity to the pre-override val
 			if (_currError->level >= LEVEL_ERROR)
 			{
-				//LED.setBrightness(_tempLvlLED);
-				MYSERIAL_PRINTLN_PGM("TODO - SET BRIGHTNESS HERE");
-				MYSERIAL_PRINTLN_PGM("TODO - SET BRIGHTNESS HERE");
-				MYSERIAL_PRINTLN_PGM("TODO - SET BRIGHTNESS HERE");
-				MYSERIAL_PRINTLN_PGM("TODO - SET BRIGHTNESS HERE");
-				MYSERIAL_PRINTLN_PGM("TODO - SET BRIGHTNESS HERE");
-				MYSERIAL_PRINTLN_PGM("TODO - SET BRIGHTNESS HERE");
-				MYSERIAL_PRINTLN_PGM("TODO - SET BRIGHTNESS HERE");
-				MYSERIAL_PRINTLN_PGM("TODO - SET BRIGHTNESS HERE");
-				MYSERIAL_PRINTLN_PGM("TODO - SET BRIGHTNESS HERE");
+				LED.setBrightness(_tempLvlLED);
 			}
 
 			LED.showPrev();
-
 
 			// NOTE. THIS MAY RESET THE BRIGHTNESS
 		}
