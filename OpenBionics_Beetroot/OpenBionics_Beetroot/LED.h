@@ -25,7 +25,7 @@
 #define NEOPIXEL_NUM_PIXELS		1		// number of NeoPixels attached
 
 // LED CONTROL SETTINGS
-#define LED_FADE_RES			32		// fade resolution, i.e. number of steps per colour gradient change
+#define LED_FADE_RES			32		// fade resolution, i.e. number of steps per c1 gradient change
 #define LED_MAX_HISTORY			8		// maximum number of previous LED details to store
 
 // COLOUR MACRO
@@ -49,7 +49,7 @@
 #define LED_AQUA		CONVERT_RGB(0, 255, 255)
 #define LED_AQUA_DIM	CONVERT_RGB(0, 128, 128)
 #define LED_WHITE		CONVERT_RGB(255, 255, 255)
-#define LED_WHITE_DIM	CONVERT_RGB(128, 128, 128)
+#define LED_WHITE_DIM	CONVERT_RGB(90, 90, 90)
 #define LED_BLACK		0
 #define LED_OFF			0
 
@@ -57,13 +57,12 @@
 typedef enum _LEDMode
 {
 	LED_MODE_SOLID = 0,		// solid on/off
-	LED_MODE_BLINK,			// blinking between two colours
+	LED_MODE_FLASH,			// flashing between two colours
 	LED_MODE_FADE			// fading between two colours
 } LEDMode;
 
-
 // COLOUR TYPE
-typedef  struct _RGBComp
+typedef struct _RGBComp_t
 {
 	uint8_t b;			// blue
 	uint8_t g;			// green
@@ -71,85 +70,118 @@ typedef  struct _RGBComp
 	uint8_t w;			// white (unused)
 } RGBComp_t;
 
-typedef struct _Colour
+typedef struct _Colour_t
 {
 	union
 	{
 		RGBComp_t rgb;	// RGBW components
-		uint32_t c;		// 32-bit colour value
+		uint32_t c = 0;	// 32-bit colour value
 	};
+
+	// compare Colour_t structs
+	bool operator==(const _Colour_t& comp) const
+	{
+		return c == comp.c;		// only compare the c values, as they are a union of RGBW values
+	}
 } Colour_t;
 
 // LED MODE, COLOURS & RATE
-typedef struct _LEDDetails
+typedef struct _LEDDetails_t
 {
-	LEDMode mode;		// SOLID, BLINK, FADE
+	LEDMode mode;			// SOLID, FLASH, FADE
 
-	Colour_t c1;		// 32-bit or RGBW colour
-	Colour_t c2;		// 32-bit or RGBW colour 
+	Colour_t c1;			// 32-bit or RGBW colour
+	Colour_t dim1;			// 32-bit or RGBW colour adjusted using the _brightness modifier
 
-	double period_ms;	// ms. blink period
-	double dur_ms = 0;	// ms. run duration (0 is constant)
+	Colour_t c2;			// 32-bit or RGBW colour 
+	Colour_t dim2;			// 32-bit or RGBW colour adjusted using the _brightness modifier
 
-	MS_NB_DELAY runTimer;				// duration timer
-	MS_NB_DELAY pulseTimer;			// time to pulse
-	bool pulseState;				// pulsing up/down
+	long pulsePer_ms = 0;	// ms. flash/fade period (period for complete on & off cycle)
+	bool pulseDir = 0;		// LED flashing/fading on/up or off/down
+
+	long fadePer_ms = 0;	// ms. time between the colour step changes during a fade
+	MS_NB_DELAY stepTimer;	// timer between colour fade steps
+	uint16_t fadeStep = 1;	// current fade step between the two colours
+
+	long durPer_ms = 0;		// ms. run duration (0 = run constantly)
+	MS_NB_DELAY durTimer;	// timer used to stop a pattern if it is set to only run for a set duration
+
+							// compare LEDDetails_t structs (mode, colour, periods)
+	bool operator==(const _LEDDetails_t& comp) const
+	{
+		return	mode == comp.mode		&&
+			c1 == comp.c1			&&
+			dim1 == comp.dim1		&&
+			c2 == comp.c2			&&
+			dim2 == comp.dim2		&&
+			pulsePer_ms == comp.pulsePer_ms	&&
+			fadePer_ms == comp.fadePer_ms	&&
+			durPer_ms == comp.durPer_ms;
+	}
 } LEDDetails_t;
+
 
 
 // LED CONTROL CLASS
 class LED_CLASS
 {
-public:
-	LED_CLASS();
-	~LED_CLASS();
+	public:
+		LED_CLASS();
 
-	void begin(void);					// initialise the NeoPixel
+		void begin(void);										// initialise the NeoPixel
 
-	void setColour(uint32_t c1, uint32_t c2);				// set the two blink/fade LED colours
-	void setColour(uint32_t c1);							// set the one solid/blink/fade colour
-	void setColour(uint8_t r, uint8_t g, uint8_t b);		// set the one solid/blink/fade colour using RGB components
+		void setMode(LEDMode mode);								// set the LED display mode (SOLID, FLASH, FADE)
 
-	uint32_t getColour(void);								// get the one solid/blink/fade colour
+		void setColour(uint32_t c1, uint32_t c2 = LED_OFF);		// set the two LED colours
+		void setColour(uint8_t r, uint8_t g, uint8_t b);		// set the one LED c1 using RGB components
 
-	void setColourPercent(uint32_t c1, uint32_t c2, uint8_t percent);	// set the colour to be a percentage between 2 colours (0 - 100)
+		void setBrightness(uint8_t brightness);					// set the global brightness modifier (0 - 100)
+		uint8_t getBrightness(void);							// get the global brightness modifier (0 - 100)
 
-	void setSolid(void);
-	void setBlink(uint32_t c1, uint32_t c2 = LED_BLACK);				// set two blink colours
-	void setFade(uint32_t c1, uint32_t c2 = LED_BLACK);					// set two fade colours
+		void setFreq(float freq);								// set the flash/fade frequency
 
-	void setFlash(uint32_t c1, uint8_t nFlash, float freq = 4.0);		// flash a colour (c1 - BLACK) a number of times at freq
+		void setDuration(uint16_t dur);							// duration to display the current mode before returning to previous (0 is constant)
 
-	void setBlinkFreq(float freq);		// set blink frequency
-	void setFadeFreq(float freq);		// set fade frequency
-	void setDuration(uint16_t dur);		// duration to display the current mode before returning to previous (0 is constant)
+		void setNumCycles(uint8_t nCycles);						// set the number of flash/fades
 
-	void show(void);					// show the 'temporary' LED details and store in history (_prevLED[])
-	void showPrev(void);				// set LED to previous mode/colours/freq
-	void resetHistory(void);			// reset the LED history
+		void show(void);				// show the 'temporary' LED details and store in history (_LEDHistory[])
+		void showPrev(void);			// set LED to previous mode/colours/freq
+		void resetHistory(void);		// reset the LED history
 
-	void off(void);						// turn off the LED
+		void pauseInterrupt(void);		// prevent the run() interrupt from using _currLED, so that it can be modified
+		void resumeInterrupt(void);		// re-enable access to _currLED
+		void run(void);					// run the LED solid/flash/fade
 
-	void run(void);						// run the LED solid/blink/fade
+		// DEBUG
+		//void printDetails(void);
+		//void printStruct(LEDDetails_t *details);
+		//void printMode(LEDMode mode);
+		//void printColour(int cNum, Colour_t *c, Colour_t *dim);
+		//void printTimer(NB_DELAY_CLASS *timer);
 
-private:
-	Adafruit_NeoPixel pixel = Adafruit_NeoPixel(NEOPIXEL_NUM_PIXELS, NEOPIXEL_PIN);
+	private:
+		Adafruit_NeoPixel pixel = Adafruit_NeoPixel(NEOPIXEL_NUM_PIXELS, NEOPIXEL_PIN);
 
-	uint8_t _index = 0;				// position of current LED details within _prevLED[] list
-	const int _pNum = 0;			// pixel number
+		const int _pNum = 0;			// pixel number
+		uint8_t _index;					// position of current LED details within _LEDHistory[] list
+		float _brightness;				// global brightness modifier (0 - 1)
 
-	LEDDetails_t _tempLED;					// variable to store the new/unsaved LED details
-	LEDDetails_t _prevLED[LED_MAX_HISTORY];	// list of a number of previous LED details
-	LEDDetails_t *_currLED = nullptr;		// pointer to the current set of LED details
+		bool _interruptEn;				// flag to prevent race condition
 
-	void setMode(LEDMode mode);		// set the LED display mode (SOLID, BLINK, FADE)
-	void setFreq(float freq);		// set the blink/fade frequency
+		LEDDetails_t _tempLED;						// variable to store the new/unsaved LED details
+		LEDDetails_t _LEDHistory[LED_MAX_HISTORY];	// list of a number of previous LED details
+		LEDDetails_t *_currLED = nullptr;			// pointer to the current set of LED details
 
-	void runSolid(void);			// set the LED to a solid colour
-	void runBlink(void);			// blink the LED between two colours
-	void runFade(void);				// fade the LED between two colours
+		void moveToLEDIndex(uint8_t i, bool save = false);
 
-	uint32_t calcFade(Colour_t c1, Colour_t c2, uint8_t step, uint8_t maxSteps);		// calculate the colour at a particular point between two colours
+		void runMode(LEDMode mode);		// select a mode to run
+		void runSolid(void);			// set the LED to a solid colour
+		void runFlash(void);			// flash the LED between two colours
+		void runFade(void);				// fade the LED between two colours
+
+
+		Colour_t calcBrightness(Colour_t &c1);												// calculate the colour with all RGB values modified by the _brightness modifier
+		Colour_t calcFade(Colour_t &c1, Colour_t &c2, uint8_t step, uint8_t maxSteps);		// calculate the c1 at a particular point between two colours
 };
 
 extern LED_CLASS LED;

@@ -31,6 +31,7 @@
 
 // LED
 #define NO_LED_COLOUR				((uint32_t)(-1))
+#define OVRIDE_LVL_LED				75			// LED brightness override level
 
 typedef enum _ErrorType
 {
@@ -104,6 +105,8 @@ class ERROR_HANDLING
 	private:
 		ErrorState *_currError = NULL;						// current error
 		ErrorState _errorList[MAX_NUM_ERRORS];				// list of all errors
+
+		uint8_t _tempLvlLED;								// value of the LED brightness before the override
 
 		MS_NB_DELAY errorDuration;							// timer used to clear warning after a set duration
 
