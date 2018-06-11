@@ -91,6 +91,12 @@ void printDeviceInfo(void);			// print board & firmware version, hand type and m
 
 void systemMonitor(void);			// monitor system status
 
+float readTemperature(void);		// read the device temperature, in °C
+float readMinTemp(void);			// read the minimum temperature reached since power-on
+float readMaxTemp(void);			// read the maximum temperature reached since power-on
+void monitorTemperature(void);		// check the temperature, throw warnings/errors or shutdown if too high
+
+
 extern Settings settings;			// board settings
 
 

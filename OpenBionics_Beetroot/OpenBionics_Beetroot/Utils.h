@@ -19,19 +19,6 @@
 #include "Globals.h"
 #include "I2C_EEPROM.h"
 
-///////////////////////////////////// CPU TEMP CONSTANTS ///////////////////////////////////////
-#define CPU_TEMP_CMIN		25.0	// °C   Nominal operating temperature
-#define CPU_TEMP_TMIN		-40.0	// °C	Minimum operating temperature
-#define CPU_TEMP_TMAX		85.0	// °C	Maximum operating temperature
-#define CPU_TEMP_VMAX		3.63	// V	Minimum operating voltage
-#define CPU_TEMP_VMIN		1.62	// V	Maximum operating voltage
-#define CPU_TEMP_VOUTMAX	0.667	// V	Temperature sensor output voltage
-#define CPU_TEMP_AREF		3.3		// V	Analogue reference
-#define CPU_TEMP_ARES		10		// bit	ADC resolution
-
-float readCPUTemp(void);			// read the CPU temperature, in °C
-
-
 ///////////////////////////////////// EEPROM WRITE STRUCT ///////////////////////////////////////
 // write any data type to EEPROM
 template <class T> int EEPROM_writeStruct(int ee, const T& value)

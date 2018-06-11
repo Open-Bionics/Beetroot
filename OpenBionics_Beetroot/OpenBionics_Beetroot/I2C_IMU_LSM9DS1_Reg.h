@@ -1,9 +1,13 @@
-/*	I2C_IMU_LSM9DS1 - Open Bionics
+/*	Open Bionics - Carrot HC
 *	Author - Olly McBride
-*	Date - August 2016
+*	Date - February 2017
 *
 *	This work is licensed under the Creative Commons Attribution-ShareAlike 4.0 International License.
 *	To view a copy of this license, visit http://creativecommons.org/licenses/by-sa/4.0/.
+*
+*	Website - http://www.openbionics.com/
+*	GitHub - https://github.com/Open-Bionics
+*	Email - ollymcbride@openbionics.com
 *
 *	I2C_IMU_LSM9DS1_Reg.h
 *
@@ -15,7 +19,7 @@
 #include <Arduino.h>
 
 #define LSM9DS1_NUM_AXIS		3			// X, Y, Z
-#define LSM9DS1_DEFAULT_TEMP	30
+#define LSM9DS1_DEFAULT_TEMP	25			// 'C. 25'C = 0
 
 //////////////////////////////////////////////////////////////////
 //							REGISTERS							//

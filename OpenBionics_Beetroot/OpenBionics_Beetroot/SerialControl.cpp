@@ -691,14 +691,9 @@ void serial_systemDiagnostics(int val)
 	printTime_ms(millis());
 	MYSERIAL_PRINT_PGM("\n");
 
-	// print CPU temperature
-	MYSERIAL_PRINT_PGM("CPU Temp:\t");
-	MYSERIAL_PRINT(readCPUTemp());
-	MYSERIAL_PRINTLN_PGM("'C");
-
 	// print IMU temperature
 	IMU.poll();
-	MYSERIAL_PRINT_PGM("IMU Temp:\t");
+	MYSERIAL_PRINT_PGM("Temp:\t");
 	MYSERIAL_PRINT(IMU.getTemp());
 	MYSERIAL_PRINTLN_PGM("'C");
 
