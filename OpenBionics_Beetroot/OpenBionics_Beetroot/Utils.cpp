@@ -134,7 +134,7 @@ void printTime_ms(uint32_t ms)
 
 	// convert ms to s
 	s = ms / 1000;
-	
+
 	// days
 	d = s / 86400;
 	s = s % 86400;
@@ -146,20 +146,34 @@ void printTime_ms(uint32_t ms)
 	// minutes
 	m = s / 60;
 
+	// seconds
+	s = s % 60;
 
-	if (d<10)
+
+	if (d < 10)
+	{
 		MYSERIAL_PRINT_PGM("0");
+	}
 	MYSERIAL_PRINT(d);
 	MYSERIAL_PRINT_PGM(":");
-	if (h<10)
+
+	if (h < 10)
+	{
 		MYSERIAL_PRINT_PGM("0");
+	}
 	MYSERIAL_PRINT(h);
 	MYSERIAL_PRINT_PGM(":");
-	if (m<10)
+
+	if (m < 10)
+	{
 		MYSERIAL_PRINT_PGM("0");
+	}
 	MYSERIAL_PRINT(m);
 	MYSERIAL_PRINT_PGM(":");
-	if (s<10)
+
+	if (s < 10)
+	{
 		MYSERIAL_PRINT_PGM("0");
+	}
 	MYSERIAL_PRINT(s);
 }
