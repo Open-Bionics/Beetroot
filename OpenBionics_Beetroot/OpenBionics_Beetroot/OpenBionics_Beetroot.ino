@@ -18,13 +18,18 @@
 
 #include "Globals.h"
 
-#include "Demo.h"
-#include "EMGControl.h"
-#include "Grips.h"
-#include "HANDle.h"
-#include "Initialisation.h"
-#include "SerialControl.h"
+#include "Demo.h"							// DEMO
+#include "EMGControl.h"						// EMG
+#include "Grips.h"							// Grip
+#include "HANDle.h"							// HANDle
+#include "Initialisation.h"					// settings, deviceSetup, systemMonitor 
+#include "SerialControl.h"					// pollSerial
+#include "Watchdog.h"						// Watchdog
 
+
+// DEBUG
+#include "ErrorHandling.h"
+volatile int debugVal = 0;
 
 void setup() 
 {
@@ -68,6 +73,8 @@ void loop()
 
 	// process any received serial characters
 	pollSerial();
+
+	Watchdog.reset();
 }
 
 

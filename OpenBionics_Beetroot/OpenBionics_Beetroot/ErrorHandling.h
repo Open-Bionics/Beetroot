@@ -44,8 +44,7 @@ typedef enum _ErrorType
 	ERROR_S_BUFF_OVFLOW,	// 6 serial buffer overflow
 	ERROR_TEMP_WARNING,		// 7 warning CPU temperature has been reached
 	ERROR_TEMP_MAX,			// 8 maximum CPU temperature has been reached
-	ERROR_INACTIVE_S_DWN,	// 9 Shutdown down due to inactivity
-	ERROR_WATCHDOG,			// 10 Watchdog timer triggered
+	ERROR_WATCHDOG,			// 9 Watchdog timer triggered
 } ErrorType;
 
 typedef enum _ErrorLevel
