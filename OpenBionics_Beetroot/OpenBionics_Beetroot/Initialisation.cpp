@@ -29,6 +29,7 @@
 #include "I2C_EEPROM.h"						// EEPROM
 #include "LED.h"							// NeoPixel
 #include "SerialControl.h"					// init char codes
+#include "Watchdog.h"						// Watchdog
 
 static CIRCLE_BUFFER <float> tempBuff;		// temperature circular buffer
 
@@ -37,6 +38,8 @@ Settings settings;		// board settings
 // board initialisation sequence
 void deviceSetup(void)
 {
+	Watchdog.begin(WATCHDOG_RESET_PER);	// enable the Watchdog timer 
+
 #if defined (SERIAL_JACK_CONTROL)
 	setHeadphoneJack(JACK_SERIAL);	// configure headphone jack to Serial
 #else
@@ -75,6 +78,8 @@ void deviceSetup(void)
 	detectSerialConnection();	// wait for serial connection if flag is set
 
 	ERROR.clear(ERROR_INIT);	// clear error state and set LED to green
+
+	Watchdog.reset();
 }
 
 // wait for serial connection if flag is set
@@ -82,7 +87,10 @@ void detectSerialConnection(void)
 {
 	if (settings.waitForSerial)			// if flag is set
 	{
-		while (!MYSERIAL);					// wait for serial connection
+		while (!MYSERIAL)				// wait for serial connection
+		{
+			Watchdog.reset();
+		}
 		MYSERIAL_PRINTLN_PGM("Started");
 	}
 }
