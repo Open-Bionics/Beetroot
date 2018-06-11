@@ -30,6 +30,8 @@
 #include "LED.h"							// NeoPixel
 #include "SerialControl.h"					// init char codes
 
+static CIRCLE_BUFFER <float> tempBuff;		// temperature circular buffer
+
 Settings settings;		// board settings
 
 // board initialisation sequence
@@ -276,15 +278,80 @@ void systemMonitor(void)
 
 	if (timer_1s.timeElapsed(1000))
 	{
-		// monitor CPU temperature
-		if (readCPUTemp() >= CPU_TEMP_MAX)
+		// monitor board temperature
+		monitorTemperature();	// duration 12.5ms (21/02/18)
+
+	}
+}
+
+// read the device temperature, in °C
+float readTemperature(void)
+{
+	const uint8_t buffSize = 16;			// temperature buffer size
+	static bool init = false;				// initialisation flag
+
+											// on the first run, load the buffer with battery values
+	if (!init)
+	{
+		//Comms.println("Init temperature buff");
+
+		tempBuff.begin(buffSize);			// init the buffer
+
+		for (int i = 0; i < buffSize; i++)
 		{
-			ERROR.set(ERROR_TEMP_MAX);
+			IMU.poll();
+			tempBuff.write(IMU.getTemp());	// fill the buffer with temperature values
 		}
-		else if (readCPUTemp() >= CPU_TEMP_WARNING)
+		init = true;
+	}
+
+	IMU.poll();
+	tempBuff.write(IMU.getTemp());	// fill the buffer with temperature values
+
+	return tempBuff.read();
+}
+
+// read the minimum temperature reached since power-on
+float readMinTemp(void)
+{
+	return tempBuff.readMin();
+}
+
+// read the maximum temperature reached since power-on
+float readMaxTemp(void)
+{
+	return tempBuff.readMax();
+}
+
+// check the temperature, throw warnings/errors or shutdown if too high
+void monitorTemperature(void)
+{
+	float temp = readTemperature();
+
+	// monitor CPU temperature
+	if (temp >= CPU_TEMP_MAX)				// if device is too hot to continue	
+	{
+		if (!ERROR.isSet(ERROR_TEMP_MAX))
 		{
-			ERROR.set(ERROR_TEMP_WARNING);
+			for (uint8_t i = 0; i < NUM_FINGERS; i++)
+			{
+				finger[i].motorEnable(false);
+			}
+			
+			ERROR.set(ERROR_TEMP_MAX);		// set error
 		}
 
+	}
+	else if (temp >= CPU_TEMP_WARNING)		// if device is starting to get warm
+	{
+		if (!ERROR.isSet(ERROR_TEMP_WARNING))
+		{
+			ERROR.set(ERROR_TEMP_WARNING);	// set warning
+		}
+	}
+	else									// else if battery level is nominal
+	{
+		ERROR.clear(ERROR_TEMP_MAX);		// if error set, clear it
+		ERROR.clear(ERROR_TEMP_WARNING);	// if warning set, clear it
 	}
 }
