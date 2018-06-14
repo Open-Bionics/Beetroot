@@ -18,6 +18,7 @@
 
 #include "I2C_EEPROM.h"
 #include "LED.h"
+#include "Watchdog.h"
 
 
 ////////////////////////////// Constructors/Destructors //////////////////////////////
@@ -180,7 +181,10 @@ void ERROR_HANDLING::set(ErrorType error)
 		}
 
 		// halt program (if still running)
-		while (1);
+		while (1)
+		{
+			Watchdog.reset();
+		}
 	}
 };
 
