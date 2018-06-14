@@ -30,6 +30,11 @@
 // DEBUG
 #include "ErrorHandling.h"
 volatile int debugVal = 0;
+bool runTestFlag = false;
+bool firstRun = true;
+long startTime = 0;
+
+
 
 void setup() 
 {
@@ -41,6 +46,8 @@ void setup()
 		printDeviceInfo();					// print board & firmware info
 		serial_SerialInstructions(NULL);	// print serial instructions
 	}	
+
+	runTest(true);
 }
 
 
@@ -76,6 +83,75 @@ void loop()
 
 	Watchdog.reset();
 
+
+
+	if (runTestFlag)
+	{
+		runImpededFingerTest();
+	}
+
 }
 
+
+
+
+
+
+
+void runTest(bool en)
+{
+	runTestFlag = en;
+
+	if (runTestFlag)
+	{
+		firstRun = true;
+
+	}
+}
+
+void runImpededFingerTest(void)
+{
+	const int nCycles = 500;
+	static MS_NB_DELAY moveTimer;
+	static MS_NB_DELAY tempTimer;
+	static int cycleCount = 0;
+
+	if (firstRun)
+	{
+		Grip.open();
+		Grip.run();
+		startTime = millis();
+		firstRun = false;
+	}
+
+	//if (tempTimer.timeElapsed(500))
+	//{
+	//	MYSERIAL.print((millis() - startTime)/1000);
+	//	MYSERIAL.print(",");
+	//	MYSERIAL.println(readTemperature());
+	//	//MYSERIAL.println("'C");
+	//}
+
+
+	if (moveTimer.timeElapsed(3000))
+	{
+		//MYSERIAL.println("Toggle");
+
+		MYSERIAL.print(cycleCount);
+		MYSERIAL.print(",");
+		MYSERIAL.print((millis() - startTime) / 1000);
+		MYSERIAL.print(",");
+		MYSERIAL.println(readTemperature());
+
+		Grip.toggleDir();
+		Grip.run();
+
+		if (cycleCount++ > nCycles)
+		{
+			runTestFlag = false;
+		}
+	}
+
+	
+}
 
