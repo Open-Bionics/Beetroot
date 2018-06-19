@@ -18,6 +18,7 @@
 
 #include "I2C_EEPROM.h"
 #include "LED.h"
+#include "Watchdog.h"
 
 
 ////////////////////////////// Constructors/Destructors //////////////////////////////
@@ -52,20 +53,21 @@ ERROR_HANDLING::ERROR_HANDLING()
 	_errorList[ERROR_EEPROM_INIT].level = LEVEL_FATAL;
 	_errorList[ERROR_EEPROM_INIT].description = "EEPROM is not detected during initialisation";
 	_errorList[ERROR_EEPROM_INIT].LED.c1 = LED_RED_DIM;
+	_errorList[ERROR_EEPROM_INIT].LED.blinkFreq = 10;
 
 	// Error 004 -  Finger pins fail to initialise
 	_errorList[ERROR_FINGER_INIT].num = 4;
 	_errorList[ERROR_FINGER_INIT].type = ERROR_FINGER_INIT;
 	_errorList[ERROR_FINGER_INIT].level = LEVEL_FATAL;
 	_errorList[ERROR_FINGER_INIT].description = "Finger pins failed to initialise";
-	_errorList[ERROR_FINGER_INIT].LED.c1 = LED_AQUA;
+	_errorList[ERROR_FINGER_INIT].LED.c1 = LED_OFF;
 
 	// Error 005 - EEPROM settings overflow
 	_errorList[ERROR_EEPROM_SETTINGS].num = 5;
 	_errorList[ERROR_EEPROM_SETTINGS].type = ERROR_EEPROM_SETTINGS;
 	_errorList[ERROR_EEPROM_SETTINGS].level = LEVEL_FATAL;
 	_errorList[ERROR_EEPROM_SETTINGS].description = "Not enough EEPROM space for board settings";
-	_errorList[ERROR_EEPROM_SETTINGS].LED.c1 = LED_PURPLE_DIM;
+	_errorList[ERROR_EEPROM_SETTINGS].LED.c1 = LED_OFF;
 
 	// Error 006 - Serial buffer overflow
 	_errorList[ERROR_S_BUFF_OVFLOW].num = 6;
@@ -80,15 +82,18 @@ ERROR_HANDLING::ERROR_HANDLING()
 	_errorList[ERROR_TEMP_WARNING].type = ERROR_TEMP_WARNING;
 	_errorList[ERROR_TEMP_WARNING].level = LEVEL_WARN;
 	_errorList[ERROR_TEMP_WARNING].description = "CPU temperature is high";
-	_errorList[ERROR_TEMP_WARNING].LED.c1 = LED_PINK_DIM;
+	_errorList[ERROR_TEMP_WARNING].LED.c1 = LED_YELLOW;
+	_errorList[ERROR_TEMP_WARNING].LED.c2 = LED_BLUE;
+	_errorList[ERROR_TEMP_WARNING].LED.blinkFreq = 2;				// 2Hz
 
 	// Error 008 - Maximum CPU temperature has been reached
 	_errorList[ERROR_TEMP_MAX].num = 8;
 	_errorList[ERROR_TEMP_MAX].type = ERROR_TEMP_MAX;
 	_errorList[ERROR_TEMP_MAX].level = LEVEL_FATAL;
 	_errorList[ERROR_TEMP_MAX].description = "CPU has reached maximum temperature";
-	_errorList[ERROR_TEMP_MAX].LED.c1 = LED_PINK_DIM;
-	_errorList[ERROR_TEMP_MAX].LED.blinkFreq = 2.5;				// 2.5Hz
+	_errorList[ERROR_TEMP_MAX].LED.c1 = LED_RED_DIM;
+	_errorList[ERROR_TEMP_MAX].LED.c2 = LED_YELLOW;
+	_errorList[ERROR_TEMP_MAX].LED.blinkFreq = 5;					// 5Hz
 
 	_tempLvlLED = 0;		// value of the LED brightness before the override 
 }
@@ -180,7 +185,10 @@ void ERROR_HANDLING::set(ErrorType error)
 		}
 
 		// halt program (if still running)
-		while (1);
+		while (1)
+		{
+			Watchdog.reset();
+		}
 	}
 };
 
