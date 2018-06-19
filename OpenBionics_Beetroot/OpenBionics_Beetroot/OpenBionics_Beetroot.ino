@@ -111,7 +111,7 @@ void runTest(bool en)
 
 void runImpededFingerTest(void)
 {
-	const int nCycles = 500;
+	const int nCycles = 5000;
 	static MS_NB_DELAY moveTimer;
 	static MS_NB_DELAY tempTimer;
 	static int cycleCount = 0;
