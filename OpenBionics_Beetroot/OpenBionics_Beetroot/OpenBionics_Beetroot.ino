@@ -133,7 +133,7 @@ void runImpededFingerTest(void)
 	//}
 
 
-	if (moveTimer.timeElapsed(3000))
+	if (moveTimer.timeElapsed(4000))
 	{
 		//MYSERIAL.println("Toggle");
 
