@@ -81,7 +81,7 @@ ERROR_HANDLING::ERROR_HANDLING()
 	_errorList[ERROR_TEMP_WARNING].num = 7;
 	_errorList[ERROR_TEMP_WARNING].type = ERROR_TEMP_WARNING;
 	_errorList[ERROR_TEMP_WARNING].level = LEVEL_WARN;
-	_errorList[ERROR_TEMP_WARNING].description = "CPU temperature is high";
+	_errorList[ERROR_TEMP_WARNING].description = "Hand temperature is high";
 	_errorList[ERROR_TEMP_WARNING].LED.c1 = LED_YELLOW;
 	_errorList[ERROR_TEMP_WARNING].LED.c2 = LED_BLUE;
 	_errorList[ERROR_TEMP_WARNING].LED.blinkFreq = 2;				// 2Hz
@@ -90,7 +90,7 @@ ERROR_HANDLING::ERROR_HANDLING()
 	_errorList[ERROR_TEMP_MAX].num = 8;
 	_errorList[ERROR_TEMP_MAX].type = ERROR_TEMP_MAX;
 	_errorList[ERROR_TEMP_MAX].level = LEVEL_FATAL;
-	_errorList[ERROR_TEMP_MAX].description = "CPU has reached maximum temperature";
+	_errorList[ERROR_TEMP_MAX].description = "Hand has reached maximum temperature";
 	_errorList[ERROR_TEMP_MAX].LED.c1 = LED_RED_DIM;
 	_errorList[ERROR_TEMP_MAX].LED.c2 = LED_YELLOW;
 	_errorList[ERROR_TEMP_MAX].LED.blinkFreq = 5;					// 5Hz
