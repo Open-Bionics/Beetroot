@@ -19,162 +19,147 @@
 ////////////////////////////// Constructors/Destructors //////////////////////////////
 LED_CLASS::LED_CLASS()
 {
-
-}
-
-LED_CLASS::~LED_CLASS()
-{
-
-}
-
-
-////////////////////////////// Public Methods //////////////////////////////
-// initialise the NeoPixel
-void LED_CLASS::begin(void)
-{
-	Adafruit_NeoPixel(NEOPIXEL_NUM_PIXELS, NEOPIXEL_PIN);
-
-	pixel.begin();
+	_index = 0;				// position of current LED details within _LEDHistory[] list
+	_interruptEn = true;	// flag to prevent race condition
+	_brightness = 1;		// default to max brightness
 
 	// initialise the default LED details
 	_tempLED.mode = LED_MODE_SOLID;
 	_tempLED.c1.c = LED_BLACK;
 	_tempLED.c2.c = LED_BLACK;
-	_tempLED.period_ms = 0;
-	_tempLED.dur_ms = 0;
-	_tempLED.pulseState = HIGH;
-
-	_index = 0;							// save the default LED details as the first member of the array 
-
-	_prevLED[_index] = _tempLED;		// save new LED details to next position within array
-	_currLED = &_prevLED[_index];		// set the pointer to point to the current LED details
+	_tempLED.pulsePer_ms = 1000;		// default to 1Hz
+	_tempLED.pulseDir = HIGH;
+	_tempLED.fadePer_ms = 0;
+	_tempLED.fadeStep = 1;
+	_tempLED.durPer_ms = 0;
 }
 
-// set the two blink/fade LED colours
+////////////////////////////// Public Methods //////////////////////////////
+// initialise the NeoPixel
+void LED_CLASS::begin(void)
+{
+	pixel.begin();
+
+	// save default LED details as the first LED history
+	moveToLEDIndex(0, true);			// save temp LED to index 0 and point currLED to it
+	_index = 0;
+}
+
+// set the LED display mode (SOLID, FLASH, FADE)
+void LED_CLASS::setMode(LEDMode mode)
+{
+	_tempLED.mode = mode;
+}
+
+// set the two flash/fade LED colours
 void LED_CLASS::setColour(uint32_t c1, uint32_t c2)
 {
 	_tempLED.c1.c = c1;
 	_tempLED.c2.c = c2;
+
+	// calculate the brightness values using the _brightness modifier (calc here so it doesn't have to eb calcualted in run())
+	_tempLED.dim1 = calcBrightness(_tempLED.c1);
+	_tempLED.dim2 = calcBrightness(_tempLED.c2);
 }
 
-// set the one solid/blink/fade colour
-void LED_CLASS::setColour(uint32_t c1)
-{
-	setColour(c1, LED_BLACK);			// colour1, colour2
-}
-
-// set the one solid/blink/fade colour using RGB components
+// set the one solid/flash/fade c1 using RGB components
 void LED_CLASS::setColour(uint8_t r, uint8_t g, uint8_t b)
 {
 	_tempLED.c1.rgb.r = r;
 	_tempLED.c1.rgb.g = g;
 	_tempLED.c1.rgb.b = b;
+
+	// calculate the brightness values using the _brightness modifier (calc here so it doesn't have to eb calcualted in run())
+	_tempLED.dim1 = calcBrightness(_tempLED.c1);
 }
 
-// get the one solid/blink/fade colour
-uint32_t LED_CLASS::getColour(void)
+// set the global brightness modifier (0 - 100)
+void LED_CLASS::setBrightness(uint8_t brightness)
 {
-	return _currLED->c1.c;
+	_brightness = (float)brightness / 100;		// scale brightness from 0-100 to 0-1
+
+	// calculate the brightness values using the _brightness modifier (calc here so it doesn't have to eb calcualted in run())
+	_tempLED.dim1 = calcBrightness(_tempLED.c1);
+	_tempLED.dim2 = calcBrightness(_tempLED.c2);
+	show();
+
+	// if the LED is being turned off, make sure the LED is turned off here
+	if (_brightness == 0.0)
+	{
+		runMode(LED_MODE_SOLID);
+	}
 }
 
-// set the colour to be a percentage between 2 colours (0 - 100)
-void LED_CLASS::setColourPercent(uint32_t c1, uint32_t c2, uint8_t percent)
+// get the global brightness modifier (0 - 100)
+uint8_t LED_CLASS::getBrightness(void)
 {
-	Colour_t cMin, cMax;
-	uint32_t cCalc;
-
-	// store the colour as Colour_t type to quickly extract RGB components
-	cMin.c = c1;
-	cMax.c = c2;
-
-	// calculate 'in-between' colour
-	cCalc = calcFade(cMin, cMax, percent, 100);
-
-	// set calculated colour
-	setColour(cCalc);
+	return _brightness * 100;		// scale brightness from 0-1 to 0-100
 }
 
-void LED_CLASS::setSolid(void)
+// set the flash/fade frequency
+void LED_CLASS::setFreq(float freq)
 {
-	setMode(LED_MODE_SOLID);
-}
-
-// set two blink colours
-void LED_CLASS::setBlink(uint32_t c1, uint32_t c2)
-{
-	setColour(c1, c2);
-
-	setMode(LED_MODE_BLINK);
-}
-
-// set two fade colours
-void LED_CLASS::setFade(uint32_t c1, uint32_t c2)
-{
-	setColour(c1, c2);
-
-	setMode(LED_MODE_FADE);
-}
-
-// flash a colour (c1 - BLACK) a number of times at freq
-void LED_CLASS::setFlash(uint32_t c1, uint8_t nFlash, float freq)
-{
+	// convert the freq to period in ms
 	if (freq == 0.0)
-		setFreq(1);			// if no frequency is set, default to 1Hz
+	{
+		_tempLED.pulsePer_ms = 0.0;
+	}
 	else
-		setFreq(freq);
-
-	// set at least 1 flash
-	if (nFlash == 0)
-		nFlash = 1;
-
-	setDuration(2 * nFlash * _tempLED.period_ms);
-	setBlink(c1);
-}
-
-
-// set blink frequency
-void LED_CLASS::setBlinkFreq(float freq)
-{
-	setFreq(freq);
-
-	setMode(LED_MODE_BLINK);
-}
-
-// set fade frequency
-void LED_CLASS::setFadeFreq(float freq)
-{
-	setFreq(freq);
-
-	setMode(LED_MODE_FADE);
+	{
+		_tempLED.pulsePer_ms = (1000.0 / freq);
+	}
 }
 
 // duration to display the current mode before returning to previous (0 is constant)
 void LED_CLASS::setDuration(uint16_t dur)
 {
-	_tempLED.dur_ms = dur;
+	_tempLED.durPer_ms = dur;
+}
 
+// set the number of flash/fades
+void LED_CLASS::setNumCycles(uint8_t nCycles)
+{
+	_tempLED.durPer_ms = nCycles * _tempLED.pulsePer_ms * 2;
 }
 
 void LED_CLASS::show(void)
 {
-	// if the previous duration was running, store the remaining time
-	if (_currLED)
+	// if _currLED is not pointing to any LED details, return
+	if (_currLED == nullptr)
 	{
-		// if the previous duration was running, store the remaining time
-		if (_currLED->runTimer.started())
-			_currLED->dur_ms -= _currLED->runTimer.stop();
+		return;
 	}
 
+	// if the new values are equal to the current values, do not bother showing new values
+	if (*_currLED == _tempLED)
+	{
+		return;
+	}
+
+	pauseInterrupt();					// pause 'run()' interrupt to prevent a race condition
+
+										// if the previous duration was running, store the time remaining
+	if (_currLED->durTimer.started())
+	{
+		_currLED->durPer_ms -= _currLED->durTimer.stop();	// subtract the elapsed time from the total duration
+	}
+
+	// if the previous pulse timer was running
+	if (_currLED->stepTimer.started())
+	{
+		_currLED->stepTimer.stop();	// stop the timer
+	}
+
+	resumeInterrupt();					// resume 'run()' interrupt to prevent a race condition
+
+
+										// if there is more space to save the LED details to the history
 	if (_index < LED_MAX_HISTORY - 1)
-		_index++;
+	{
+		_index++;	// move to the new history location
+	}
 
-	_prevLED[_index] = _tempLED;		// save new LED details to next position within array
-	_currLED = &_prevLED[_index];		// set the pointer to point to the current LED details
-
-										// if the LED current LED has a duration assigned
-										// TODO, also check if timer is already running?
-	if (_currLED->dur_ms)
-		_currLED->runTimer.start(_currLED->dur_ms);	// start the run timer	
+	moveToLEDIndex(_index, true);		// move to index and save LED details to history
 }
 
 // set LED to previous mode/colours/freq
@@ -182,174 +167,313 @@ void LED_CLASS::showPrev(void)
 {
 	// step back to the previous set of LED details
 	if (_index > 0)
+	{
 		_index--;
+	}
 
-	_currLED = &_prevLED[_index];		// set the pointer to point to the current LED details
-
-										// if the new LED details have a duration setting
-	if (_currLED->dur_ms)
-		_currLED->runTimer.start(_currLED->dur_ms);	// start/resume the duration timer
+	moveToLEDIndex(_index);
 }
 
 // reset the LED history
 void LED_CLASS::resetHistory(void)
 {
-	_index = 1;
-	_currLED = &_prevLED[_index];		// set the pointer to point to the current LED details
+	// index 0  - BLACK
+	// index 1  - WHITE
+	// index 2+ - everything else
+	moveToLEDIndex(1);
 }
 
-// turn off the LED
-void LED_CLASS::off(void)
+// prevent the run() interrupt from using _currLED, so that it can be modified
+void LED_CLASS::pauseInterrupt(void)
 {
-	setMode(LED_MODE_SOLID);
-	setColour(LED_BLACK);
-	setDuration(0);
-	setFade(0);
+	_interruptEn = false;
 }
 
-// run the LED solid/blink/fade
+// re-enable access to _currLED
+void LED_CLASS::resumeInterrupt(void)
+{
+	_interruptEn = true;
+}
+
+// run the LED solid/flash/fade
 void LED_CLASS::run(void)
 {
+	// if the interrupt has been disabled (to prevent race condition), return without running
+	if (!_interruptEn)
+	{
+		return;
+	}
+
 	// if the LED is set to only run for a particular duration
-	if (_currLED->dur_ms != 0)
+	if (_currLED->durPer_ms != 0.0)
 	{
 		// if the run duration has elapsed
-		if (_currLED->runTimer.finished())
+		if (_currLED->durTimer.finished())
 		{
 			showPrev();			// set LED to previous settings
 		}
 	}
 
-	// if no blink/fade period, set the LED to be solid
-	if (_currLED->period_ms == 0.0)
-		_currLED->mode = LED_MODE_SOLID;
-
-	switch (_currLED->mode)
+	// if no flash/fade period, set the LED to be solid
+	if (_currLED->pulsePer_ms == 0.0)
 	{
-	case LED_MODE_SOLID:
-		runSolid();
-		break;
-	case LED_MODE_BLINK:
-		runBlink();
-		break;
-	case LED_MODE_FADE:
-		runFade();
-		break;
-	default:
-		break;
+		_currLED->mode = LED_MODE_SOLID;
+	}
+
+	// if the LED is disabled, do not bother running the LED
+	if (_brightness == 0.0)
+	{
+		return;
+	}
+
+	// select a mode to run
+	runMode(_currLED->mode);
+
+}
+
+// select a mode to run
+void LED_CLASS::runMode(LEDMode mode)
+{
+	switch (mode)
+	{
+		case LED_MODE_SOLID:
+			runSolid();
+			break;
+		case LED_MODE_FLASH:
+			runFlash();
+			break;
+		case LED_MODE_FADE:
+			runFade();
+			break;
+		default:
+			break;
 	}
 }
 
 
-////////////////////////////// Private Methods //////////////////////////////
-
-// set the LED display mode (SOLID, BLINK, FADE)
-void LED_CLASS::setMode(LEDMode mode)
+void LED_CLASS::moveToLEDIndex(uint8_t i, bool save)
 {
-	_tempLED.mode = mode;
+	pauseInterrupt();					// pause 'run()' interrupt to prevent a race condition
 
+										// if we are to save new details to LED history
+	if (save)
+	{
+		_LEDHistory[_index] = _tempLED;		// save new LED details to new position within history array
+	}
+
+	_currLED = &_LEDHistory[i];			// set the pointer to point to the current LED details
+	_tempLED = _LEDHistory[i];			// load previous LED details into temp
+
+										// if the new (prev) LED details have a duration setting
+	if (_currLED->durPer_ms)
+	{
+		_currLED->durTimer.start(_currLED->durPer_ms);	// start/resume the duration timer
+	}
+
+	// calculate time between colour step changes (calc here so it doesn't have to be calculated in runFade() )
+	_currLED->fadePer_ms = (_currLED->pulsePer_ms / LED_FADE_RES);
+
+	_currLED->fadeStep = 1;				// reset the fade step number
+	_currLED->pulseDir = 1;				// reset the pulse direction
+
+	resumeInterrupt();					// resume 'run()' interrupt to prevent a race condition
 }
 
-// set the blink/fade frequency
-void LED_CLASS::setFreq(float freq)
-{
-	// convert the freq to period in ms
-	if (freq == 0.0)
-		_tempLED.period_ms = 0;
-	else
-		_tempLED.period_ms = 1000 / freq;
-}
-
-// set the LED to a solid colour
+// set the LED to a solid c1
 void LED_CLASS::runSolid(void)
 {
-	// if the LED is already the correct colour
-	if (pixel.getPixelColor(_pNum) == _currLED->c1.c)
+	// if the LED is already the correct c1
+	if (pixel.getPixelColor(_pNum) == _currLED->dim1.c)
+	{
 		return;
+	}
 
-	pixel.setPixelColor(_pNum, _currLED->c1.c);
+	pixel.setPixelColor(_pNum, _currLED->dim1.c);
 	pixel.show();
 }
 
-// blink the LED between two colours
-void LED_CLASS::runBlink(void)
+// flash the LED between two colours
+void LED_CLASS::runFlash(void)
 {
-	// if no blink/fade frequency, return
-	if (_currLED->period_ms == 0)
-		return;
-
-	if (_currLED->pulseTimer.timeEllapsed(_currLED->period_ms))
+	// if no flash/fade frequency, return
+	if (_currLED->pulsePer_ms == 0.0)
 	{
-		if (_currLED->pulseState)
-			pixel.setPixelColor(_pNum, _currLED->c1.c);
+		return;
+	}
+
+	if (_currLED->stepTimer.timeElapsed(_currLED->pulsePer_ms))
+	{
+		if (_currLED->pulseDir)
+		{
+			pixel.setPixelColor(_pNum, _currLED->dim1.c);
+		}
 		else
-			pixel.setPixelColor(_pNum, _currLED->c2.c);
+		{
+			pixel.setPixelColor(_pNum, _currLED->dim2.c);
+		}
 
 		pixel.show();
 
-		_currLED->pulseState = !_currLED->pulseState;
+		_currLED->pulseDir = !_currLED->pulseDir;
 	}
 }
 
 // fade the LED between two colours
 void LED_CLASS::runFade(void)
 {
-	// if no blink/fade frequency, return
-	if (_currLED->period_ms == 0)
+	// if no flash/fade frequency, return
+	if (_currLED->pulsePer_ms == 0.0)
+	{
 		return;
+	}
 
-	static uint8_t stepNum = 0;		// current fade step between the two colours
-
-	uint32_t stepPeriod;			// time between the colour step changes
-	Colour_t stepColour;			// colour of the current fade step
-
-									// calculate time between 'colour step' changes
-	stepPeriod = _currLED->period_ms / LED_FADE_RES;
+	Colour_t stepColour;			// c1 of the current fade step
 
 	// if period between steps has elapsed
-	if (_currLED->pulseTimer.timeEllapsed(stepPeriod))
+	if (_currLED->stepTimer.timeElapsed(_currLED->fadePer_ms))
 	{
-		stepColour.c = calcFade(_currLED->c1, _currLED->c2, stepNum, LED_FADE_RES);
+		// use the colour levels adjusted using the brightness
+		stepColour = calcFade(_currLED->dim1, _currLED->dim2, _currLED->fadeStep, LED_FADE_RES);
 
 		pixel.setPixelColor(_pNum, stepColour.c);
 		pixel.show();
 
 		// if fade is complete, change direction
-		if ((stepNum < 1) || (stepNum >= LED_FADE_RES))
-			_currLED->pulseState = !_currLED->pulseState;
+		if ((_currLED->fadeStep < 1) || (_currLED->fadeStep >= LED_FADE_RES - 1))
+		{
+			_currLED->pulseDir = !_currLED->pulseDir;
+		}
 
 		// increment/decrement step number
-		stepNum += 1 + (_currLED->pulseState * -2);
-
+		_currLED->fadeStep += 1 + (_currLED->pulseDir * -2);
 	}
 }
+// calculate the colour with all RGB values modified by the _brightness modifier
+Colour_t LED_CLASS::calcBrightness(Colour_t &c1)
+{
+	Colour_t cb;		// brightness colour
 
+	// calculate new c1 components at the desired brightness
+	cb.rgb.r = c1.rgb.r * _brightness;
+	cb.rgb.g = c1.rgb.g * _brightness;
+	cb.rgb.b = c1.rgb.b * _brightness;
+
+	return cb;
+}
 
 // calculate the colour at a particular point between two colours
-uint32_t LED_CLASS::calcFade(Colour_t c1, Colour_t c2, uint8_t step, uint8_t maxSteps)
+Colour_t LED_CLASS::calcFade(Colour_t &c1, Colour_t &c2, uint8_t step, uint8_t maxSteps)
 {
 	Colour_t cf;		// fade colour
 
-	float rs, gs, bs;                   // RGB increments
-	uint8_t rd = 0, gd = 0, bd = 0;     // RGB increment direction
+	// calculate new c1 components at the desired step
+	cf.rgb.r = ((c1.rgb.r * (maxSteps - step)) + (c2.rgb.r * step)) / maxSteps;
+	cf.rgb.g = ((c1.rgb.g * (maxSteps - step)) + (c2.rgb.g * step)) / maxSteps;
+	cf.rgb.b = ((c1.rgb.b * (maxSteps - step)) + (c2.rgb.b * step)) / maxSteps;
 
-										// determine count direction of colour change for each RGB component
-	if (c1.rgb.r < c2.rgb.r) rd = 1;
-	if (c1.rgb.g < c2.rgb.g) gd = 1;
-	if (c1.rgb.b < c2.rgb.b) bd = 1;
-
-	// determine step increments
-	rs = (float)abs(c1.rgb.r - c2.rgb.r) / maxSteps;
-	gs = (float)abs(c1.rgb.g - c2.rgb.g) / maxSteps;
-	bs = (float)abs(c1.rgb.b - c2.rgb.b) / maxSteps;
-
-	// calculate new colour components at the desired step
-	cf.rgb.r = (uint8_t)c1.rgb.r - (rs*step) + (rd * 2 * (rs*step));
-	cf.rgb.g = (uint8_t)c1.rgb.g - (gs*step) + (gd * 2 * (gs*step));
-	cf.rgb.b = (uint8_t)c1.rgb.b - (bs*step) + (bd * 2 * (bs*step));
-
-	// return the fade colour
-	return cf.c;
+	// return the fade c1
+	return cf;
 }
+
+
+
+
+
+//// DEBUG
+//
+//// print details of _currLED, _tempLED & _LEDHistory[] for debugging
+//void LED_CLASS::printDetails(void)
+//{
+//	char *LEDMode_Str[3] = { "Solid","Flash","Fade" };
+//
+//	Comms.println("LED.printDetails()\n");
+//
+//	// print _currLED
+//	Comms.println("_currLED");
+//	printStruct(_currLED);
+//
+//	// print _tempLED
+//	Comms.println("_tempLED");
+//	printStruct(&_tempLED);
+//
+//	// print all LED history
+//	for (int i = _index; i >= 0; i--)
+//	{
+//		Comms.print("_LEDHistory[");
+//		Comms.print(i);
+//		Comms.print("]");
+//		if (i == _index)
+//		{
+//			Comms.print(" - CURRENT");
+//		}
+//		Comms.print("\n");
+//
+//		printStruct(&_LEDHistory[i]);
+//	}
+//}
+//
+//void LED_CLASS::printStruct(LEDDetails_t *details)
+//{
+//	printMode(details->mode);
+//	printColour(1, &details->c1, &details->dim1);
+//	printColour(2, &details->c2, &details->dim2);
+//
+//	Comms.print("pulsePer_ms:\t");
+//	Comms.println(details->pulsePer_ms);
+//	Comms.print("pulseDir:\t");
+//	Comms.println(details->pulseDir);
+//
+//	Comms.print("fadePer_ms:\t");
+//	Comms.println(details->fadePer_ms);
+//	Comms.print("stepTimer:\t");
+//	printTimer(&details->stepTimer);
+//	Comms.print("fadeStep:\t");
+//	Comms.println(details->fadeStep);
+//
+//	Comms.print("durPer_ms:\t");
+//	Comms.println(details->durPer_ms);
+//	Comms.print("durTimer:\t");
+//	printTimer(&details->durTimer);
+//
+//	Comms.println("*************************************\n");
+//}
+//
+//void LED_CLASS::printMode(LEDMode mode)
+//{
+//	char *modeNames[3] = { "Solid","Flash","Fade" };
+//
+//	Comms.print("mode:\t\t");
+//	Comms.print(modeNames[mode]);
+//	Comms.print(" (");
+//	Comms.print(mode);
+//	Comms.println(")");
+//}
+//
+//void LED_CLASS::printColour(int cNum, Colour_t *c, Colour_t *dim)
+//{
+//	Comms.print("c");
+//	Comms.print(cNum);
+//	Comms.print(":\t\t");
+//	Comms.print(c->rgb.r);
+//	Comms.print(", ");
+//	Comms.print(c->rgb.g);
+//	Comms.print(", ");
+//	Comms.print(c->rgb.b);
+//
+//	Comms.print("\t(dim: ");
+//	Comms.print(dim->rgb.r);
+//	Comms.print(", ");
+//	Comms.print(dim->rgb.g);
+//	Comms.print(", ");
+//	Comms.print(dim->rgb.b);
+//	Comms.println(")");
+//}
+//
+//void LED_CLASS::printTimer(NB_DELAY_CLASS *timer)
+//{
+//	Comms.print(timer->now());
+//	Comms.print("/");
+//	Comms.println(timer->getInterval());
+//}
 
 LED_CLASS LED;

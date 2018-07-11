@@ -106,10 +106,10 @@ void HANDLE_CLASS::begin(void)
 	Grip.open();
 
 
-	//Grip.setSpeed(MAX_FINGER_SPEED);
+	//Grip.setSpeed(MAX_FINGER_PWM);
 	//Grip.open();
 	//delay(700);
-	//Grip.setSpeed(MAX_FINGER_SPEED);
+	//Grip.setSpeed(MAX_FINGER_PWM);
 	//Grip.run();
 }
 
@@ -132,7 +132,9 @@ void HANDLE_CLASS::run(void)
 
 		// if the 
 		if (_serialFlag)
+		{
 			print();
+		}
 	}
 }
 
@@ -144,7 +146,7 @@ uint8_t HANDLE_CLASS::poll(void)
 	uint8_t count = 0;
 
 	// read I2C values
-	Wire.requestFrom(HANDLE_ADDR, numI2CVals);
+	Wire.requestFrom((uint8_t)HANDLE_ADDR, (uint8_t)numI2CVals);
 	while (Wire.available())
 	{
 		values[count] = Wire.read();
@@ -228,7 +230,7 @@ void HANDLE_CLASS::checkJoy(void)
 	// add new grip position to current grip positions
 	_pos += calcPosChange();
 	_pos = constrain(_pos, 0, 100);
-	Grip.setSpeed(MAX_FINGER_SPEED);
+	Grip.setSpeed(MAX_FINGER_PWM);
 	Grip.setPos(_pos);
 	Grip.run();
 }
@@ -251,13 +253,17 @@ void HANDLE_CLASS::checkButtons(void)
 
 	// change grip on a button press
 	if (raw.btn.c)
+	{
 		Grip.nextGrip();
+	}
 	if (raw.btn.z)
+	{
 		Grip.prevGrip();
+	}
 
 
 	MYSERIAL_PRINTLN(Grip.getGripName());
-	Grip.setSpeed(MAX_FINGER_SPEED);
+	Grip.setSpeed(MAX_FINGER_PWM);
 	Grip.open();
 	delay(500);
 	Grip.setSpeed(0);
@@ -311,7 +317,9 @@ double HANDLE_CLASS::calcPosChange(void)
 	_exp = pow(raw.joy.y, power) / k;
 
 	if (invert)						// fix issue that -x^2 = x?^2
+	{
 		_exp = -_exp;
+	}
 
 	return _exp;
 }

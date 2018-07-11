@@ -19,19 +19,6 @@
 #include "Globals.h"
 #include "I2C_EEPROM.h"
 
-///////////////////////////////////// CPU TEMP CONSTANTS ///////////////////////////////////////
-#define CPU_TEMP_CMIN		25.0	// °C   Nominal operating temperature
-#define CPU_TEMP_TMIN		-40.0	// °C	Minimum operating temperature
-#define CPU_TEMP_TMAX		85.0	// °C	Maximum operating temperature
-#define CPU_TEMP_VMAX		3.63	// V	Minimum operating voltage
-#define CPU_TEMP_VMIN		1.62	// V	Maximum operating voltage
-#define CPU_TEMP_VOUTMAX	0.667	// V	Temperature sensor output voltage
-#define CPU_TEMP_AREF		3.3		// V	Analogue reference
-#define CPU_TEMP_ARES		10		// bit	ADC resolution
-
-float readCPUTemp(void);			// read the CPU temperature, in °C
-
-
 ///////////////////////////////////// EEPROM WRITE STRUCT ///////////////////////////////////////
 // write any data type to EEPROM
 template <class T> int EEPROM_writeStruct(int ee, const T& value)
@@ -63,6 +50,10 @@ template <class T> int EEPROM_readStruct(int ee, const T& value)
 /* The app uses only the MYSERIAL_funcion macros so that all accesses can be
  * intercepted here to avoid blocking behaviour. */
 
+#if defined(ARDUINO_AVR_MEGA2560) || defined(ARDUINO_AVR_UNO)
+#define MYSERIAL Serial
+#define SERIALNONBLOCKCHECK			(1)
+#elif defined(ARDUINO_ARCH_SAMD)
 #if defined(SERIAL_USB_CONTROL)
 #define MYSERIAL SerialUSB
 #define SERIALNONBLOCKCHECK			(MYSERIAL.dtr())
@@ -75,6 +66,9 @@ template <class T> int EEPROM_readStruct(int ee, const T& value)
 #else
 #define MYSERIAL SerialUSB		// default to SerialUSB control
 #define SERIALNONBLOCKCHECK			(MYSERIAL.dtr())
+#endif
+#else
+#error "Board not supported. Serial not able to be configured
 #endif
 
 #define	FORCE_INLINE __attribute__((always_inline)) inline

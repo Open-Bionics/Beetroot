@@ -29,12 +29,19 @@
 #include "I2C_EEPROM.h"						// EEPROM
 #include "LED.h"							// NeoPixel
 #include "SerialControl.h"					// init char codes
+#include "Watchdog.h"						// Watchdog
+
+static CIRCLE_BUFFER <float> tempBuff;		// temperature circular buffer
 
 Settings settings;		// board settings
 
 // board initialisation sequence
 void deviceSetup(void)
 {
+#if defined(ARDUINO_ARCH_SAMD)
+	Watchdog.begin(WATCHDOG_RESET_PER);	// enable the Watchdog timer 
+#endif
+
 #if defined (SERIAL_JACK_CONTROL)
 	setHeadphoneJack(JACK_SERIAL);	// configure headphone jack to Serial
 #else
@@ -60,6 +67,9 @@ void deviceSetup(void)
 	initSerialCharCodes();		// assign the char codes and functions to char codes
 
 	Grip.begin();				// initialise the grips
+	Grip.setGrip(G0);
+	Grip.setDir(OPEN);
+	Grip.run();
 
 	EMG.begin();				// initialise EMG control
 
@@ -69,7 +79,11 @@ void deviceSetup(void)
 
 	detectSerialConnection();	// wait for serial connection if flag is set
 
-	ERROR.clear();				// clear error state and set LED to green
+	ERROR.clear(ERROR_INIT);	// clear error state and set LED to green
+
+#if defined(ARDUINO_ARCH_SAMD)
+	Watchdog.reset();
+#endif
 }
 
 // wait for serial connection if flag is set
@@ -77,7 +91,12 @@ void detectSerialConnection(void)
 {
 	if (settings.waitForSerial)			// if flag is set
 	{
-		while (!MYSERIAL);					// wait for serial connection
+		while (!MYSERIAL)				// wait for serial connection
+		{
+#if defined(ARDUINO_ARCH_SAMD)
+			Watchdog.reset();
+#endif
+		}
 		MYSERIAL_PRINTLN_PGM("Started");
 	}
 }
@@ -187,7 +206,15 @@ void initFingerPins(void)
 		settings.handType = HAND_TYPE_RIGHT;			// default to a right hand
 		storeSettings();								// store the settings in EEPROM
 	}
-		
+
+#if defined(ARDUINO_SAMD_CHESTNUT)
+	// Allow motor order to be reversed for the new Brunel design.
+	static const int fingerOrderSets[][4] = { { 1,2,0,3 }, { 3,0,2,1 } };			// order of finger connectors for Brunel V1 & V2 (M1, M2, M3, M4)
+	const int* fingerOrder = fingerOrderSets[(BRUNEL_VER == 1) ? 0 : 1];			// point to one of the finger orders
+
+	static const int fingerInvSets[][4] = { {true, true, false, true }, {true, false, true, true} };	// set fingers to be inverted for Brunel V1 & V2
+	const int* fingerInv = fingerInvSets[(BRUNEL_VER == 1) ? 0 : 1];				// point to one of the finger orders
+
 	// attach the finger pins
 	if (settings.handType == HAND_TYPE_RIGHT)
 	{
@@ -214,6 +241,9 @@ void initFingerPins(void)
 		//finger[2].attach(4, 8, A2, A8, false);	// M2
 		//finger[3].attach(0, 9, A3, A7, true);		// M3
 	}
+#else
+#error "You will need to enter the correct pins for the finger motor and position feedback"
+#endif
 
 
 	// enable all fingers
@@ -227,8 +257,10 @@ void initFingerPins(void)
 
 		finger[i].motorEnable(settings.motorEn);	// set motor to be enabled/disabled depending on EEPROM setting
 #ifdef FORCE_SENSE
-		finger[i].enableForceSense();				// enable force sense on the finger
+		finger[i].forceSenseEnable(true);				// enable force sense on the finger
 #endif
+
+		finger[i].open();
 	}
 
 		
@@ -252,7 +284,11 @@ void printDeviceInfo(void)
 	
 	// print firmware version
 	MYSERIAL_PRINT("FW:\tBeetroot V");
-	MYSERIAL_PRINTLN(FW_VERSION);
+	MYSERIAL_PRINT(FW_VER_MAJ);
+	MYSERIAL_PRINT(".");
+	MYSERIAL_PRINT(FW_VER_MIN);
+	MYSERIAL_PRINT(".");
+	MYSERIAL_PRINTLN(FW_VER_PAT);
 
 	// print board name
 	MYSERIAL_PRINTLN_PGM("Board:\tChestnut");
@@ -265,19 +301,84 @@ void printDeviceInfo(void)
 // monitor system status
 void systemMonitor(void)
 {
-	static NB_DELAY timer_1s;
+	static MS_NB_DELAY timer_1s;
 
-	if (timer_1s.timeEllapsed(1000))
+	if (timer_1s.timeElapsed(1000))
 	{
-		// monitor CPU temperature
-		if (readCPUTemp() >= CPU_TEMP_MAX)
+		// monitor board temperature
+		monitorTemperature();	// duration 12.5ms (21/02/18)
+
+	}
+}
+
+// read the device temperature, in �C
+float readTemperature(void)
+{
+	const uint8_t buffSize = 16;			// temperature buffer size
+	static bool init = false;				// initialisation flag
+
+											// on the first run, load the buffer with battery values
+	if (!init)
+	{
+		//Comms.println("Init temperature buff");
+
+		tempBuff.begin(buffSize);			// init the buffer
+
+		for (int i = 0; i < buffSize; i++)
 		{
-			ERROR.set(ERROR_TEMP_MAX);
+			IMU.poll();
+			tempBuff.write(IMU.getTemp());	// fill the buffer with temperature values
 		}
-		else if (readCPUTemp() >= CPU_TEMP_WARNING)
+		init = true;
+	}
+
+	IMU.poll();
+	tempBuff.write(IMU.getTemp());	// fill the buffer with temperature values
+
+	return tempBuff.read();
+}
+
+// read the minimum temperature reached since power-on
+float readMinTemp(void)
+{
+	return tempBuff.readMin();
+}
+
+// read the maximum temperature reached since power-on
+float readMaxTemp(void)
+{
+	return tempBuff.readMax();
+}
+
+// check the temperature, throw warnings/errors or shutdown if too high
+void monitorTemperature(void)
+{
+	float temp = readTemperature();
+
+	// monitor CPU temperature
+	if (temp >= CPU_TEMP_MAX)				// if device is too hot to continue	
+	{
+		if (!ERROR.isSet(ERROR_TEMP_MAX))
 		{
-			ERROR.set(ERROR_TEMP_WARNING);
+			for (uint8_t i = 0; i < NUM_FINGERS; i++)
+			{
+				finger[i].motorEnable(false);
+			}
+			
+			ERROR.set(ERROR_TEMP_MAX);		// set error
 		}
 
+	}
+	else if (temp >= CPU_TEMP_WARNING)		// if device is starting to get warm
+	{
+		if (!ERROR.isSet(ERROR_TEMP_WARNING))
+		{
+			ERROR.set(ERROR_TEMP_WARNING);	// set warning
+		}
+	}
+	else									// else if battery level is nominal
+	{
+		ERROR.clear(ERROR_TEMP_MAX);		// if error set, clear it
+		ERROR.clear(ERROR_TEMP_WARNING);	// if warning set, clear it
 	}
 }

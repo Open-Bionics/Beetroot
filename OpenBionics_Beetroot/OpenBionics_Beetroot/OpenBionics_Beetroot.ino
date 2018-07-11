@@ -18,12 +18,13 @@
 
 #include "Globals.h"
 
-#include "Demo.h"
-#include "EMGControl.h"
-#include "Grips.h"
-#include "HANDle.h"
-#include "Initialisation.h"
-#include "SerialControl.h"
+#include "Demo.h"							// DEMO
+#include "EMGControl.h"						// EMG
+#include "Grips.h"							// Grip
+#include "HANDle.h"							// HANDle
+#include "Initialisation.h"					// settings, deviceSetup, systemMonitor 
+#include "SerialControl.h"					// pollSerial
+#include "Watchdog.h"						// Watchdog
 
 
 void setup() 
@@ -33,8 +34,7 @@ void setup()
 	if (settings.printInstr)
 	{
 		delay(100);							// allow time for serial to connect
-		printDeviceInfo();					// print board & firmware info
-		serial_SerialInstructions(NULL);	// print serial instructions
+		serial_SerialInstructions();		// print serial instructions
 	}	
 }
 
@@ -45,21 +45,33 @@ void loop()
 	ros_run();
 #endif
 
-	// process any received serial characters
-	pollSerial();
-
 	// monitor system temp
 	systemMonitor();
 
 	// if demo mode is enabled, run demo mode
-	if(DEMO.enabled())
+	if (DEMO.enabled())
+	{
 		DEMO.run();
+	}
+
 	// if EMG mode is enabled, run EMG mode
 	if (EMG.enabled())
+	{
 		EMG.run();
+	}
+
 	// if HANDle mode is enabled, run HANDle mode
 	if (HANDle.enabled())
+	{
 		HANDle.run();
+	}
+
+	// process any received serial characters
+	pollSerial();
+
+#if defined(ARDUINO_ARCH_SAMD)
+	Watchdog.reset();
+#endif
 }
 
 

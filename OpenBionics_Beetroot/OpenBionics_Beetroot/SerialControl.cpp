@@ -470,7 +470,7 @@ void serial_FingerControl(int fNum)
 	MYSERIAL_PRINTLN(serialCodes[SERIAL_CODE_P].val);
 
 	MYSERIAL_PRINT_PGM("Speed:\t\t");
-	MYSERIAL_PRINTLN(finger[fNum].readTargetSpeed());
+	MYSERIAL_PRINTLN(finger[fNum].readTargetPWM());
 
 
 	// if the hand is in a mode that means the fingers will not respond to serial control
@@ -480,7 +480,8 @@ void serial_FingerControl(int fNum)
 // grip control
 void serial_GripControl(int gNum)
 {
-	const char* dirStr[2] = { "Open", "Close" };
+	const char* dirStr[2] = { "Close" , "Open" };
+	bool dir; // = Grip.getDir();
 
 	if (gNum >= NUM_GRIPS)
 	{
@@ -489,57 +490,65 @@ void serial_GripControl(int gNum)
 	}
 
 	// only set grip if a grip number is entered (i.e. if G then don't set grip)
-	if(gNum != BLANK)
+	if (gNum != BLANK)
+	{
 		Grip.setGrip(gNum);			// set grip number
 
-	// detect direction (O or C)
-	if (serialCodes[SERIAL_CODE_C].newVal)
-	{
-		Grip.setDir(CLOSE);
-		serialCodes[SERIAL_CODE_C].newVal = false;
-	}
-	else if (serialCodes[SERIAL_CODE_O].newVal)
-	{
-		Grip.setDir(OPEN);
-		serialCodes[SERIAL_CODE_O].newVal = false;
+		// detect direction (O or C)
+		if (serialCodes[SERIAL_CODE_C].newVal)
+		{
+			Grip.setDir(CLOSE);
+			serialCodes[SERIAL_CODE_C].newVal = false;
+			dir = CLOSE;
+		}
+		else if (serialCodes[SERIAL_CODE_O].newVal)
+		{
+			Grip.setDir(OPEN);
+			serialCodes[SERIAL_CODE_O].newVal = false;
+			dir = OPEN;
+		}
+		else
+		{
+			dir = Grip.toggleDir();
+		}
+
+		// detect position
+		if (serialCodes[SERIAL_CODE_P].newVal)
+		{
+			Grip.setPos(serialCodes[SERIAL_CODE_P].val);
+			serialCodes[SERIAL_CODE_P].newVal = false;
+		}
+
+		// detect speed
+		if (serialCodes[SERIAL_CODE_S].newVal)
+		{
+			Grip.setSpeed(serialCodes[SERIAL_CODE_S].val);
+			serialCodes[SERIAL_CODE_S].newVal = false;
+		}
+
+		Grip.run();
+
+		// remember to clear O, C, P & S
+
+		MYSERIAL_PRINT_PGM("Grip:\t\t");
+		MYSERIAL_PRINTLN(Grip.getGripName());
+
+		MYSERIAL_PRINT_PGM("Direction:\t");
+		MYSERIAL_PRINTLN(dirStr[dir]);
+
+		MYSERIAL_PRINT_PGM("Position:\t");
+		MYSERIAL_PRINTLN(Grip.getPos());
+
+		MYSERIAL_PRINT_PGM("Speed:\t\t");
+		MYSERIAL_PRINTLN(Grip.getSpeed());
+
+		// if the hand is in a mode that means the fingers will not respond to serial control
+		printCurrentMode();		// print the current mode and the exit command
 	}
 	else
 	{
-		Grip.toggleDir();
+		MYSERIAL_PRINTLN_PGM("Grip Number Not Valid");
 	}
-
-	// detect position
-	if (serialCodes[SERIAL_CODE_P].newVal)
-	{
-		Grip.setPos(serialCodes[SERIAL_CODE_P].val);
-		serialCodes[SERIAL_CODE_P].newVal = false;
-	}
-
-	// detect speed
-	if (serialCodes[SERIAL_CODE_S].newVal)
-	{
-		Grip.setSpeed(serialCodes[SERIAL_CODE_S].val);
-		serialCodes[SERIAL_CODE_S].newVal = false;
-	}
-
-	Grip.run();
-
-	// remember to clear O, C, P & S
-
-	MYSERIAL_PRINT_PGM("Grip:\t\t");
-	MYSERIAL_PRINTLN(Grip.getGripName());
-
-	MYSERIAL_PRINT_PGM("Direction:\t");
-	MYSERIAL_PRINTLN(dirStr[Grip.getDir()]);
-
-	MYSERIAL_PRINT_PGM("Position:\t");
-	MYSERIAL_PRINTLN(Grip.getPos());
-
-	MYSERIAL_PRINT_PGM("Speed:\t\t");
-	MYSERIAL_PRINTLN(Grip.getSpeed());
-
-	// if the hand is in a mode that means the fingers will not respond to serial control
-	printCurrentMode();		// print the current mode and the exit command
 }
 
 // set hand type (NONE, LEFT, RIGHT)
@@ -643,8 +652,7 @@ void serial_ResetToDefaults(int val)
 {
 	MYSERIAL_PRINTLN_PGM("Resetting To Defaults");
 	resetToDefaults();
-	printDeviceInfo();					// print board & firmware info
-	serial_SerialInstructions(0);		// print serial instructions
+	serial_SerialInstructions();		// print serial instructions
 }
 
 // exit modes
@@ -671,7 +679,9 @@ void serial_systemDiagnostics(int val)
 
 	MYSERIAL_PRINTLN_PGM("     System Diagnostics");
 	for (uint8_t i = 0; i < 28; i++)
+	{
 		MYSERIAL_PRINT_PGM("_");
+	}
 	MYSERIAL_PRINT_PGM("\n\n");
 
 	// print FW type/version, hand type and whether motors are enabled
@@ -679,17 +689,12 @@ void serial_systemDiagnostics(int val)
 
 	// print total 'on-time'
 	MYSERIAL_PRINT_PGM("OnTime:\t");
-	printTime_ms(customMillis());
+	printTime_ms(millis());
 	MYSERIAL_PRINT_PGM("\n");
-
-	// print CPU temperature
-	MYSERIAL_PRINT_PGM("CPU Temp:\t");
-	MYSERIAL_PRINT(readCPUTemp());
-	MYSERIAL_PRINTLN_PGM("'C");
 
 	// print IMU temperature
 	IMU.poll();
-	MYSERIAL_PRINT_PGM("IMU Temp:\t");
+	MYSERIAL_PRINT_PGM("Temp:\t");
 	MYSERIAL_PRINT(IMU.getTemp());
 	MYSERIAL_PRINTLN_PGM("'C");
 
@@ -710,11 +715,15 @@ void serial_systemDiagnostics(int val)
 // serial instructions
 void serial_SerialInstructions(int val)
 {
+	printDeviceInfo();					// print board & firmware info
+	
 	// TITLE
 	MYSERIAL_PRINT_PGM("\n");
 	MYSERIAL_PRINTLN_PGM("         Open Bionics Serial Commands - Beetroot");
 	for (uint8_t i = 0; i < 60; i++)
+	{
 		MYSERIAL_PRINT_PGM("_");
+	}
 	MYSERIAL_PRINT_PGM("\n\n");
 
 	// GRIPS
@@ -727,7 +736,9 @@ void serial_SerialInstructions(int val)
 		MYSERIAL_PRINT(gNum);
 		MYSERIAL_PRINT_PGM("         ");
 		if (gNum < 10)						// fix alignment issue when digit only has one number (e.g. G3__### or G10_###)
+		{
 			MYSERIAL_PRINT_PGM(" ");
+		}
 		MYSERIAL_PRINT(Grip.getGripName(gNum));
 		MYSERIAL_PRINT_PGM("\n");
 	}

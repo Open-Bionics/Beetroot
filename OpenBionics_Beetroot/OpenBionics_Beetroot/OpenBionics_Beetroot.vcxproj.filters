@@ -54,9 +54,6 @@
     <ClInclude Include="EMGControl.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="CircleBuff.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Demo.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -73,6 +70,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="HANDle.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Watchdog.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -113,9 +113,6 @@
     <ClCompile Include="EMGControl.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="CircleBuff.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Demo.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -126,6 +123,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="HANDle.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Watchdog.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

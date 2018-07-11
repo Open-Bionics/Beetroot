@@ -16,7 +16,11 @@
 #ifndef INITIALISATION_H_
 #define INITIALISATION_H_
 
-#define EEPROM_LOC_BOARD_SETTINGS	1010
+// WATCHDOG SETTINGS
+#define WATCHDOG_RESET_PER			16000		// ms. cause a device reset at 16s
+
+// EEPROM
+#define EEPROM_LOC_BOARD_SETTINGS	1010		// location within EEPROM of settings
 #define EEPROM_INIT_CODE			7			// EEPROM init verification code
 
 /////////////////////////////////////// BOARD SETTINGS ///////////////////////////////////
@@ -90,6 +94,16 @@ void setHeadphoneJack(HeadphoneJackMode mode);			// configure headphone jack to 
 void printDeviceInfo(void);			// print board & firmware version, hand type and motor enabled/disabled
 
 void systemMonitor(void);			// monitor system status
+
+float readTemperature(void);		// read the device temperature, in °C
+float readMinTemp(void);			// read the minimum temperature reached since power-on
+float readMaxTemp(void);			// read the maximum temperature reached since power-on
+void monitorTemperature(void);		// check the temperature, throw warnings/errors or shutdown if too high
+			
+
+void watchdogCallback(void);		// set the WDT error and shutdown safely
+
+
 
 extern Settings settings;			// board settings
 
