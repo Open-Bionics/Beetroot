@@ -15,6 +15,9 @@
 
 #include "Grips_Default.h"
 
+
+#if (BRUNEL_VER == 1)
+
 // grip names + empty string
 const char* default_GripNames[NUM_GRIPS + 1] = {
 	"Fist", \
