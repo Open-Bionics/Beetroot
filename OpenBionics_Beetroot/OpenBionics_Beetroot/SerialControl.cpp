@@ -721,6 +721,9 @@ void serial_SerialInstructions(int val)
 		MYSERIAL_PRINT_PGM("_");
 	MYSERIAL_PRINT_PGM("\n\n");
 
+	MYSERIAL_PRINT_PGM("Brunel V");
+	MYSERIAL_PRINTLN(BRUNEL_VER);
+
 	// GRIPS
 	MYSERIAL_PRINTLN_PGM("Grip Control (G#, K#)");
 	MYSERIAL_PRINTLN_PGM("Command     Description");

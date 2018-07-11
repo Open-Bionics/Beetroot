@@ -100,6 +100,7 @@ float readMinTemp(void);			// read the minimum temperature reached since power-o
 float readMaxTemp(void);			// read the maximum temperature reached since power-on
 void monitorTemperature(void);		// check the temperature, throw warnings/errors or shutdown if too high
 			
+
 void watchdogCallback(void);		// set the WDT error and shutdown safely
 
 

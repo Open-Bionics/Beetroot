@@ -43,9 +43,13 @@ bool I2C_EEPROM::ping(void)
 	response = Wire.endTransmission();
 
 	if (response == 0)
+	{
 		return true;
+	}
 	else
+	{
 		return false;
+	}
 }
 
 // read a single byte from location within EEPROM
@@ -58,12 +62,14 @@ int I2C_EEPROM::read(int loc)
 
 	// if loc is not valid, return error
 	if (addr == 0)
+	{
 		return (-1);
+	}
 
 	Wire.beginTransmission(addr);
 	Wire.write(loc);
 	Wire.endTransmission(RESTART);
-	Wire.requestFrom(addr, 1);
+	Wire.requestFrom((uint8_t)addr, (uint8_t)1);
 	rxByte = Wire.read();
 	
 	return rxByte;
@@ -93,13 +99,15 @@ int I2C_EEPROM::readMany(int loc, uint8_t* val, int totalToRead)
 
 		// if loc is not valid, return error
 		if (addr == 0)
+		{
 			return (-1);
+		}
 
 		// read from the page
 		Wire.beginTransmission(addr);
 		Wire.write(currValLoc);
 		Wire.endTransmission(RESTART);
-		Wire.requestFrom(addr, (int)chunkSize);
+		Wire.requestFrom((int)addr, (int)chunkSize);
 		for (int i = 0; i < chunkSize; i++)
 		{
 			val[valIndex] = Wire.read();
@@ -128,7 +136,9 @@ int I2C_EEPROM::write(int loc, int val)
 
 	// if loc is not valid, return error
 	if (addr == 0)
+	{
 		return (-1);
+	}
 
 	Wire.beginTransmission(addr);
 	Wire.write(loc);
@@ -163,7 +173,9 @@ int I2C_EEPROM::writeMany(int loc, uint8_t* val, int totalToWrite)
 
 		// if loc is not valid, return error
 		if (addr == 0)
+		{
 			return (-1);
+		}
 
 		// write to the page
 		Wire.beginTransmission(addr);
@@ -200,7 +212,9 @@ int I2C_EEPROM::update(int loc, int val)
 
 	// if loc is not valid, return error
 	if (readVal == 0)
+	{
 		return (-1);
+	}
 
 	// if the new value is different to the stored value
 	if (readVal != val)
@@ -251,15 +265,19 @@ uint8_t I2C_EEPROM::generateAddress(int loc)
 	uint8_t blockNum = loc / EEPROM_BLOCK_SIZE;
 
 	if (blockNum < EEPROM_NUM_BLOCKS)
+	{
 		return (EEPROM_ADDR | blockNum);
+	}
 	else
+	{
 		return 0;
+	}
 }
 
 // generate the size of the chunk, taking into account the number of values left to read/write, as well as the page, block and end boundaries
 int I2C_EEPROM::generateChunkSize(int currValLoc, int size)
 {
-#if defined(ARDUINO_AVR_MEGA2560)
+#if defined(ARDUINO_AVR_MEGA2560) || defined (ARDUINO_AVR_UNO)
 	const uint16_t I2C_buff_size = BUFFER_LENGTH - 1;			// buffer size = buffer + I2C_Addr_byte
 #elif defined(ARDUINO_ARCH_SAMD)
 	const uint16_t  I2C_buff_size = SERIAL_BUFFER_SIZE - 1;		// buffer size = buffer + I2C_Addr_byte
@@ -273,7 +291,9 @@ int I2C_EEPROM::generateChunkSize(int currValLoc, int size)
 	{
 		// calculate the number of EEPROM locs between the currValLoc and the page boundary
 		if (((currValLoc % EEPROM_PAGE_SIZE) - EEPROM_PAGE_SIZE) < chunkSize)			// if it less than the current chunk size (< I2C_buff_size)
+		{
 			chunkSize = EEPROM_PAGE_SIZE - (currValLoc % EEPROM_PAGE_SIZE);
+		}
 	}
 
 	// if the values fall across multiple blocks, then the size of this chunk is the difference between the current loc and the page boundary
@@ -281,7 +301,9 @@ int I2C_EEPROM::generateChunkSize(int currValLoc, int size)
 	{
 		// calculate the number of EEPROM locs between the currValLoc and the block boundary
 		if (((currValLoc % EEPROM_BLOCK_SIZE) - EEPROM_BLOCK_SIZE) < chunkSize)			// if it less than the current chunk size (< I2C_buff_size)
+		{
 			chunkSize = EEPROM_BLOCK_SIZE - (currValLoc % EEPROM_BLOCK_SIZE);
+		}
 	}
 
 	// if the values to be written will fall past the end of the total EEPROM memory, then the size of this chunk is the difference between the current loc and the page boundary
@@ -289,7 +311,9 @@ int I2C_EEPROM::generateChunkSize(int currValLoc, int size)
 	{
 		// calculate the number of EEPROM locs between the currValLoc and the end of the EEPROM memory
 		if ((EEPROM_TOTAL_SIZE - currValLoc) < chunkSize)			// if it less than the current chunk size (< I2C_buff_size)
+		{
 			chunkSize = EEPROM_TOTAL_SIZE - currValLoc;
+		}
 	}
 
 	return chunkSize;

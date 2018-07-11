@@ -27,10 +27,6 @@
 #include "Watchdog.h"						// Watchdog
 
 
-// DEBUG
-#include "ErrorHandling.h"
-volatile int debugVal = 0;
-
 void setup() 
 {
 	deviceSetup();							// initialise the board
@@ -39,7 +35,7 @@ void setup()
 	{
 		delay(100);							// allow time for serial to connect
 		printDeviceInfo();					// print board & firmware info
-		serial_SerialInstructions(NULL);	// print serial instructions
+		serial_SerialInstructions();		// print serial instructions
 	}	
 }
 
@@ -74,8 +70,9 @@ void loop()
 	// process any received serial characters
 	pollSerial();
 
+#if defined(ARDUINO_ARCH_SAMD)
 	Watchdog.reset();
-
+#endif
 }
 
 

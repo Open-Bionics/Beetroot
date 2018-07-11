@@ -187,7 +187,9 @@ void ERROR_HANDLING::set(ErrorType error)
 		// halt program (if still running)
 		while (1)
 		{
+#if defined(ARDUINO_ARCH_SAMD)
 			Watchdog.reset();
+#endif
 		}
 	}
 };
@@ -375,7 +377,7 @@ void ERROR_HANDLING::printErrorDescr(ErrorState *error, bool nl)
 		MYSERIAL_PRINT_PGM(" - ");
 
 		// print error description
-		MYSERIAL_PRINT_PGM(error->description);
+		MYSERIAL_PRINT(error->description);
 
 		if (nl)
 		{

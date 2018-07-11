@@ -17,6 +17,8 @@
 #ifndef WATCHDOG_H_
 #define WATCHDOG_H_
 
+#if defined(ARDUINO_ARCH_SAMD)
+
 class WDT_CLASS
 {
 	public:
@@ -56,3 +58,5 @@ class WDT_CLASS
 extern WDT_CLASS Watchdog;
 
 #endif // WATCHDOG_H_
+
+#endif // ARDUINO_ARCH_SAMD

@@ -38,7 +38,9 @@ Settings settings;		// board settings
 // board initialisation sequence
 void deviceSetup(void)
 {
+#if defined(ARDUINO_ARCH_SAMD)
 	Watchdog.begin(WATCHDOG_RESET_PER);	// enable the Watchdog timer 
+#endif
 
 #if defined (SERIAL_JACK_CONTROL)
 	setHeadphoneJack(JACK_SERIAL);	// configure headphone jack to Serial
@@ -79,7 +81,9 @@ void deviceSetup(void)
 
 	ERROR.clear(ERROR_INIT);	// clear error state and set LED to green
 
+#if defined(ARDUINO_ARCH_SAMD)
 	Watchdog.reset();
+#endif
 }
 
 // wait for serial connection if flag is set
@@ -89,7 +93,9 @@ void detectSerialConnection(void)
 	{
 		while (!MYSERIAL)				// wait for serial connection
 		{
+#if defined(ARDUINO_ARCH_SAMD)
 			Watchdog.reset();
+#endif
 		}
 		MYSERIAL_PRINTLN_PGM("Started");
 	}
@@ -201,13 +207,13 @@ void initFingerPins(void)
 		storeSettings();								// store the settings in EEPROM
 	}
 
+#if defined(ARDUINO_SAMD_CHESTNUT)
 	// Allow motor order to be reversed for the new Brunel design.
 	static const int fingerOrderSets[][4] = { { 1,2,0,3 }, { 3,0,2,1 } };			// order of finger connectors for Brunel V1 & V2 (M1, M2, M3, M4)
 	const int* fingerOrder = fingerOrderSets[(BRUNEL_VER == 1) ? 0 : 1];			// point to one of the finger orders
 
 	static const int fingerInvSets[][4] = { {true, true, false, true }, {true, false, true, true} };	// set fingers to be inverted for Brunel V1 & V2
 	const int* fingerInv = fingerInvSets[(BRUNEL_VER == 1) ? 0 : 1];				// point to one of the finger orders
-
 
 	// attach the finger pins
 	if (settings.handType == HAND_TYPE_RIGHT)
@@ -224,6 +230,9 @@ void initFingerPins(void)
 		finger[fingerOrder[1]].attach(4, 8, A2, A8, fingerInv[1]);		// M3
 		finger[fingerOrder[0]].attach(0, 9, A3, A7, fingerInv[0]);		// M4
 	}
+#else
+#error "You will need to enter the correct pins for the finger motor and position feedback"
+#endif
 
 
 	// enable all fingers

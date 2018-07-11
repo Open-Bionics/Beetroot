@@ -15,6 +15,8 @@
 
 #include <Arduino.h>
 
+#if defined(ARDUINO_ARCH_SAMD)
+
 #include "Globals.h"
 #include "LED.h"
 #include "Watchdog.h"
@@ -289,3 +291,5 @@ void WDT_Handler(void)
 }
 
 WDT_CLASS Watchdog;
+
+#endif // ARDUINO_ARCH_SAMD
