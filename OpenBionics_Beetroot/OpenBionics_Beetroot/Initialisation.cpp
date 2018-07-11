@@ -218,17 +218,28 @@ void initFingerPins(void)
 	// attach the finger pins
 	if (settings.handType == HAND_TYPE_RIGHT)
 	{
-		finger[fingerOrder[0]].attach(1, 2, A0, A6, fingerInv[0]);		// M1     
-		finger[fingerOrder[1]].attach(7, 5, A1, A9, fingerInv[1]);		// M2
-		finger[fingerOrder[2]].attach(4, 8, A2, A8, fingerInv[2]);		// M3
-		finger[fingerOrder[3]].attach(0, 9, A3, A7, fingerInv[3]);		// M4
+		finger[0].attach(4, 8, A2, A8, false);		// attach the thumb	
+		finger[1].attach(1, 2, A0, A6, true);		// attach the index (finger is inverted)     
+		finger[2].attach(7, 5, A1, A9, true);		// attach the middle (finger is inverted)
+		finger[3].attach(0, 9, A3, A7, true);		// attach the ring & pinky (fingers are inverted)
+
+		//finger[0].attach(1, 2, A0, A6, true);		// M0     
+		//finger[1].attach(7, 5, A1, A9, true);		// M1
+		//finger[2].attach(4, 8, A2, A8, true);		// M2
+		//finger[3].attach(0, 9, A3, A7, true);		// M3
+
 	}
 	else if (settings.handType == HAND_TYPE_LEFT)
 	{
-		finger[fingerOrder[3]].attach(1, 2, A0, A6, fingerInv[3]);		// M1     
-		finger[fingerOrder[2]].attach(7, 5, A1, A9, fingerInv[2]);		// M2
-		finger[fingerOrder[1]].attach(4, 8, A2, A8, fingerInv[1]);		// M3
-		finger[fingerOrder[0]].attach(0, 9, A3, A7, fingerInv[0]);		// M4
+		finger[0].attach(7, 5, A1, A9, false);		// attach the thumb	
+		finger[1].attach(0, 9, A3, A7, true);		// attach the index (finger is inverted) 
+		finger[2].attach(4, 8, A2, A8, true);		// attach the middle (finger is inverted)
+		finger[3].attach(1, 2, A0, A6, true);		// attach the ring & pinky (fingers are inverted)     
+			
+		//finger[0].attach(1, 2, A0, A6, true);		// M0     
+		//finger[1].attach(7, 5, A1, A9, true);		// M1
+		//finger[2].attach(4, 8, A2, A8, false);	// M2
+		//finger[3].attach(0, 9, A3, A7, true);		// M3
 	}
 #else
 #error "You will need to enter the correct pins for the finger motor and position feedback"
@@ -271,10 +282,6 @@ void printDeviceInfo(void)
 {
 	const char* handTypeNames[3] = { "NONE", "Right", "Left" };
 	
-	// print Brunel version
-	MYSERIAL_PRINT("Brunel V");
-	MYSERIAL_PRINTLN(BRUNEL_VER);
-
 	// print firmware version
 	MYSERIAL_PRINT("FW:\tBeetroot V");
 	MYSERIAL_PRINT(FW_VER_MAJ);
@@ -289,7 +296,6 @@ void printDeviceInfo(void)
 	// print hand type
 	MYSERIAL_PRINT_PGM("Hand:\t");
 	MYSERIAL_PRINTLN(handTypeNames[settings.handType]);
-
 }
 
 // monitor system status
@@ -305,7 +311,7 @@ void systemMonitor(void)
 	}
 }
 
-// read the device temperature, in °C
+// read the device temperature, in ï¿½C
 float readTemperature(void)
 {
 	const uint8_t buffSize = 16;			// temperature buffer size

@@ -42,6 +42,7 @@ To view a copy of this license, visit http://creativecommons.org/licenses/by-sa/
 ### 7. Extra
 * Note, you may need to download the SAMD21 boards from Arduino using the Arduino Boards Manager, as this allows the drivers for the SAMD21G18 to be installed
 
+
 ## Beetroot Release Notes
 
 	Version	|	Date		|	Notes
