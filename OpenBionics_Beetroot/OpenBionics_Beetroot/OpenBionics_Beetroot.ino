@@ -34,7 +34,6 @@ void setup()
 	if (settings.printInstr)
 	{
 		delay(100);							// allow time for serial to connect
-		printDeviceInfo();					// print board & firmware info
 		serial_SerialInstructions();		// print serial instructions
 	}	
 }

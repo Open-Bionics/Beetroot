@@ -277,7 +277,11 @@ void printDeviceInfo(void)
 
 	// print firmware version
 	MYSERIAL_PRINT("FW:\tBeetroot V");
-	MYSERIAL_PRINTLN(FW_VERSION);
+	MYSERIAL_PRINT(FW_VER_MAJ);
+	MYSERIAL_PRINT(".");
+	MYSERIAL_PRINT(FW_VER_MIN);
+	MYSERIAL_PRINT(".");
+	MYSERIAL_PRINTLN(FW_VER_PAT);
 
 	// print board name
 	MYSERIAL_PRINTLN_PGM("Board:\tChestnut");
