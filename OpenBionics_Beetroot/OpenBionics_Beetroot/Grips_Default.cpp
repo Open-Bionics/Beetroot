@@ -119,8 +119,8 @@ const char* default_GripNames[NUM_GRIPS + 1] = {
 };
 
 
-#define OPPOSE_PINCH	 690 // 565 // 730	// 620 
-#define OPPOSE_TRIPOD	 780 // 685 // 890	// 720 
+#define OPPOSE_PINCH	 620 // 565 // 730	// 620 
+#define OPPOSE_TRIPOD	 700 // 685 // 890	// 720 
 
 
 
