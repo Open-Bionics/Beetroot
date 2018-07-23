@@ -20,11 +20,6 @@
 #include <FingerLib.h>
 
 
-///////////////////////////////////// BRUNEL VERSION ////////////////////////////////////////
-//#define BRUNEL_VER		1			// original Brunel version, larger hand, elastic fingers
-#define BRUNEL_VER			2			// newer Brunel version, smaller/lighter hand, spring fingers
-
-
 ///////////////////////////////////// SERIAL SETTINGS ///////////////////////////////////////
 // uncomment one of the following to select which Serial interface is to be used to control the hand
 #define SERIAL_USB_CONTROL      	// SerialUSB	(default)
@@ -56,7 +51,9 @@
 extern Finger finger[NUM_FINGERS];
 
 ///////////////////////////////////// FIRMWARE VERSION ///////////////////////////////////////
-#define FW_VERSION			1.04	// firmware version
+#define FW_VER_MAJ			1
+#define FW_VER_MIN			1
+#define FW_VER_PAT			0
 
 
 #endif // GLOBALS_H_

@@ -50,6 +50,10 @@ template <class T> int EEPROM_readStruct(int ee, const T& value)
 /* The app uses only the MYSERIAL_funcion macros so that all accesses can be
  * intercepted here to avoid blocking behaviour. */
 
+#if defined(ARDUINO_AVR_MEGA2560) || defined(ARDUINO_AVR_UNO)
+#define MYSERIAL Serial
+#define SERIALNONBLOCKCHECK			(1)
+#elif defined(ARDUINO_ARCH_SAMD)
 #if defined(SERIAL_USB_CONTROL)
 #define MYSERIAL SerialUSB
 #define SERIALNONBLOCKCHECK			(MYSERIAL.dtr())
@@ -62,6 +66,9 @@ template <class T> int EEPROM_readStruct(int ee, const T& value)
 #else
 #define MYSERIAL SerialUSB		// default to SerialUSB control
 #define SERIALNONBLOCKCHECK			(MYSERIAL.dtr())
+#endif
+#else
+#error "Board not supported. Serial not able to be configured
 #endif
 
 #define	FORCE_INLINE __attribute__((always_inline)) inline

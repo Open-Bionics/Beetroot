@@ -21,7 +21,7 @@
 
 void timerSetup(void);				// attach millisecond function to millisecond interrupt from FingerLib
 void milliSecInterrupt(void);		// called every 1ms, increments milliseconds and second counters			
-//long customMillis(void);			// return number of milliseconds since power on
+long customMillis(void);			// return number of milliseconds since power on
 long customSeconds(void);			// return number of seconds since power on
 
 #endif // TIMER_MANAGEMENT_H_

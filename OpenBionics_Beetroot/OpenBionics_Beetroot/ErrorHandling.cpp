@@ -49,7 +49,7 @@ ERROR_HANDLING::ERROR_HANDLING()
 
 	// Error 003 - EEPROM fails to respond to ping()
 	_errorList[ERROR_EEPROM_INIT].num = 3;
-	_errorList[ERROR_EEPROM_INIT].type = ERROR_UNKNOWN;
+	_errorList[ERROR_EEPROM_INIT].type = ERROR_EEPROM_INIT;
 	_errorList[ERROR_EEPROM_INIT].level = LEVEL_FATAL;
 	_errorList[ERROR_EEPROM_INIT].description = "EEPROM is not detected during initialisation";
 	_errorList[ERROR_EEPROM_INIT].LED.c1 = LED_RED_DIM;
@@ -187,7 +187,9 @@ void ERROR_HANDLING::set(ErrorType error)
 		// halt program (if still running)
 		while (1)
 		{
+#if defined(ARDUINO_ARCH_SAMD)
 			Watchdog.reset();
+#endif
 		}
 	}
 };
@@ -375,7 +377,7 @@ void ERROR_HANDLING::printErrorDescr(ErrorState *error, bool nl)
 		MYSERIAL_PRINT_PGM(" - ");
 
 		// print error description
-		MYSERIAL_PRINT_PGM(error->description);
+		MYSERIAL_PRINT(error->description);
 
 		if (nl)
 		{

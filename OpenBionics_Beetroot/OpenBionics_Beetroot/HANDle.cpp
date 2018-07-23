@@ -146,7 +146,7 @@ uint8_t HANDLE_CLASS::poll(void)
 	uint8_t count = 0;
 
 	// read I2C values
-	Wire.requestFrom(HANDLE_ADDR, numI2CVals);
+	Wire.requestFrom((uint8_t)HANDLE_ADDR, (uint8_t)numI2CVals);
 	while (Wire.available())
 	{
 		values[count] = Wire.read();

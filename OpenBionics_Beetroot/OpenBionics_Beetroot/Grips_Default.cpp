@@ -15,9 +15,6 @@
 
 #include "Grips_Default.h"
 
-
-#if (BRUNEL_VER == 1)
-
 // grip names + empty string
 const char* default_GripNames[NUM_GRIPS + 1] = {
 	"Fist", \
@@ -26,7 +23,7 @@ const char* default_GripNames[NUM_GRIPS + 1] = {
 	"Pinch", \
 	"Tripod", \
 	"Finger Roll", \
-	"Thumb Roll"
+	"Thumb Roll", \
 	""		// EMPTY STR
 };  
 
@@ -180,4 +177,3 @@ uint16_t default_GripPos[NUM_GRIPS][NUM_GRIP_STEPS][NUM_FINGERS + 1] = {
 #else
 #error No BRUNEL_VER version defined in Globals.h
 #endif
-
