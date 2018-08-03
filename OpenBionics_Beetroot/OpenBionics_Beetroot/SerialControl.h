@@ -104,7 +104,7 @@ void serial_PeakThresh(int pThresh);			// muscle peak threshold
 void serial_ResetToDefaults(int val);			// reset to defaults
 void serial_ExitMode(int val);					// exit modes
 void serial_systemDiagnostics(int val);			// system diagnostics
-void serial_SerialInstructions(int val);		// serial instructions
+void serial_SerialInstructions(int val = NULL);	// serial instructions
 
 void printCurrentMode(void);					// print the current mode and the exit command
 

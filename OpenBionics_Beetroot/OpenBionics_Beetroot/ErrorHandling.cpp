@@ -49,7 +49,7 @@ ERROR_HANDLING::ERROR_HANDLING()
 
 	// Error 003 - EEPROM fails to respond to ping()
 	_errorList[ERROR_EEPROM_INIT].num = 3;
-	_errorList[ERROR_EEPROM_INIT].type = ERROR_UNKNOWN;
+	_errorList[ERROR_EEPROM_INIT].type = ERROR_EEPROM_INIT;
 	_errorList[ERROR_EEPROM_INIT].level = LEVEL_FATAL;
 	_errorList[ERROR_EEPROM_INIT].description = "EEPROM is not detected during initialisation";
 	_errorList[ERROR_EEPROM_INIT].LED.c1 = LED_RED_DIM;
@@ -81,7 +81,7 @@ ERROR_HANDLING::ERROR_HANDLING()
 	_errorList[ERROR_TEMP_WARNING].num = 7;
 	_errorList[ERROR_TEMP_WARNING].type = ERROR_TEMP_WARNING;
 	_errorList[ERROR_TEMP_WARNING].level = LEVEL_WARN;
-	_errorList[ERROR_TEMP_WARNING].description = "CPU temperature is high";
+	_errorList[ERROR_TEMP_WARNING].description = "Hand temperature is high";
 	_errorList[ERROR_TEMP_WARNING].LED.c1 = LED_YELLOW;
 	_errorList[ERROR_TEMP_WARNING].LED.c2 = LED_BLUE;
 	_errorList[ERROR_TEMP_WARNING].LED.blinkFreq = 2;				// 2Hz
@@ -90,7 +90,7 @@ ERROR_HANDLING::ERROR_HANDLING()
 	_errorList[ERROR_TEMP_MAX].num = 8;
 	_errorList[ERROR_TEMP_MAX].type = ERROR_TEMP_MAX;
 	_errorList[ERROR_TEMP_MAX].level = LEVEL_FATAL;
-	_errorList[ERROR_TEMP_MAX].description = "CPU has reached maximum temperature";
+	_errorList[ERROR_TEMP_MAX].description = "Hand has reached maximum temperature";
 	_errorList[ERROR_TEMP_MAX].LED.c1 = LED_RED_DIM;
 	_errorList[ERROR_TEMP_MAX].LED.c2 = LED_YELLOW;
 	_errorList[ERROR_TEMP_MAX].LED.blinkFreq = 5;					// 5Hz
@@ -187,7 +187,9 @@ void ERROR_HANDLING::set(ErrorType error)
 		// halt program (if still running)
 		while (1)
 		{
+#if defined(ARDUINO_ARCH_SAMD)
 			Watchdog.reset();
+#endif
 		}
 	}
 };
@@ -375,7 +377,7 @@ void ERROR_HANDLING::printErrorDescr(ErrorState *error, bool nl)
 		MYSERIAL_PRINT_PGM(" - ");
 
 		// print error description
-		MYSERIAL_PRINT_PGM(error->description);
+		MYSERIAL_PRINT(error->description);
 
 		if (nl)
 		{

@@ -652,8 +652,7 @@ void serial_ResetToDefaults(int val)
 {
 	MYSERIAL_PRINTLN_PGM("Resetting To Defaults");
 	resetToDefaults();
-	printDeviceInfo();					// print board & firmware info
-	serial_SerialInstructions(0);		// print serial instructions
+	serial_SerialInstructions();		// print serial instructions
 }
 
 // exit modes
@@ -680,7 +679,9 @@ void serial_systemDiagnostics(int val)
 
 	MYSERIAL_PRINTLN_PGM("     System Diagnostics");
 	for (uint8_t i = 0; i < 28; i++)
+	{
 		MYSERIAL_PRINT_PGM("_");
+	}
 	MYSERIAL_PRINT_PGM("\n\n");
 
 	// print FW type/version, hand type and whether motors are enabled
@@ -714,11 +715,15 @@ void serial_systemDiagnostics(int val)
 // serial instructions
 void serial_SerialInstructions(int val)
 {
+	printDeviceInfo();					// print board & firmware info
+	
 	// TITLE
 	MYSERIAL_PRINT_PGM("\n");
 	MYSERIAL_PRINTLN_PGM("         Open Bionics Serial Commands - Beetroot");
 	for (uint8_t i = 0; i < 60; i++)
+	{
 		MYSERIAL_PRINT_PGM("_");
+	}
 	MYSERIAL_PRINT_PGM("\n\n");
 
 	// GRIPS
@@ -731,7 +736,9 @@ void serial_SerialInstructions(int val)
 		MYSERIAL_PRINT(gNum);
 		MYSERIAL_PRINT_PGM("         ");
 		if (gNum < 10)						// fix alignment issue when digit only has one number (e.g. G3__### or G10_###)
+		{
 			MYSERIAL_PRINT_PGM(" ");
+		}
 		MYSERIAL_PRINT(Grip.getGripName(gNum));
 		MYSERIAL_PRINT_PGM("\n");
 	}

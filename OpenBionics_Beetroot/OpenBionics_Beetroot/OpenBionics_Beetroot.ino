@@ -43,8 +43,7 @@ void setup()
 	if (settings.printInstr)
 	{
 		delay(100);							// allow time for serial to connect
-		printDeviceInfo();					// print board & firmware info
-		serial_SerialInstructions(NULL);	// print serial instructions
+		serial_SerialInstructions();		// print serial instructions
 	}	
 
 	runTest(true);
@@ -81,6 +80,7 @@ void loop()
 	// process any received serial characters
 	pollSerial();
 
+#if defined(ARDUINO_ARCH_SAMD)
 	Watchdog.reset();
 
 

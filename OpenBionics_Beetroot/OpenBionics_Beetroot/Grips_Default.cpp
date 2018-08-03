@@ -26,7 +26,7 @@ const char* default_GripNames[NUM_GRIPS + 1] = {
 	"Pinch", \
 	"Tripod", \
 	"Finger Roll", \
-	"Thumb Roll"
+	"Thumb Roll", \
 	""		// EMPTY STR
 };  
 
@@ -119,8 +119,8 @@ const char* default_GripNames[NUM_GRIPS + 1] = {
 };
 
 
-#define OPPOSE_PINCH	 565 // 730	// 620 
-#define OPPOSE_TRIPOD	 685 // 890	// 720 
+#define OPPOSE_PINCH	 620 // 565 // 730	// 620 
+#define OPPOSE_TRIPOD	 700 // 685 // 890	// 720 
 
 
 
@@ -196,4 +196,3 @@ uint16_t default_GripPos[NUM_GRIPS][NUM_GRIP_STEPS][NUM_FINGERS + 1] = {
 #else
 #error No BRUNEL_VER version defined in Globals.h
 #endif
-

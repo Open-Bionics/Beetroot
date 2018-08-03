@@ -19,10 +19,9 @@
 #include <Arduino.h>
 #include <FingerLib.h>
 
-
 ///////////////////////////////////// BRUNEL VERSION ////////////////////////////////////////
-//#define BRUNEL_VER		1			// original Brunel version, larger hand, elastic fingers
-#define BRUNEL_VER			2			// newer Brunel version, smaller/lighter hand, spring fingers
+//#define BRUNEL_VER		1		// original Brunel version, larger hand, elastic fingers
+#define BRUNEL_VER			2		// newer Brunel version, smaller/lighter hand, spring fingers
 
 
 ///////////////////////////////////// SERIAL SETTINGS ///////////////////////////////////////
@@ -56,7 +55,9 @@
 extern Finger finger[NUM_FINGERS];
 
 ///////////////////////////////////// FIRMWARE VERSION ///////////////////////////////////////
-#define FW_VERSION			1.04	// firmware version
+#define FW_VER_MAJ			1
+#define FW_VER_MIN			1
+#define FW_VER_PAT			0
 
 
 #endif // GLOBALS_H_

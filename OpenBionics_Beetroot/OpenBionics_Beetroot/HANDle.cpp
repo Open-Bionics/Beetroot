@@ -132,7 +132,9 @@ void HANDLE_CLASS::run(void)
 
 		// if the 
 		if (_serialFlag)
+		{
 			print();
+		}
 	}
 }
 
@@ -144,7 +146,7 @@ uint8_t HANDLE_CLASS::poll(void)
 	uint8_t count = 0;
 
 	// read I2C values
-	Wire.requestFrom(HANDLE_ADDR, numI2CVals);
+	Wire.requestFrom((uint8_t)HANDLE_ADDR, (uint8_t)numI2CVals);
 	while (Wire.available())
 	{
 		values[count] = Wire.read();
@@ -251,9 +253,13 @@ void HANDLE_CLASS::checkButtons(void)
 
 	// change grip on a button press
 	if (raw.btn.c)
+	{
 		Grip.nextGrip();
+	}
 	if (raw.btn.z)
+	{
 		Grip.prevGrip();
+	}
 
 
 	MYSERIAL_PRINTLN(Grip.getGripName());
@@ -311,7 +317,9 @@ double HANDLE_CLASS::calcPosChange(void)
 	_exp = pow(raw.joy.y, power) / k;
 
 	if (invert)						// fix issue that -x^2 = x?^2
+	{
 		_exp = -_exp;
+	}
 
 	return _exp;
 }
