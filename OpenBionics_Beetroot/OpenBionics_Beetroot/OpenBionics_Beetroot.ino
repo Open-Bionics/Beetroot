@@ -1,17 +1,17 @@
 /*	Open Bionics - Beetroot
- *	Author - Olly McBride
- *	Date - October 2016
- *
- *	This work is licensed under the Creative Commons Attribution-ShareAlike 4.0 International License.
- *	To view a copy of this license, visit http://creativecommons.org/licenses/by-sa/4.0/.
- *
- *	Website - http://www.openbionics.com/
- *	GitHub - https://github.com/Open-Bionics
- *	Email - ollymcbride@openbionics.com
- *
- *	OpenBionics_Beetroot.ino
- *
- */
+ 	Author - Olly McBride
+ 	Date - October 2016
+
+ 	This work is licensed under the Creative Commons Attribution-ShareAlike 4.0 International License.
+ 	To view a copy of this license, visit http://creativecommons.org/licenses/by-sa/4.0/.
+
+ 	Website - http://www.openbionics.com/
+ 	GitHub - https://github.com/Open-Bionics
+ 	Email - ollymcbride@openbionics.com
+
+ 	OpenBionics_Beetroot.ino
+
+*/
 
 #include <Wire.h>
 #include <FingerLib.h>
@@ -36,63 +36,60 @@ long startTime = 0;
 
 
 
-void setup() 
+void setup()
 {
-	deviceSetup();							// initialise the board
+  deviceSetup();							// initialise the board
 
-	if (settings.printInstr)
-	{
-		delay(100);							// allow time for serial to connect
-		serial_SerialInstructions();		// print serial instructions
-	}	
+  if (settings.printInstr)
+  {
+    delay(100);							// allow time for serial to connect
+    serial_SerialInstructions();		// print serial instructions
+  }
 
-	runTest(true);
+  runTest(true);
 }
 
 
-void loop() 
+void loop()
 {
 #if defined(USE_ROS)
-	ros_run();
+  ros_run();
 #endif
 
-	// monitor system temp
-	systemMonitor();
+  // monitor system temp
+  systemMonitor();
 
-	// if demo mode is enabled, run demo mode
-	if (DEMO.enabled())
-	{
-		DEMO.run();
-	}
+  // if demo mode is enabled, run demo mode
+  if (DEMO.enabled())
+  {
+    DEMO.run();
+  }
 
-	// if EMG mode is enabled, run EMG mode
-	if (EMG.enabled())
-	{
-		EMG.run();
-	}
+  // if EMG mode is enabled, run EMG mode
+  if (EMG.enabled())
+  {
+    EMG.run();
+  }
 
-	// if HANDle mode is enabled, run HANDle mode
-	if (HANDle.enabled())
-	{
-		HANDle.run();
-	}
+  // if HANDle mode is enabled, run HANDle mode
+  if (HANDle.enabled())
+  {
+    HANDle.run();
+  }
 
-	// process any received serial characters
-	pollSerial();
+  // process any received serial characters
+  pollSerial();
 
-#if defined(ARDUINO_ARCH_SAMD)
-	Watchdog.reset();
+  Watchdog.reset();
+
+  if (runTestFlag)
+  {
+    runImpededFingerTest();
+  }
 
 
-
-	if (runTestFlag)
-	{
-		runImpededFingerTest();
-	}
 
 }
-
-
 
 
 
@@ -100,58 +97,70 @@ void loop()
 
 void runTest(bool en)
 {
-	runTestFlag = en;
+  runTestFlag = en;
 
-	if (runTestFlag)
-	{
-		firstRun = true;
+  if (runTestFlag)
+  {
+    firstRun = true;
 
-	}
+  }
 }
 
 void runImpededFingerTest(void)
 {
-	const int nCycles = 5000;
-	static MS_NB_DELAY moveTimer;
-	static MS_NB_DELAY tempTimer;
-	static int cycleCount = 0;
+  const int nCycles = 5000;
+  static MS_NB_DELAY moveTimer;
+  static MS_NB_DELAY tempTimer;
+  static int cycleCount = 0;
+  static bool thumbDir = CLOSE;
 
-	if (firstRun)
-	{
-		Grip.open();
-		Grip.run();
-		startTime = millis();
-		firstRun = false;
-	}
+  if (firstRun)
+  {
+    Grip.open();
+    Grip.run();
+    startTime = millis();
+    firstRun = false;
+  }
 
-	//if (tempTimer.timeElapsed(500))
-	//{
-	//	MYSERIAL.print((millis() - startTime)/1000);
-	//	MYSERIAL.print(",");
-	//	MYSERIAL.println(readTemperature());
-	//	//MYSERIAL.println("'C");
-	//}
+  //if (tempTimer.timeElapsed(500))
+  //{
+  //	MYSERIAL.print((millis() - startTime)/1000);
+  //	MYSERIAL.print(",");
+  //	MYSERIAL.println(readTemperature());
+  //	//MYSERIAL.println("'C");
+  //}
 
 
-	if (moveTimer.timeElapsed(4000))
-	{
-		//MYSERIAL.println("Toggle");
+  if (moveTimer.timeElapsed(4000))
+  {
+    //MYSERIAL.println("Toggle");
 
-		MYSERIAL.print(cycleCount);
-		MYSERIAL.print(",");
-		MYSERIAL.print((millis() - startTime) / 1000);
-		MYSERIAL.print(",");
-		MYSERIAL.println(readTemperature());
+    MYSERIAL.print(cycleCount);
+    MYSERIAL.print(",");
+    MYSERIAL.print((millis() - startTime) / 1000);
+    MYSERIAL.print(",");
+    MYSERIAL.println(readTemperature());
 
-		Grip.toggleDir();
-		Grip.run();
+  if (thumbDir == OPEN)
+  {
+    Grip.setGrip(0);
+  }
 
-		if (cycleCount++ > nCycles)
-		{
-			runTestFlag = false;
-		}
-	}
+  else 
+  {
+    Grip.setGrip(1);
+  }
 
-	
+  thumbDir = !thumbDir;
+
+    Grip.run();  
+
+    if (cycleCount++ > nCycles)
+    {
+      runTestFlag = false;
+    }
+  }
+
+
 }
 
