@@ -141,19 +141,23 @@ void runImpededFingerTest(void)
     MYSERIAL.print(",");
     MYSERIAL.println(readTemperature());
 
-  if (thumbDir == OPEN)
-  {
-    Grip.setGrip(0);
-  }
 
-  else 
-  {
-    Grip.setGrip(1);
-  }
+    Grip.toggleDir();
+    Grip.run();
 
-  thumbDir = !thumbDir;
+    if (thumbDir == OPEN)
+    {
+      Grip.setGrip(0);
+    }
 
-    Grip.run();  
+    else
+    {
+      Grip.setGrip(1);
+    }
+
+    thumbDir = !thumbDir;
+
+    Grip.run();
 
     if (cycleCount++ > nCycles)
     {
