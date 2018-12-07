@@ -24,6 +24,8 @@ Included in this repository;
 * Open **Tools -> Board -> Boards Manager..**
 * Search for **Open Bionics**
 * Install the latest verison of the **Open Bionics Boards**
+* Search for **Arduino SAMD**
+* Install the latest version
 * Select **Tools -> Board -> Chestnut** to select the Chestnut PCB 
 ### 5. Upload to the Brunel hand
 * Plug the hand into the supplied 12V DC jack
